@@ -17,6 +17,7 @@ deps@1.0.6
 ejson@1.0.5
 email@1.0.5
 fastclick@1.0.2
+fezvrasta:bootstrap-material-design@0.2.1
 follower-livedata@1.0.3
 fuatsengul:leaflet@1.0.1
 geojson-utils@1.0.2
@@ -69,6 +70,7 @@ srp@1.0.2
 stylus@1.0.6
 templating@1.0.10
 tracker@1.0.4
+twbs:bootstrap@3.3.1
 ui@1.0.5
 underscore@1.0.2
 url@1.0.3
