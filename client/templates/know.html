@@ -35,24 +35,24 @@
                                     <!--<h2 class="result-text" align="center">{{name}}</h2>-->
                                     <ul>
                                         <li>
-                                            <h5 class="result-text">{{duration}} Minutes</h5>
+                                            <h5 class="result-text">{{duration}} {{_ "minutes"}}</h5>
                                         </li>
                                         <li>
-                                            <h5 class="result-text">{{price}} NIS</h5>
+                                            <h5 class="result-text">{{price}} {{_ "currency"}}</h5>
                                         </li>
                                         <li>
-                                            <h5 class="result-text">{{emmissions}} g/CO2</h5>
+                                            <h5 class="result-text">{{emmissions}} {{_ "pollutants"}}</h5>
                                         </li>
 
                                         <li>
-                                            <h5 class="result-text">{{calories}} Calories</h5>
+                                            <h5 class="result-text">{{calories}} {{_ "calories"}}</h5>
                                         </li>
 
                                     </ul>
                                 </div>
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" align="center">
                                     <a href="/map">
-                                        <button class="go-btn btn btn-lg btn-success">GO!</button>
+                                        <button class="go-btn btn btn-lg btn-success">{{_ "go_btn"}}</button>
                                     </a>
                                     <br>
                                     <img src="/images/{{name}}.svg" height="65px">
@@ -63,7 +63,7 @@
 
                     <div class="col-lg-1" align="center">
                         <a href="/">
-                            <button type="button" class="back btn btn-primary btn-lg">back</button>
+                            <button type="button" class="back btn btn-primary btn-lg">{{_ "back_btn"}}</button>
                         </a>
                     </div>
                     <br>

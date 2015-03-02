@@ -1,1 +1,12 @@
-{}
+{
+  "app_name": "AlterNative",
+  "important_question": "What is most important to you today?",
+  "go_btn": "go",
+  "from_placeholder": "from",
+  "to_placeholder": "to",
+  "powered_by": "AlterNative is powered by <a href=\"http://zencity.io\" target=\"_blank\">ZenCity</a>",
+  "minutes": "Minutes",
+  "currency": "NIS",
+  "pollutants": "g/CO2",
+  "callories": "Callories"
+}
