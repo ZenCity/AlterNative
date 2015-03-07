@@ -48,34 +48,34 @@
         display: inline-block;
     }
 
+container.english,
+form.english,
+h1.english,
+h2.english,
+h3.english,
+h4.english,
+h5.english,
+question.english,
+.from-location.english,
+.to-location.english,
+.footer-scroll.english {
+    direction: ltr;
+}
 
-/*}*/
+container.hebrew,
+form.hebrew,
+h1.hebrew,
+h2.hebrew,
+h3.hebrew,
+h4.hebrew,
+h5.hebrew,
+question.hebrew,
+.from-location.hebrew,
+.to-location.hebrew,
+.footer-scroll.hebrew {
+    direction: rtl;
+}
 
-/*@media only screen and (max-device-width: 480px) {*/
-    /*html {*/
-        /*background: url('images/backgrounds/Tel_Aviv_Tayelet.jpg') no-repeat center center fixed;*/
-        /*-webkit-background-size: cover;*/
-        /*-moz-background-size: cover;*/
-        /*-o-background-size: cover;*/
-        /*background-size: cover;*/
-        /*box-sizing: content-box*/
-    /*}*/
-
-    /*html, body {*/
-        /*height: 100%;*/
-        /*font-family: Alef, sans-serif;*/
-        /*-webkit-transition: background 0.2s ease-out;*/
-        /*-moz-transition: background 0.2s ease-out;*/
-        /*-o-transition: background 0.2s ease-out;*/
-        /*transition: background 0.2s ease-out;*/
-    /*}*/
-
-    /*body {*/
-        /*background: rgba(128, 128, 128, 0);*/
-        /*padding-top: 70px;*/
-
-    /*}*/
-/*}*/
 
 .navbar-default {
     direction: rtl;
@@ -159,13 +159,21 @@ label {
 .from-location,
 .to-location {
     font-size: 18px;
+    color: black;
+    height: 42px;
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: whitesmoke;
 }
 
+.form-control,
+.form-control:focus,
+.form-control:focus:not(textarea):not(select),
 .form-control:not(textarea):not(select){
     height: 42px;
     padding-left: 15px;
     padding-right: 15px;
+    background-color: whitesmoke;
 }
 
 input.form-control {

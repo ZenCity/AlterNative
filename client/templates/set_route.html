@@ -1,25 +1,25 @@
 <template name="setRoute">
 
-    <div class="container">
+    <div class="container {{_ 'lang'}}">
         <br>
 
         <div class="row center-block top-items">
             <div class="col-lg-10 col-md-12 col-xs-12">
 
                 <div class="col-lg-6 col-md-6 col-xs-12" align="center">
-                    <input placeholder='{{_ "from_placeholder"}}' class="from-location form-control" type="text">
+                    <input placeholder='{{_ "from_placeholder"}}' class="from-location form-control {{_ 'lang'}}" type="text">
                 </div>
                 
                 <div class="col-lg-6 col-md-6 col-xs-12" align="center">
 
-                    <input placeholder='{{_ "to_placeholder"}}' class="to-location form-control" type="text">
+                    <input placeholder='{{_ "to_placeholder"}}' class="to-location form-control {{_ 'lang'}}" type="text">
                 </div>
                 <div class="lang button" align="center">
                     <button type="button" class="know btn btn-primary btn-lg">LANGUAGE</button>
                 </div>
                 <hr>
 
-                <h3 align="center" class="question">{{_ "important_question"}}</h3>
+                <h3 align="center" class="question {{_ 'lang'}}">{{_ "important_question"}}</h3>
                 <div class="circle-buttons row">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
@@ -74,8 +74,8 @@
     <!--         Yonatan Braude, <a href="http://shaief.com" target="_blank">Shai Efrati</a>, Ido Ivri and Eyal Feder -->
     <!--     </small> -->
     <!-- </div> -->
-    <div class="footer-scroll">
-        <small>{{_ "powered_by"}}
+    <div class="footer-scroll {{_ 'lang'}}">
+        <small>{{_ "powered_by"}}  <a href="http://zencity.io" target="_blank">ZenCity</a>
         </small>
     </div>
     <div id="map-canvas" style="display: none;  "></div>
