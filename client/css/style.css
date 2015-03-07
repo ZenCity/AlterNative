@@ -49,6 +49,12 @@
     }
 
 container.english,
+div.english {
+    direction: ltr;
+    align: left;
+}
+
+
 form.english,
 h1.english,
 h2.english,
@@ -57,12 +63,21 @@ h4.english,
 h5.english,
 question.english,
 .from-location.english,
-.to-location.english,
+.to-location.english {
+    direction: ltr;
+}
+
 .footer-scroll.english {
+    left: 0;
     direction: ltr;
 }
 
 container.hebrew,
+div.hebrew {
+    direction: rtl;
+    align: right;
+}
+
 form.hebrew,
 h1.hebrew,
 h2.hebrew,
@@ -71,11 +86,27 @@ h4.hebrew,
 h5.hebrew,
 question.hebrew,
 .from-location.hebrew,
-.to-location.hebrew,
-.footer-scroll.hebrew {
+.to-location.hebrew {
     direction: rtl;
 }
 
+.footer-scroll.hebrew {
+    direction: rtl;
+    right: 0;
+    bottom: 0;
+}
+
+div.language.english {
+    right: 0;
+    margin: 10px;
+}
+
+div.language.hebrew {
+    align: right;
+    left: 0;
+    margin: 10px;
+    bottom: 0;
+}
 
 .navbar-default {
     direction: rtl;
@@ -137,7 +168,7 @@ div.container {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: black;
+    color: white;
 }
 
 div {
@@ -201,6 +232,11 @@ input.form-control {
     border-radius: 50%;
     box-shadow: 3px 3px 0px 0px;*/
 } 
+
+.btn:not(.btn-link):not(.btn-flat),
+.btn-default:not(.btn-link):not(.btn-flat) {
+    color: black;
+}
 
 .btn.btn-fab {
     margin: 10px;
@@ -374,19 +410,27 @@ h4.question {
     margin-top: 30px;
 }
 
+
+.language {
+    position: fixed;
+    bottom: 0;
+    margin: auto;
+}
+
 .footer-no-scroll {
     position: fixed;
     bottom: 0;
     margin: auto;
     padding: 5px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .footer-scroll {
+    position: fixed;
     bottom: 0;
     margin: auto;
     padding: 5px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .visualization {

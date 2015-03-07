@@ -14,9 +14,6 @@
 
                     <input placeholder='{{_ "to_placeholder"}}' class="to-location form-control {{_ 'lang'}}" type="text">
                 </div>
-                <div class="lang button" align="center">
-                    <button type="button" class="know btn btn-primary btn-lg">LANGUAGE</button>
-                </div>
                 <hr>
 
                 <h3 align="center" class="question {{_ 'lang'}}">{{_ "important_question"}}</h3>
@@ -53,7 +50,10 @@
                           </a>
                         </div>
                     </div>
-                    <hr>
+
+                    <div class="lang button language {{_ 'lang'}}">
+                      <button type="button" class="btn btn-primary btn-sm">{{_ 'switch_to_language'}}</button>
+                    </div>
                     <!-- <div class="col-lg-1" align="center"> -->
                     <!--     <a href="/know"> -->
                     <!--         <button type="button" class="know btn btn-primary btn-lg">{{_ "go_btn"}}</button> -->
