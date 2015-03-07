@@ -1,6 +1,11 @@
+@import url(http://fonts.googleapis.com/earlyaccess/opensanshebrew.css);
+@import url(http://fonts.googleapis.com/earlyaccess/opensanshebrewcondensed.css);
+
+
 /*@media only screen and (min-device-width: 480px) {*/
     html {
-        background: url('images/backgrounds/Tel_Aviv_Tayelet.jpg') no-repeat center center fixed;
+        /* background: url('images/backgrounds/Tel_Aviv_Tayelet.jpg') no-repeat center center fixed; */
+        background: url('images/backgrounds/Jerusalem_lightrail_Jaffa_st.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -17,13 +22,15 @@
 
     body {
         height: 100%;
-        font-family: Alef, sans-serif;
+        font-family: 'Open Sans Hebrew', serif;
+        /* font-family: Alef, sans-serif; */
         -webkit-transition: background 0.25s ease-in;
         -moz-transition: background 0.25s ease-in;
         -o-transition: background 0.25s ease-in;
         transition: background 0.25s ease-in;
         /*padding-top: 70px;*/
-        background: rgba(166, 97, 26, 0.5);
+        /* background: rgba(166, 97, 26, 0.5); */
+        background: rgba(255, 255, 255, 0);
 
     }
     .top-back-button {
@@ -129,11 +136,6 @@ div.container {
     margin-top: 55px;
 }
 
-.circle-buttons {
-    padding: 2.5px;
-    margin: 2.5px;
-}
-
 h1, h2, h3, h4, h5, h6 {
     color: black;
 }
@@ -156,36 +158,66 @@ label {
 
 .from-location,
 .to-location {
-    font-size: 24px;
+    font-size: 18px;
+    background-color: whitesmoke;
 }
 
+.form-control:not(textarea):not(select){
+    height: 42px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+input.form-control {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.circle-buttons { 
+     padding: 2.5px; 
+     margin: 2.5px;
+} 
+
 .circle {
-    display: inline-block;
+/*    display: inline-block;
     background: #bbbbbb;
     width: 50px;
-    height: 50px;
+    height: 50px;*/
     margin: 20px 0px 10px 0px;
     align-content: center;
     vertical-align: middle;
     position: relative;
-    /*border-color: white;*/
-    /*border-width: 10px;*/
-    -webkit-border-radius: 50%;
+    /*border-color: white; */
+    /*border-width: 10px; */
+    /*-webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    box-shadow: 3px 3px 0px 0px;
+    box-shadow: 3px 3px 0px 0px;*/
+} 
+
+.btn.btn-fab {
+    margin: 10px;
+    padding: 15px;
+    font-size: 26px;
+    width: 72px;
+    height: 72px;
+    background-color: whitesmoke;
 }
 
-.circle img{
-    margin-left: -25px;
-    margin-right: -25px;
-    width: 35px;
+.btn:not(.btn-link):not(.btn-flat),
+.btn-default:not(.btn-link):not(.btn-flat) {
+    background-color: whitesmoke;
 }
 
-.circle:active, .active {
-    background: #F49719; /*#89CCC7;*/
-    box-shadow: -2px -2px 0px 0px;
-}
+/* .circle img{ */
+/*     margin-left: -25px; */
+/*     margin-right: -25px; */
+/*     width: 35px; */
+/* } */
+
+/* .circle:active, .active { */
+/*     background: #F49719; /\*#89CCC7;*\/ */
+/*     box-shadow: -2px -2px 0px 0px; */
+/* } */
 
 .icon {
     position: absolute;
