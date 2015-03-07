@@ -53,6 +53,22 @@ setDataWalking = function (response, status) {
 	Session.set('distances', distances);
 };
 
+setDataPersonalBike = function (response, status) {
+	var distances = Session.get('distances');
+	var element = response.rows[0].elements[0];
+	var price = 0;
+	distances[google.maps.TravelMode.BICYCLING] = {
+		duration: element.duration.value / 60 / 3,
+		distance: element.distance.value / 1000,
+		name: 'personalbike',
+		type: google.maps.TravelMode.WALKING,
+		price: price,
+		emmissions: 0,
+		calories: 9.45 * element.duration.value / 60 //9.45 calories / minute
+	};
+	Session.set('distances', distances);
+};
+
 setDataTransit = function (response, status) {
 	var distances = Session.get('distances');
 	var leg = response.routes[0].legs[0];
@@ -68,6 +84,7 @@ setDataTransit = function (response, status) {
 	Session.set('distances', distances);
 };
 
+//Unused in Jerusalem Ver of Alternative
 setDataCycling = function (response, status) {
 	var distances = Session.get('distances');
 	distances[google.maps.TravelMode.BICYCLING].calories = 9.45 * distances[google.maps.TravelMode.BICYCLING].duration; //9.45 calories burnt / minute
