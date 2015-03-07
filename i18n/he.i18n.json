@@ -1,0 +1,14 @@
+{
+	"app_name": "אלתרנתיב",
+	"important_question": "מה חשוב לכם היום?",
+	"go_btn": "סעו",
+	"from_placeholder": "מוצא",
+	"to_placeholder": "יעד",
+	"powered_by": "נבנה על-ידי חברת <a href=\"http://zencity.io\" target=\"_blank\">ZenCity</a>",
+	"minutes": "דקות",
+  	"currency": "ח\"ש",
+  	"pollutants": "גר\\פחמן",
+  	"callories": "קלוריות",
+  	"back_btn": "חזור",
+  	"go_btn": "סעו!"
+}

@@ -8,8 +8,8 @@ setAutoComplete = function () {
 _setAutoComp = function (key, className) {
     var input = document.getElementsByClassName(className)[0];
     var bounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(32.156958, 34.747717),
-        new google.maps.LatLng(32.024032, 34.831488)
+        new google.maps.LatLng(31.809595, 35.150125),
+        new google.maps.LatLng(31.730933, 35.255353)
     );
     var options = {
         componentRestrictions: {country: 'il'},

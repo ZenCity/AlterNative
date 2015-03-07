@@ -23,7 +23,7 @@ setDataDriving = function (response, status) {
 setDataTaxi = function (response, status) {
 	var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
-	var price = (12.3 + (element.distance.value / 1000 * 0.7834) + (element.duration.value / 60 * 0.3)).toFixed(2);
+	var price = (17.3 + (element.distance.value / 1000 * 0.7834) + (element.duration.value / 60 * 0.3)).toFixed(2);
 	distances[alternativeTaxiString] = {
 		duration: element.duration.value / 60,
 		distance: element.distance.value / 1000,
@@ -53,6 +53,22 @@ setDataWalking = function (response, status) {
 	Session.set('distances', distances);
 };
 
+setDataPersonalBike = function (response, status) {
+	var distances = Session.get('distances');
+	var element = response.rows[0].elements[0];
+	var price = 0;
+	distances[google.maps.TravelMode.BICYCLING] = {
+		duration: element.duration.value / 60 / 4,
+		distance: element.distance.value / 1000,
+		name: 'personalbike',
+		type: google.maps.TravelMode.WALKING,
+		price: price,
+		emmissions: 21 * element.distance.value / 1000, //21 g CO2 / KM
+		calories: 9.45 * element.duration.value / 60 / 4 //9.45 calories / KM
+	};
+	Session.set('distances', distances);
+};
+
 setDataTransit = function (response, status) {
 	var distances = Session.get('distances');
 	var leg = response.routes[0].legs[0];
@@ -68,6 +84,7 @@ setDataTransit = function (response, status) {
 	Session.set('distances', distances);
 };
 
+//Unused in Jerusalem Ver of Alternative
 setDataCycling = function (response, status) {
 	var distances = Session.get('distances');
 	distances[google.maps.TravelMode.BICYCLING].calories = 9.45 * distances[google.maps.TravelMode.BICYCLING].duration; //9.45 calories burnt / minute
