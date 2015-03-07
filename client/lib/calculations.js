@@ -58,7 +58,7 @@ setDataPersonalBike = function (response, status) {
 	var element = response.rows[0].elements[0];
 	var price = 0;
 	distances[google.maps.TravelMode.BICYCLING] = {
-		duration: element.duration.value / 60 / 3,
+		duration: element.duration.value / 60 / 4,
 		distance: element.distance.value / 1000,
 		name: 'personalbike',
 		type: google.maps.TravelMode.WALKING,
