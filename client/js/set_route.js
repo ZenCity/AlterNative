@@ -21,5 +21,6 @@ Template.setRoute.events({
     'focus .to-location': function () {
         setAutoComplete();
     },
-    'click .circle': circleClickHandler
+    'click .circle': circleClickHandler,
+    'click .lang' : changeLanguage
 });
