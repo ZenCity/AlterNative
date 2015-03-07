@@ -8,7 +8,7 @@ Session.set('language', navigator.language.split('-')[0]);
 var languages = ['en', 'he'];
 changeLanguage = function (lng) {
 
-    //console.log('changing language from:'+TAPi18n.getLanguage());  
+    console.log('changing language from:'+TAPi18n.getLanguage());  
     var currentLang = TAPi18n.getLanguage();
 
     if (!currentLang) {
