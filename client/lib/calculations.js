@@ -23,7 +23,7 @@ setDataDriving = function (response, status) {
 setDataTaxi = function (response, status) {
 	var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
-	var price = (12.3 + (element.distance.value / 1000 * 0.7834) + (element.duration.value / 60 * 0.3)).toFixed(2);
+	var price = (17.3 + (element.distance.value / 1000 * 0.7834) + (element.duration.value / 60 * 0.3)).toFixed(2);
 	distances[alternativeTaxiString] = {
 		duration: element.duration.value / 60,
 		distance: element.distance.value / 1000,
