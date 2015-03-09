@@ -58,7 +58,7 @@ setDataWalking = function (response, status) {
 		type: google.maps.TravelMode.WALKING,
 		price: price,
 		emmissions: 0,
-		calories: 4.4 * element.duration.value / 60 //4.4 calories burnt / minute
+		calories: walkingCalories(element.duration.value)
 	};
 	Session.set('distances', distances);
 };
