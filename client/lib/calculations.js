@@ -4,6 +4,9 @@ alternativeTaxiString = "taxi";
 //with calories and CO2 emmissions data
 
 setDataDriving = function (response, status) {
+    if( status != 'OK'){
+        return;
+    }
 	var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
 	var price = (2.738 * element.distance.value / 1000).toFixed(2);
@@ -21,7 +24,10 @@ setDataDriving = function (response, status) {
 };
 
 setDataTaxi = function (response, status) {
-	var distances = Session.get('distances');
+    if( status != 'OK'){
+        return;
+    }
+    var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
 	var price = (17.3 + (element.distance.value / 1000 * 0.7834) + (element.duration.value / 60 * 0.3)).toFixed(2);
 	distances[alternativeTaxiString] = {
@@ -38,7 +44,10 @@ setDataTaxi = function (response, status) {
 
 
 setDataWalking = function (response, status) {
-	var distances = Session.get('distances');
+    if( status != 'OK'){
+        return;
+    }
+    var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
 	var price = 0;
 	distances[google.maps.TravelMode.WALKING] = {
@@ -70,9 +79,20 @@ setDataPersonalBike = function (response, status) {
 };
 
 setDataTransit = function (response, status) {
-	var distances = Session.get('distances');
+    if( status != 'OK'){
+        return;
+    }
+    var distances = Session.get('distances');
 	var leg = response.routes[0].legs[0];
-	distances[google.maps.TravelMode.TRANSIT] = {
+	var travelModes = [];
+    for(var step in leg.steps){
+        if(travelModes.indexOf(leg.steps[step].travel_mode) < 0){
+            travelModes.push(leg.steps[step].travel_mode);
+        }
+        console.log(leg.steps[step]);
+    }
+
+    distances[google.maps.TravelMode.TRANSIT] = {
 		duration: leg.duration.value / 60,
 		distance: leg.distance.value / 1000,
 		name: 'bus',
