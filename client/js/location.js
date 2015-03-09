@@ -2,10 +2,10 @@ setCurrentLoaction = function () {
     window.navigator.geolocation.getCurrentPosition(
         function (position) {
             Session.set('current_location', {
-                //lat: 31.7881931,
-                //lng: 35.2063973
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
+                lat: 31.7881931,
+                lng: 35.2063973
+                //lat: position.coords.latitude,
+                //lng: position.coords.longitude
             });
             _setCurrentLoaction()
         },
