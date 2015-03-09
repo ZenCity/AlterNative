@@ -125,12 +125,17 @@ div.language.hebrew {
     line-height: 36px;
 }
 
+nav.navbar {
+    background-color: transparent;
+}
+
 img.navbar-brand {
     vertical-align: text-top;
 }
 
 .navbar-default .navbar-brand {
     color: black;
+    background-color: transparent;
 }
 
 .navbar-default .navbar-brand:hover,
