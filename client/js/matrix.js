@@ -18,6 +18,9 @@ setDistanceTransit = function (callback) {
     );
     directionsService = new google.maps.DirectionsService();
     var request = {
+        //transitOptions: {
+        //    arrivalTime: new Date(2015, 2, 9)
+        //},
         origin: origin,
         destination: destination,
         travelMode: google.maps.TravelMode.TRANSIT

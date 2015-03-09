@@ -29,10 +29,10 @@ _setAutoComp = function (key, className) {
         Session.set(key, location);
     });
 
-    var telAviv = new google.maps.LatLng(32.054934, 34.775407);
+    var jerusalem = new google.maps.LatLng(31.777824, 35.216536);
     var mapOptions = {
         zoom:12,
-        center: telAviv
+        center: jerusalem
     };
     var map = new google.maps.Map(
         document.getElementById('map-canvas'),
