@@ -1,7 +1,7 @@
 toggleCircle = function(circleClass){
     //$('.circle').children().not($('span.' + circleClass)).removeClass('active');
-    $('button.circle').not('button.circle .'+circleClass).removeClass('active');
-    $('.' + circleClass).parent('button.circle').toggleClass('active');
+    $('button.circle').not('button.circle #'+circleClass).removeClass('active btn-success');
+    $('#' + circleClass).toggleClass('active btn-warning');
 
     // remove all category classes and add only relevant class
     //$('body').removeClass('ecology calories time money').addClass(circleClass);
@@ -13,6 +13,8 @@ toggleCircle = function(circleClass){
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     var circleClass = $(jQueryEvent.target).attr('class');
     var imgClass = $(jQueryEvent.target).attr('class');
-    console.log('the ' + circleClass + ' ' + imgClass + '  circle button was clicked');
-    toggleCircle(circleClass);
+    var circleId = $(jQueryEvent.target).attr('id');
+    console.log('the ' + circleId + ' circle button was clicked');
+    // toggleCircle(circleClass);
+    toggleCircle(circleId);
 };
