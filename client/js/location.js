@@ -1,11 +1,13 @@
 setCurrentLoaction = function () {
+    console.log('will ask geolocation...');
     window.navigator.geolocation.getCurrentPosition(
         function (position) {
+            console.log('got geolocation!');
             Session.set('current_location', {
-                lat: 31.7881931,
-                lng: 35.2063973
-                //lat: position.coords.latitude,
-                //lng: position.coords.longitude
+                //lat: 31.7881931,
+                //lng: 35.2063973
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
             });
             _setCurrentLoaction()
         },
@@ -16,6 +18,7 @@ setCurrentLoaction = function () {
 };
 
 _setCurrentLoaction = function  () {
+    console.log('baa');
     var geocoder = new google.maps.Geocoder();
     var lat = Session.get('current_location').lat; 
     var lng = Session.get('current_location').lng;
