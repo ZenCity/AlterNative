@@ -3,12 +3,11 @@
 where user sets it's route.
 -->
 <template name="setRoute">
+  <div class="container {{_ 'lang'}}">
 
-    <div class="container {{_ 'lang'}}">
-        <br>
-
-        <div class="row center-block top-items">
-            <div class="col-lg-10 col-md-12 col-xs-12">
+    <div class="row center-block top-items">
+      <br>
+      <div class="col-lg-10 col-md-12 col-xs-12">
 
                 <div class="col-lg-6 col-md-6 col-xs-12" align="center">
                     <input placeholder='{{_ "from_placeholder"}}' class="from-location form-control {{_ 'lang'}}" type="text">
@@ -25,14 +24,14 @@ where user sets it's route.
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
                           <a href="/know">
-                            <button id="ecology" class="circle active btn btn-success btn-fab btn-raised">
+                            <button id="ecology" class="circle circle-main active btn btn-success btn-fab btn-raised">
                                 <img id="ecology" src="images/ecology_{{_ 'lang'}}.png">
                             </button>
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">
                           <a href="/know">
-                            <button id="calories" class="circle btn btn-success btn-fab btn-raised">
+                            <button id="calories" class="circle circle-main btn btn-success btn-fab btn-raised">
                                 <img id="calories" src="images/calories_{{_ 'lang'}}.png">
                             </button>
                           </a>
@@ -41,22 +40,18 @@ where user sets it's route.
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
                           <a href="/know">
-                            <button id="money" class="circle btn btn-success btn-fab btn-raised">
+                            <button id="money" class="circle circle-main btn btn-success btn-fab btn-raised">
                                 <img id="money" src="images/money_{{_ 'lang'}}.png">
                             </button>
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">
                           <a href="/know">
-                            <button id="time" class="circle btn btn-success btn-fab btn-raised">
+                            <button id="time" class="circle circle-main btn btn-success btn-fab btn-raised">
                                 <img id="time" src="images/time_{{_ 'lang'}}.png">
                             </button>
                           </a>
                         </div>
-                    </div>
-
-                    <div class="lang button language {{_ 'lang'}}">
-                      <button type="button" class="btn btn-primary btn-sm">{{_ 'switch_to_language'}}</button>
                     </div>
                     <!-- <div class="col-lg-1" align="center"> -->
                     <!--     <a href="/know"> -->
@@ -73,7 +68,12 @@ where user sets it's route.
             </div>
         </div>
     </div>
-    <!-- <div class="footer-scroll"> -->
+      <div class="lang button language {{_ 'lang'}}">
+        <button type="button" class="btn btn-primary btn-sm">{{_ 'switch_to_language'}}</button>
+      </div>
+
+
+  <!-- <div class="footer-scroll"> -->
     <!--     <small>AlterNative is powered by <a href="http://zencity.io" target="_blank">ZenCity</a> and developed by -->
     <!--         Yonatan Braude, <a href="http://shaief.com" target="_blank">Shai Efrati</a>, Ido Ivri and Eyal Feder -->
     <!--     </small> -->
