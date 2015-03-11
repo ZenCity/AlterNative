@@ -1,25 +1,26 @@
 <template name="know">
     <div class="container">
-        <div class="row  center-block top-items">
+      <div class="row  center-block top-items">
+        <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 from-to">ירושלים תל אביב</div>
             <div class="circle-buttons">
                 <div class="row center-block">
                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="ecology" class="circle btn btn-success btn-fab btn-raised active">
+                        <button id="ecology" class="circle circle-top btn btn-success btn-fab btn-raised active">
                             <img id="ecology" src="images/ecology_sprite.png">
                         </button>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="calories" class="circle btn btn-success btn-fab btn-raised deactivate">
+                        <button id="calories" class="circle circle-top btn btn-success btn-fab btn-raised deactivate">
                             <img id="calories" src="images/calories_sprite.png">
                         </button>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="money" class="circle btn btn-success btn-fab btn-raised deactivate">
+                        <button id="money" class="circle circle-top btn btn-success btn-fab btn-raised deactivate">
                             <img id="money" src="images/money_sprite.png">
                         </button>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="time" class="circle btn btn-success btn-fab btn-raised deactivate">
+                        <button id="time" class="circle circle-top btn btn-success btn-fab btn-raised deactivate">
                             <img id="time" src="images/time_sprite.png">
                         </button>
                     </div>
@@ -31,9 +32,9 @@
                     {{#each routes}}
                         <div class="result {{type}}">
                             <div class="row">
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                     <!--<h2 class="result-text" align="center">{{name}}</h2>-->
-                                    <ul>
+                                    <ul class="results-list">
                                         <li>
                                             <h5 class="result-text">{{duration}} {{_ "minutes"}}</h5>
                                         </li>
@@ -50,12 +51,14 @@
 
                                     </ul>
                                 </div>
-                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" align="center">
-                                    <a href="/map">
-                                        <button class="go-btn btn btn-lg btn-success">{{_ "go_btn"}}</button>
-                                    </a>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" align="center">
                                     <br>
                                     <img src="/images/{{name}}.svg" height="65px">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" align="center">
+                                <a href="/map">
+                                  <button class="go-btn btn btn-xs btn-success">{{_ "go_btn"}}</button>
+                                </a>
                                 </div>
                             </div>
                         </div>
@@ -102,10 +105,14 @@
             </div>
         </div>
     </div>
-    <div class="footer-scroll">
-        <small>AlterNative is powered by <a href="http://zencity.io" target="_blank">ZenCity</a> and developed by
-            <a href="http://il.linkedin.com/pub/yonatan-braude/37/143/403">Yonatan
-            Braude</a>, <a href="http://shaief.com" target="_blank">Shai Efrati</a>, Ido Ivri and Eyal Feder
+    <div class="footer-scroll {{_ 'lang'}}">
+        <small>{{_ "powered_by"}}  <a href="http://zencity.io" target="_blank">ZenCity</a>
         </small>
     </div>
+    <!-- <div class="footer-scroll"> -->
+    <!--     <small>AlterNative is powered by <a href="http://zencity.io" target="_blank">ZenCity</a> and developed by -->
+    <!--         <a href="http://il.linkedin.com/pub/yonatan-braude/37/143/403">Yonatan -->
+    <!--         Braude</a>, <a href="http://shaief.com" target="_blank">Shai Efrati</a>, Ido Ivri and Eyal Feder -->
+    <!--     </small> -->
+    <!-- </div> -->
 </template>

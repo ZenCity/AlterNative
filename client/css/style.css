@@ -249,13 +249,28 @@ input.form-control {
     border-radius: 50%;
     box-shadow: 3px 3px 0px 0px;*/
 } 
-
-.deactivate img {
-    margin-top: -50px;
+.btn.btn-fab.circle-top.deactivate {
+    background-color: transparent;
+    border: 2px solid whitesmoke;
 }
 
-.circle.deactivate {
-    background-color: transparent;
+.btn.btn-fab.circle-top {
+    margin: 10px;
+    padding: 2px;
+    font-size: 26px;
+    width: 62px;
+    height: 62px;
+    overflow:hidden;
+    background-color: whitesmoke;
+}
+
+
+.deactivate img {
+    margin-top: -60px;
+}
+
+.btn.btn-fab.circle-top.deactivate {
+    padding: 0px !important;
 }
 
 .btn:not(.btn-link):not(.btn-flat),
@@ -390,10 +405,21 @@ input.form-control{
     margin: 5px;
 }
 
+div.from-to {
+    align: center;
+    color: white;
+    font-size: 32px;
+}
+
 .result {
     margin: 10px;
     padding-bottom: 10px;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.60);
+    border-radius: 10px;
+}
+
+ul.results-list {
+    padding-left: 10px;
 }
 
 h4.result-text {
