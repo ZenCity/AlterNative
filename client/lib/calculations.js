@@ -86,7 +86,7 @@ setDataTransit = function (response, status) {
     var distances = Session.get('distances');
 	var leg = response.routes[0].legs[0];
     var steps = leg.steps;
-    debugger;
+    // debugger;
     var travelMods = steps
         .filter(function(step){
             return step.instructions;

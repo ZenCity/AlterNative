@@ -264,7 +264,6 @@ input.form-control {
     background-color: whitesmoke;
 }
 
-
 .deactivate img {
     margin-top: -60px;
 }
@@ -424,6 +423,10 @@ ul.results-list {
 
 h4.result-text {
     color: white;
+}
+
+.goto-map-arrow{
+    margin-top:50px
 }
 
 .go-btn {
