@@ -29,3 +29,12 @@ Router.route('/view_db', function () {
 Router.route('/view_dc', function () {
     this.render('dcVisualization');
 });
+
+Router.route('/about', function () {
+    this.render('about');
+});
+
+Router.route('/calculations', function () {
+    this.render('calculations');
+});
+

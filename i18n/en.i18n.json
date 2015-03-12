@@ -1,6 +1,6 @@
 {
     "lang": "english",
-    "switch_to_language": "עברית",
+    "switch_to_language": "עב",
     "app_name": "AlterNative",
     "important_question": "What is most important to you today?",
     "go_btn": "go",
@@ -10,5 +10,7 @@
     "minutes": "Minutes",
     "currency": "NIS",
     "pollutants": "g/CO2",
-    "callories": "Callories"
+    "callories": "Callories",
+    "about": "About AlterNative",
+    "calculations": "How do we calculate?"
 }

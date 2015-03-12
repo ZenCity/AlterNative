@@ -15,7 +15,27 @@
                     <img class="navbar-brand logo" src="images/AlterNative_logo.svg">
                 </a>
 
+                <div class="lang button language {{_ 'lang'}}">
+                  <button type="button" class="btn btn-language btn-primary btn-sm">{{_ 'switch_to_language'}}</button>
+                </div>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <!-- <a class="navbar-brand" href="#">Brand</a> -->
             </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/about">{{_ 'about'}}<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="/calculations">{{_ 'calculations'}}<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="http://zencity.io" target="_blank">ZenCity<span class="sr-only">(current)</span></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+    <!-- </div> -->
         </div>
     </nav>
 </template>
