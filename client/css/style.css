@@ -43,6 +43,7 @@
         border: none;
         background: none;
     }
+
     body.map .top-back-button,
     body.know-tint .top-back-button{
         display: inline-block;
@@ -50,10 +51,12 @@
 
 .english {
     float: left;
+    direction: ltr;
 }
 
 .hebrew {
     float: right;
+    direction: rtl;
 }
 
 container.english,
@@ -169,9 +172,11 @@ img.navbar-brand {
     padding: 1px;
 }
 
-.navbar .navbar-collapse, .navbar .navbar-form {
-    border-color: rgba(0, 0, 0, 0.1);
-    background-color: dodgerblue;
+.nav > li {
+    font-size: 14pt;
+    position: relative;
+    display: block;
+    background-color: black;
 }
 
 .navbar .navbar-toggle {
