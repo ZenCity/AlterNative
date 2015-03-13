@@ -48,6 +48,14 @@
         display: inline-block;
     }
 
+.english {
+    float: left;
+}
+
+.hebrew {
+    float: right;
+}
+
 container.english,
 div.english {
     direction: ltr;
@@ -425,12 +433,16 @@ ul.results-list {
     direction: ltr;
     align: left;
     padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .results-list-hebrew {
     direction: rtl;
     align: right;
     padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .result-text-english {
