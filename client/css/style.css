@@ -227,6 +227,11 @@ label {
     background-color: whitesmoke;
 }
 
+.from-location.error,
+.to-location.error {
+    background-color: tomato;
+}
+
 .form-control,
 .form-control:focus,
 .form-control:focus:not(textarea):not(select),
