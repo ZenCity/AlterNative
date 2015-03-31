@@ -15,11 +15,13 @@ Template.setRoute.rendered = function () {
 };
 
 Template.setRoute.events({
-    'focus .from-location': function () {
+    'focus .from-location': function (jQueryEvent, BlazeTemplateInstance) {
         setAutoComplete();
+        removeMissingInputError($(jQueryEvent.currentTarget));
     },
-    'focus .to-location': function () {
+    'focus .to-location': function (jQueryEvent, BlazeTemplateInstance) { 
         setAutoComplete();
+        removeMissingInputError($(jQueryEvent.currentTarget));
     },
     'click .circle': circleClickHandler,
     'click .lang' : changeLanguage

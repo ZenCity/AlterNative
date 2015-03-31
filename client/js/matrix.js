@@ -46,7 +46,8 @@ setDistancePersonalBike = function (callback) {
 };
 
 setDistanceByType = function (type, callback, _origin, _destination) {
-    if (!_origin) { var origin = new google.maps.LatLng(Session.get('from').lat,
+    if (!_origin) { var origin = new google.maps.LatLng(
+            Session.get('from').lat,
             Session.get('from').lng
         );
     }

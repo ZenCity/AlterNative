@@ -18,13 +18,11 @@ setCurrentLoaction = function () {
 };
 
 _setCurrentLoaction = function  () {
-    console.log('baa');
     var geocoder = new google.maps.Geocoder();
     var lat = Session.get('current_location').lat; 
     var lng = Session.get('current_location').lng;
     var latlng = new google.maps.LatLng(lat, lng);
     geocoder.geocode({'latLng': latlng}, function(results, status) {
-      // console.log(results);
       var formatted_address = results[0].formatted_address
       Session.set('from', {
         formatted_address: formatted_address,

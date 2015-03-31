@@ -5,7 +5,7 @@ Router.route('/map', function () {
 });
 
 Router.route('/know', function () {
-    if (Session.get('to')) {
+    if (Session.get('to') && Session.get('from')) {
         this.render('know');
         $('body').addClass('know-tint');
         $('body').removeClass('map');
@@ -17,7 +17,6 @@ Router.route('/know', function () {
 
 Router.route('/', function () {
     this.render('setRoute');
-
     $('body').removeClass('know-tint');
     $('body').removeClass('map');
 });
