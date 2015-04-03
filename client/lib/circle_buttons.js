@@ -2,7 +2,6 @@ toggleCircle = function(chosen){
     $('button.circle').not('button.circle #'+chosen).not('.circle-main').removeClass('active').addClass('deactivate');
     $('#' + chosen).not('.circle-main').toggleClass('active').removeClass('deactivate');
     Session.set('sort-by', chosen);
-
 };
 
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
