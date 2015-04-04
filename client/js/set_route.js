@@ -39,12 +39,12 @@ Template.setRoute.events({
     },
     'click .clear-btn': function (jQueryEvent, BlazeTemplateInstance) {
     
-        console.log('the clear button was clicked');
+        //console.log('the clear button was clicked');
         clearForm();
     },
     'click .reverse-btn': function (jQueryEvent, BlazeTemplateInstance) {
 
-    console.log('the reverse button was clicked');
+        //console.log('the reverse button was clicked');
         reverseForm();
     },
     'click .circle': circleClickHandler,
