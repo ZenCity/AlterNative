@@ -21,12 +21,8 @@ Router.route('/', function () {
     $('body').removeClass('map');
 });
 
-Router.route('/view_db', function () {
-    this.render('dbVisualization');
-});
-
-Router.route('/view_dc', function () {
-    this.render('dcVisualization');
+Router.route('/backend_view', function () {
+    this.render('dataVisualization');
 });
 
 Router.route('/about', function () {
