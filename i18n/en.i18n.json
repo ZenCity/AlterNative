@@ -12,5 +12,8 @@
     "pollutants": "g/CO2",
     "callories": "Calories",
     "about": "About AlterNative",
+    "clear": "Clear",
+    "back_btn": "Back",
+    "reverse": "Reverse from/to",
     "calculations": "How do we calculate?"
 }
