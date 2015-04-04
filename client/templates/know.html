@@ -30,6 +30,7 @@
             <div class="row center-block">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 {{_ 'lang'}}">
                     {{#each routes}}
+                    <a href="/map">
                         <div class="result {{type}}">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 {{_ 'lang'}}">
@@ -53,15 +54,14 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 {{_ 'lang'}}" align="center">
                                     <br>
-                                    <img src="/images/{{name}}.svg" height="65px">
+                                    <img src="/images/{{name}}.png" height="65px">
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 {{_ 'lang'}}" align="center">
-                                <a href="/map">
                                   <img class="go-btn goto-map-arrow" src="/images/arrow_{{_ 'lang'}}.png">
-                                </a>
                                 </div>
                             </div>
                         </div>
+                    </a>
                     {{/each}}
 
                     <div class="col-lg-1" align="center">
