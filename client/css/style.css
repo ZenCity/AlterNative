@@ -72,10 +72,14 @@ h2.english,
 h3.english,
 h4.english,
 h5.english,
-question.english,
 .from-location.english,
 .to-location.english {
     direction: ltr;
+}
+
+question.english
+{
+    text-align: center;
 }
 
 .footer-scroll.english {
@@ -95,10 +99,14 @@ h2.hebrew,
 h3.hebrew,
 h4.hebrew,
 h5.hebrew,
-question.hebrew,
 .from-location.hebrew,
 .to-location.hebrew {
     direction: rtl;
+}
+
+question.hebrew
+{
+    text-align: center
 }
 
 .footer-scroll.hebrew {

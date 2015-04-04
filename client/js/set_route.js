@@ -1,5 +1,11 @@
 Session.setDefault('sort-by', KnowGo.sortby.ECO);
 
+function clearForm()
+{
+    $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+    $(':checkbox, :radio').prop('checked', false);
+}
+
 Template.setRoute.rendered = function () {
     toggleCircle("ecology");
     setAutoComplete();
@@ -22,6 +28,13 @@ Template.setRoute.events({
     'focus .to-location': function (jQueryEvent, BlazeTemplateInstance) { 
         setAutoComplete();
         removeMissingInputError($(jQueryEvent.currentTarget));
+    },
+    'click .clear-btn': function (jQueryEvent, BlazeTemplateInstance) {
+    
+        console.log('the clear button was clicked');
+        clearForm();
+        
+
     },
     'click .circle': circleClickHandler,
     'click .lang' : changeLanguage
