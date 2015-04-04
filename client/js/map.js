@@ -16,8 +16,8 @@ var calcRoute = function () {
     var start = new google.maps.LatLng(Session.get('from').lat, Session.get('from').lng);
     console.log("IDO: "+ end + "|||"+ start)
     var request = {
-        origin:start,
-        destination:end,
+        origin: start,
+        destination: end,
         travelMode: Session.get('choosen').type
     };
     if(Session.get('choosen').type == google.maps.TravelMode.BICYCLING){
@@ -34,6 +34,25 @@ var calcRoute = function () {
         request.waypoints = waypoints;
     }
     directionsService.route(request, function(result, status) {
+        var leg = result.routes[0].legs[0];
+        var distance = leg.distance.value;
+        var duration = leg.duration.value / 60; // in minutes
+        var route = leg.steps.map(function(step){
+            return {
+                lat: step.start_point.lat(),
+                lng: step.start_point.lng()
+            }
+        })
+        var navRecord = {
+            date: new Date,
+            destination: end,
+            origin: start,
+            distance: distance,
+            duration: duration,
+            transType: Session.get('choosen').name,
+            route: route
+        }
+        UserNavigations.insert(navRecord);
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
         }
