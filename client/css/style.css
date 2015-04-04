@@ -5,7 +5,8 @@
 /*@media only screen and (min-device-width: 480px) {*/
     html {
         /* background: url('images/backgrounds/Tel_Aviv_Tayelet.jpg') no-repeat center center fixed; */
-        background: url('images/backgrounds/Jerusalem_lightrail_Jaffa_st.jpg') no-repeat center center fixed;
+        /* background: url('images/backgrounds/Jerusalem_lightrail_Jaffa_st.jpg') no-repeat center center fixed; */
+        background: url('images/backgrounds/Jerusalem_cords_bridge.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -166,10 +167,11 @@ img.navbar-brand {
     background-color: #F49719;
 }
 
-.navbar-brand.logo {
+img.logo {
     float: right;
-    margin: 5px;
-
+    margin: 0px;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .navbar-brand.logo-text {
@@ -515,13 +517,22 @@ h4.question {
 }
 
 
+img.muni-logo {
+    float: right;
+    margin: 0;
+    padding: 0;
+    right: 0;
+    top: 0;
+    height: 40px;
+}
+
 .language {
     position: fixed;
     top: 0;
     left: 0;
     /* bottom: 0; */
     margin: auto;
-    margin-left: 80px;
+    margin-left: 30px;
     padding: 15px;
 }
 
