@@ -15,8 +15,8 @@ var calcRoute = function () {
     var end = new google.maps.LatLng(Session.get('to').lat, Session.get('to').lng);
     var start = new google.maps.LatLng(Session.get('from').lat, Session.get('from').lng);
     var request = {
-        origin:start,
-        destination:end,
+        origin: start,
+        destination: end,
         travelMode: Session.get('choosen').type
     };
     if(Session.get('choosen').type == google.maps.TravelMode.BICYCLING){
@@ -48,7 +48,7 @@ var calcRoute = function () {
             origin: start,
             distance: distance,
             duration: duration,
-            transType: "WALKING",
+            transType: Session.get('choosen').name,
             route: route
         }
         UserNavigations.insert(navRecord);
