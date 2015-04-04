@@ -4,6 +4,7 @@ toggleCircle = function(chosen){
     Session.set('sort-by', chosen);
 };
 
+
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     var circleId = $(jQueryEvent.target).attr('id');
     console.log('the ' + circleId + ' circle button was clicked');
