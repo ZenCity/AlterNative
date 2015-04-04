@@ -106,7 +106,7 @@ setDataTransit = function (response, status) {
     var distances = Session.get('distances');
 	var leg = response.routes[0].legs[0];
     var steps = leg.steps;
-    // debugger;
+    //debugger;
     var travelMods = steps
         .filter(function(step){
             return step.instructions;
@@ -114,6 +114,9 @@ setDataTransit = function (response, status) {
         .map(function(step){
             return step.instructions.split(' ')[0];
         });
+    if (travelMods.indexOf('Tram') == -1 && travelMods.indexOf('Bus') == -1) {
+    	return;
+    }
 	var isTram = travelMods.indexOf('Tram') >= 0;
     //var type = isTram ? 'TRAM' : google.maps.TravelMode.TRANSIT;
     var name = isTram ? 'tram' : 'bus';
