@@ -32,7 +32,7 @@
                     {{#each routes}}
                     <a href="/map">
                         <div class="result {{type}}">
-                        <div class="go-btn goto-map-arrow">
+                        <div class="go-btn">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 {{_ 'lang'}}">
                                     <!--<h2 class="result-text" align="center">{{name}}</h2>-->
@@ -58,7 +58,7 @@
                                     <img src="/images/{{name}}.png" height="65px">
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 {{_ 'lang'}}" align="center">
-                                  <img src="/images/arrow_{{_ 'lang'}}.png">
+                                  <img class="goto-map-arrow" src="/images/arrow_{{_ 'lang'}}.png">
                                 </div>
                             </div>
                         </div>
