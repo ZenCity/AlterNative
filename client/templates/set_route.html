@@ -10,14 +10,17 @@ where user sets it's route.
       <div class="col-lg-10 col-md-12 col-xs-12">
 
                 <div class="col-lg-6 col-md-6 col-xs-12 {{_ 'lang'}}" align="center">
-                    <input placeholder='{{_ "from_placeholder"}}' name="from-location" class="from-location form-control {{_ 'lang'}}" type="text">
+                  
+                    <input placeholder='{{_ "from_placeholder"}}' name="from-location" class="from-location form-control {{_ 'lang'}}" type="search">
+                    <span class="glyphicon glyphicon-from glyphicon-remove-circle"></span>
+                  
                 </div>
                 
                 <div class="col-lg-6 col-md-6 col-xs-12 {{_ 'lang'}}" align="center">
 
-                    <input placeholder='{{_ "to_placeholder"}}' name="to-location" class="to-location form-control {{_ 'lang'}}" type="text">
+                    <input placeholder='{{_ "to_placeholder"}}' name="to-location" class="to-location form-control {{_ 'lang'}}" type="search">
+                    <span class="glyphicon glyphicon-to glyphicon-remove-circle"></span>
                 </div>
-                 <button id="clear-btn" class="clear-btn">{{_ "clear"}}</button>
                  <button id="reverse-btn" class="reverse-btn">{{_ "reverse"}}</button>
                 <hr>
 

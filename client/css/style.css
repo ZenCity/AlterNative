@@ -233,7 +233,7 @@ label {
     color: black;
     height: 42px;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 0px;
     background-color: whitesmoke;
 }
 
@@ -254,6 +254,21 @@ label {
 
 input.form-control {
     background-color: rgba(255, 255, 255, 0.8);
+}
+
+.from-location {
+    
+}
+.glyphicon {
+    position: absolute;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #ccc;
 }
 
 .circle-buttons { 
