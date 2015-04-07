@@ -1,13 +1,11 @@
 Session.setDefault('sort-by', KnowGo.sortby.ECO);
 
 function clearFromBox() {
-    console.log("got into clear From function!");
     $('input[type=search].from-location').val('');
     Session.set('from',"");
 };
 
 function clearToBox() {
-    console.log("got into clear To function!");
     $('input[type=search].to-location').val('');
     Session.set('to',"");
 };
@@ -51,7 +49,6 @@ Template.search.events({
         removeMissingInputError($(jQueryEvent.currentTarget));
     },
     'click .reverse-btn': function (jQueryEvent, BlazeTemplateInstance) {
-        //console.log('the reverse button was clicked');
         reverseForm();
     },
     'click .glyphicon-from': function (jQueryEvent, BlazeTemplateInstance) {
