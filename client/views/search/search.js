@@ -28,9 +28,7 @@ function reverseForm()
 Template.search.rendered = function () {
     toggleCircle("ecology");
     setAutoComplete();
-    Meteor.startup(function (){
-        setCurrentLoaction();
-    });
+    setCurrentLoaction($('.from-location'));
     if(Session.get('from')){
         $('.from-location').val(Session.get('from').formatted_address);
     }

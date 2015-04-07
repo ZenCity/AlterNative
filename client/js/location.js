@@ -1,5 +1,4 @@
-setCurrentLoaction = function () {
-    console.log('will ask geolocation...');
+setCurrentLoaction = function (domElement) {
     window.navigator.geolocation.getCurrentPosition(
         function (position) {
             console.log('got geolocation!');
@@ -9,7 +8,7 @@ setCurrentLoaction = function () {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             });
-            _setCurrentLoaction()
+            _setCurrentLoaction(domElement)
         },
         function (error) {
             console.log('error setting current location', error);
@@ -17,7 +16,7 @@ setCurrentLoaction = function () {
     );
 };
 
-_setCurrentLoaction = function  () {
+_setCurrentLoaction = function  (domElement) {
     var geocoder = new google.maps.Geocoder();
     var lat = Session.get('current_location').lat; 
     var lng = Session.get('current_location').lng;
@@ -29,6 +28,6 @@ _setCurrentLoaction = function  () {
         lat: lat,
         lng: lng 
       });
-      $('.from-location').val(formatted_address);
+      domElement.val(formatted_address);
     });
 }
