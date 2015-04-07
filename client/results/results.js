@@ -1,9 +1,9 @@
-Template.know.rendered = function() {
+Template.results.rendered = function() {
     setDistanceMatric();
     toggleCircle(Session.get('sort-by'));
 };
 
-Template.know.helpers({
+Template.results.helpers({
     routes: function () {
         if(!Session.get('distances')){
             return [];
@@ -28,7 +28,7 @@ Template.know.helpers({
     }
 });
 
-Template.know.events({
+Template.results.events({
     'click .circle': circleClickHandler,
     'click .go-btn': function (jQueryEvent, BlazeTemplateInstance){
         var type = $(jQueryEvent.target).parents('.result')[0].classList[1];

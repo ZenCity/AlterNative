@@ -27,7 +27,7 @@ function reverseForm()
     Session.set('from',to);    
 };
 
-Template.setRoute.rendered = function () {
+Template.search.rendered = function () {
     toggleCircle("ecology");
     setAutoComplete();
     Meteor.startup(function (){
@@ -41,7 +41,7 @@ Template.setRoute.rendered = function () {
     }
 };
 
-Template.setRoute.events({
+Template.search.events({
     'focus .from-location': function (jQueryEvent, BlazeTemplateInstance) {
         setAutoComplete();
         removeMissingInputError($(jQueryEvent.currentTarget));

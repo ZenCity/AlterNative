@@ -2,8 +2,8 @@
 -----------------
 where user sets it's route.
 -->
-<template name="setRoute">
-  <div class="container {{_ 'lang'}}">
+<template name="search">
+  <div class="container {{_ 'knowlang'}}">
 
     <div class="row center-block top-items">
       <br>
@@ -29,14 +29,14 @@ where user sets it's route.
                   <br>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
-                          <a href="/know">
+                          <a href="/results">
                             <button id="ecology" class="circle circle-main active btn btn-success btn-fab btn-raised">
                                 <img id="ecology" src="images/ecology_{{_ 'lang'}}.png">
                             </button>
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">
-                          <a href="/know">
+                          <a href="/results">
                             <button id="calories" class="circle circle-main btn btn-success btn-fab btn-raised">
                                 <img id="calories" src="images/calories_{{_ 'lang'}}.png">
                             </button>
@@ -45,48 +45,23 @@ where user sets it's route.
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
-                          <a href="/know">
+                          <a href="/results">
                             <button id="money" class="circle circle-main btn btn-success btn-fab btn-raised">
                                 <img id="money" src="images/money_{{_ 'lang'}}.png">
                             </button>
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">
-                          <a href="/know">
+                          <a href="/results">
                             <button id="time" class="circle circle-main btn btn-success btn-fab btn-raised">
                                 <img id="time" src="images/time_{{_ 'lang'}}.png">
                             </button>
                           </a>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-1" align="center"> -->
-                    <!--     <a href="/know"> -->
-                    <!--         <button type="button" class="know btn btn-primary btn-lg">{{_ "go_btn"}}</button> -->
-                    <!--     </a> -->
-                    <!-- </div> -->
-                    <!-- <hr> -->
-                    <!-- <div class="col-lg-1" align="center"> -->
-                    <!--     <a href="/know"> -->
-                    <!--         <button type="button" class="know btn btn-primary btn-lg">KNOW</button> -->
-                    <!--     </a> -->
-                    <!-- </div> -->
                 </div>
             </div>
         </div>
     </div>
-      <!-- <div class="lang button language {{_ 'lang'}}"> -->
-      <!--   <button type="button" class="btn btn-primary btn-sm">{{_ 'switch_to_language'}}</button> -->
-      <!-- </div> -->
-
-
-  <!-- <div class="footer-scroll"> -->
-    <!--     <small>AlterNative is powered by <a href="http://zencity.io" target="_blank">ZenCity</a> and developed by -->
-    <!--         Yonatan Braude, <a href="http://shaief.com" target="_blank">Shai Efrati</a>, Ido Ivri and Eyal Feder -->
-    <!--     </small> -->
-    <!-- </div> -->
-    <!-- <div class="footer-scroll {{_ 'lang'}}"> -->
-    <!--     <small>{{_ "powered_by"}}  <a href="http://zencity.io" target="_blank">ZenCity</a> -->
-    <!--     </small> -->
-    <!-- </div> -->
     <div id="map-canvas" style="display: none;  "></div>
 </template>

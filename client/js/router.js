@@ -1,3 +1,7 @@
+Router.route('/', function(){
+    Router.go('/search');
+});
+
 Router.route('/map', function () {
     this.render('map');
     $('body').removeClass('know-tint');
