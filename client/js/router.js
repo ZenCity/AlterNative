@@ -4,19 +4,19 @@ Router.route('/map', function () {
     $('body').addClass('map');
 });
 
-Router.route('/know', function () {
+Router.route('/results', function () {
     if (Session.get('to') && Session.get('from')) {
-        this.render('know');
+        this.render('results');
         $('body').addClass('know-tint');
         $('body').removeClass('map');
     }
     else {
-        Router.go('/');
+        Router.go('/search');
     }
 });
 
-Router.route('/', function () {
-    this.render('setRoute');
+Router.route('/search', function () {
+    this.render('search');
     $('body').removeClass('know-tint');
     $('body').removeClass('map');
 });

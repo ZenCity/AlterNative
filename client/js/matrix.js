@@ -5,7 +5,6 @@ setDistanceMatric = function () {
     setDistanceWalking(setDataWalking);
     setDistanceTaxi(setDataTaxi);
     setDistancePersonalBike(setDataPersonalBike);
-    //setTelOfunRoute();
 };
 
 setDistanceTransit = function (callback) {
