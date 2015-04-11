@@ -63,7 +63,7 @@
 container.english,
 div.english {
     direction: ltr;
-    align: left;
+    text-align: left;
 }
 
 
@@ -345,6 +345,22 @@ input.form-control {
 /*     box-shadow: -2px -2px 0px 0px; */
 /* } */
 
+.circle-main {
+    overflow: hidden;
+}
+
+.circle1-hebrew {
+    width: 110px;
+    margin-top: -140px;
+    margin-left: -35px;
+}
+
+.circle1-english {
+    width: 110px;
+    margin-top: -30px;
+    margin-left: -35px;
+}
+
 .icon {
     position: absolute;
     align: center;
@@ -529,6 +545,7 @@ ul.results-list {
 
 h4.question {
     margin-top: 30px;
+    text-align: center;
 }
 
 
