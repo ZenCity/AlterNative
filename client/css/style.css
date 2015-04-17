@@ -482,6 +482,11 @@ div.from-to {
     font-size: 32px;
 }
 
+.result-header {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 .result {
     margin: 10px;
     padding-bottom: 10px;
@@ -519,6 +524,11 @@ ul.results-list {
     color: white;
     direction: rtl;
     align: right;
+}
+
+.result-text.chosen {
+    font-weight: bold;
+    font-size: 12pt;
 }
 
 .goto-map-arrow{

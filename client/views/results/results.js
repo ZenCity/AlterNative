@@ -1,6 +1,7 @@
 Template.results.rendered = function() {
     setDistanceMatric();
     toggleCircle(Session.get('sort-by'));
+    toggleResult(Session.get('sort-by'));
 };
 
 Template.results.helpers({
@@ -30,10 +31,10 @@ Template.results.helpers({
 
 Template.results.events({
     'click .circle': circleClickHandler,
-    'click .go-btn': function (jQueryEvent, BlazeTemplateInstance){
-        var type = $(jQueryEvent.target).parents('.result')[0].classList[1];
-        var choosen = Session.get('distances')[type];
-        Session.set('choosen', choosen);
+    'click  div.go-btn': function (jQueryEvent, BlazeTemplateInstance){
+        var type = $(jQueryEvent.target).closest('.result')[0].classList[1];
+        var chosen = Session.get('distances')[type];
+        Session.set('chosen', chosen);
     }
 });
 

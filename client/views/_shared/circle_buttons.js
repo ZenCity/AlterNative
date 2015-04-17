@@ -4,11 +4,16 @@ toggleCircle = function(chosen){
     Session.set('sort-by', chosen);
 };
 
+toggleResult = function(chosen){
+    $('.result-text').not('.' + chosen).removeClass('chosen');
+    $('.result-text.' + chosen).addClass('chosen');
+}
 
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     var circleId = $(jQueryEvent.target).attr('id');
     console.log('the ' + circleId + ' circle button was clicked');
     toggleCircle(circleId);
+    toggleResult(Session.get('sort-by'));
     if(!Session.get('from')){
         missingInput($('.from-location'));
     }
