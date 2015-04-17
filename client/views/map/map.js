@@ -18,9 +18,9 @@ var calcRoute = function () {
     var request = {
         origin: start,
         destination: end,
-        travelMode: Session.get('choosen').type
+        travelMode: Session.get('chosen').type
     };
-    if(Session.get('choosen').type == google.maps.TravelMode.BICYCLING){
+    if(Session.get('chosen').type == google.maps.TravelMode.BICYCLING){
         request.travelMode = google.maps.TravelMode.WALKING;
         var telOfunStart = new google.maps.LatLng(Session.get('tel-o-fun-start').lat, Session.get('tel-o-fun-start').lng);
         var telOfunEnd = new google.maps.LatLng(Session.get('tel-o-fun-end').lat, Session.get('tel-o-fun-end').lng);
@@ -49,7 +49,7 @@ var calcRoute = function () {
             origin: start,
             distance: distance,
             duration: duration,
-            transType: Session.get('choosen').name,
+            transType: Session.get('chosen').name,
             route: route
         }
         UserNavigations.insert(navRecord);
