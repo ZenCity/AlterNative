@@ -29,13 +29,13 @@ Template.results.helpers({
     },
     fromAddressPretty: function () {
         var address = Session.get("from-address-pretty");
-        return Session.get("from-address-pretty");
+        var prefix =  Session.get("from-address-pretty-prefix");
+        return (prefix? prefix+address : address);
     },
     toAddressPretty: function () {
-        return Session.get("to-address-pretty");
-    },
-    idoGetLang: function () { //TODO: Shai - remove this 
-        return TAPi18n.getLanguage();
+        var address = Session.get("to-address-pretty");
+        var prefix =  Session.get("to-address-pretty-prefix");
+        return (prefix? prefix+address : address);
     }
 });
 
@@ -45,6 +45,9 @@ Template.results.events({
         var type = $(jQueryEvent.target).closest('.result')[0].classList[1];
         var chosen = Session.get('distances')[type];
         Session.set('chosen', chosen);
+    },
+    'click .bottom-back-btn': function (jQueryEvent, BlazeTemplateInstance) {
+        Session.set('prevent-auto-locate','prevent');
     }
 });
 

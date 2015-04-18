@@ -1,3 +1,5 @@
+var formattedAddressReverse = "";
+
 toggleCircle = function(chosen){
     $('button.circle').not('button.circle #'+chosen).not('.circle-main').removeClass('active').addClass('deactivate');
     $('#' + chosen).not('.circle-main').toggleClass('active').removeClass('deactivate');
@@ -10,9 +12,7 @@ toggleResult = function(chosen){
 }
 
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
-    var circleId = $(jQueryEvent.target).attr('id');
-    console.log('the ' + circleId + ' circle button was clicked');
-    toggleCircle(circleId);
+    setSorter( jQueryEvent );
     toggleResult(Session.get('sort-by'));
     if(!Session.get('from')){
         missingInput($('.from-location'));
@@ -21,29 +21,56 @@ circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
         missingInput($('.to-location'));
     }
     else {
-
-    //console.log(Session.get('from'));
-    //console.log(Session.get('to'));
-    //Object {name: "Migdal St 7", formatted_address: "Migdal St 7, Tel Aviv-Yafo, Israel", lat: 32.0618181, lng: 34.763799800000015, language: "en"}
-    var fromStr = Session.get('from');
-    var fromStrFormattedList = fromStr.formatted_address.split(',');
-    var toStr = Session.get('to');
-    var toStrFormattedList = toStr.formatted_address.split(',');
-    setPrettyAddressSession('from-address-pretty',fromStrFormattedList);
-    setPrettyAddressSession('to-address-pretty',toStrFormattedList);
+        var fromStr = Session.get('from');
+        var fromStrFormattedList = fromStr.formatted_address.split(',');
+        var toStr = Session.get('to');
+        var toStrFormattedList = toStr.formatted_address.split(',');
+        setPrettyAddressSession('from-address-pretty',fromStrFormattedList,fromStr.lat,fromStr.lng);
+        setPrettyAddressSession('to-address-pretty',toStrFormattedList,toStr.lat,toStr.lng);
     }
 };
 
-setPrettyAddressSession = function(attrName, listAddress) {
+setSorter = function( jQueryEvent ) {
+    var circleId = $(jQueryEvent.target).attr('id');
+    toggleCircle(circleId);
+    toggleResult(Session.get('sort-by'));
+}
+
+setPrettyAddressSession = function(attrName, listAddress,lat,lng) {
     if (listAddress.length==0) {
-        console.log("BUG: address should not be empty");
+        console.log("Error: address should not be empty");
     }
-    else if (listAddress.length==1) {
+    else if (listAddress.length == 1) {
         Session.set(attrName,listAddress[0]);
     }
     else { //listAddress.length >= 2
-        Session.set(attrName,(listAddress[0]+', '+listAddress[1]));
+        var geocoder = new google.maps.Geocoder();
+
+        //sometimes directions API returns only "city, State" - do reverse geocoding if that happens to get a full place
+        if (trimStr(listAddress[1])=="Israel" || trimStr(listAddress[1])=="ישראל") {
+            //console.log("extending address with geolocation");
+            var latlng = new google.maps.LatLng(lat, lng);
+            Session.set(attrName,listAddress[0]);
+            
+            geocoder.geocode({'latLng': latlng, 'region':'IL'}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    //console.log("UPDATE REVERSE GEOCODE ADDRESS: "+results[0].formatted_address);
+                    formattedAddressReverse = results[0].formatted_address.split(',')[0];
+                    formattedAddressReverse = formattedAddressReverse+' ,';
+                    //set a session variable as prefix to the results place display
+                    Session.set(attrName+"-prefix",formattedAddressReverse);
+                }
+
+            });
+        }
+        else { //just use the street / city
+            Session.set(attrName,(listAddress[0]+', '+listAddress[1]));        
+        }
     }
+};
+
+function trimStr (str) {
+    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 }
 
 missingInput = function(element){

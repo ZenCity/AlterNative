@@ -55,6 +55,23 @@ Template.search.events({
     'click .glyphicon-to': function (jQueryEvent, BlazeTemplateInstance) {
         clearToBox();
     },
-    'click .circle': circleClickHandler,
+    'click .circle': function(jQueryEvent, BlazeTemplateInstance) {
+        if(!Session.get('from')){
+            missingInput($('.from-location'));
+        }
+        else if(!Session.get('to')){
+            missingInput($('.to-location'));
+        }
+        else {
+            setSorter( jQueryEvent );
+            var searchId = Searches.insert({
+                from: Session.get('from'),
+                to: Session.get('to'),
+                searchCraitiria: Session.get('sort-by')
+            });
+            Session.set('search-id', searchId);
+            circleClickHandler( jQueryEvent, BlazeTemplateInstance );
+        }
+    },
     'click .lang' : changeLanguage
 });
