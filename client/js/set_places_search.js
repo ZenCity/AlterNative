@@ -27,7 +27,7 @@ _setAutoComp = function (key, className) {
             name: place.name,
             formatted_address: place.formatted_address,
             lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng(),
+            lng: place.geometry.location.lng()
         };
         Session.set(key, location);
     });

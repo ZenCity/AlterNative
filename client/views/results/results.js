@@ -45,6 +45,9 @@ Template.results.events({
         var type = $(jQueryEvent.target).closest('.result')[0].classList[1];
         var chosen = Session.get('distances')[type];
         Session.set('chosen', chosen);
+    },
+    'click .bottom-back-btn': function (jQueryEvent, BlazeTemplateInstance) {
+        Session.set('prevent-auto-locate','prevent');
     }
 });
 
