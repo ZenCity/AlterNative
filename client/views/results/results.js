@@ -33,9 +33,6 @@ Template.results.helpers({
     },
     toAddressPretty: function () {
         return Session.get("to-address-pretty");
-    },
-    idoGetLang: function () { //TODO: Shai - remove this 
-        return TAPi18n.getLanguage();
     }
 });
 
