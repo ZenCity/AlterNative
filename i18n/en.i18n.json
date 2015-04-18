@@ -15,5 +15,10 @@
     "clear": "Clear",
     "back_btn": "Back",
     "reverse": "Reverse from/to",
-    "calculations": "How do we calculate?"
+    "calculations": "How do we calculate?",
+    "walking": "Walking",
+    "personalbike": "Cycling",
+    "bus": "Bussing",
+    "taxi": "Cabbing",
+    "driving": "Driving"
 }

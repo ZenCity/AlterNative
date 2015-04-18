@@ -211,6 +211,11 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
+.question {
+    width: 100%;
+    text-align: center;
+}
+
 div {
     opacity: 100;
 }
@@ -242,6 +247,13 @@ label {
     background-color: tomato;
 }
 
+#reverse-btn {
+    transform: scale(0.5);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .form-control,
 .form-control:focus,
 .form-control:focus:not(textarea):not(select),
@@ -259,7 +271,8 @@ input.form-control {
 .from-location {
     
 }
-.glyphicon {
+
+span.remove-text {
     position: absolute;
     right: 15px;
     top: 0;
@@ -469,6 +482,11 @@ div.from-to {
     font-size: 32px;
 }
 
+.result-header {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 .result {
     margin: 10px;
     padding-bottom: 10px;
@@ -506,6 +524,11 @@ ul.results-list {
     color: white;
     direction: rtl;
     align: right;
+}
+
+.result-text.chosen {
+    font-weight: bold;
+    font-size: 12pt;
 }
 
 .goto-map-arrow{
