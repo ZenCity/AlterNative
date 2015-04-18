@@ -15,9 +15,9 @@ _setAutoComp = function (key, className) {
     var options = {
         componentRestrictions: {country: 'il'},
         types: [],
-        bounds: bounds,
+        bounds: bounds
         //language: TAPi18n.getLanguage()
-        language: 'en'
+        //language: 'en'
     };
     var autoComplete = new google.maps.places.Autocomplete(input, options);
     autoComplete.setBounds(bounds);
@@ -27,7 +27,7 @@ _setAutoComp = function (key, className) {
             name: place.name,
             formatted_address: place.formatted_address,
             lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng()
+            lng: place.geometry.location.lng(),
         };
         Session.set(key, location);
     });

@@ -29,10 +29,13 @@ Template.results.helpers({
     },
     fromAddressPretty: function () {
         var address = Session.get("from-address-pretty");
-        return Session.get("from-address-pretty");
+        var prefix =  Session.get("from-address-pretty-prefix");
+        return (prefix? prefix+address : address);
     },
     toAddressPretty: function () {
-        return Session.get("to-address-pretty");
+        var address = Session.get("to-address-pretty");
+        var prefix =  Session.get("to-address-pretty-prefix");
+        return (prefix? prefix+address : address);
     }
 });
 

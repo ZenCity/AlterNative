@@ -22,7 +22,9 @@ _setCurrentLoaction = function  (domElement) {
     var lng = Session.get('current_location').lng;
     var latlng = new google.maps.LatLng(lat, lng);
     //console.log("set _setCurrentLoaction language: "+TAPi18n.getLanguage());
-    geocoder.geocode({'latLng': latlng, language: 'en'}, function(results, status) {
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+        //console.log("RESULTS:");
+        //console.log(results);
       var formatted_address = results[0].formatted_address
       Session.set('from', {
         formatted_address: formatted_address,
