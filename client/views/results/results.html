@@ -1,6 +1,6 @@
 <template name="results">
     <div class="container">
-      <div class="row  center-block top-items">
+      <div class="row  center-block top-items results-view">
         <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 from-to">{{From}} {{To}}</div>
             <div class="circle-buttons">
                 <div class="row center-block">
@@ -25,9 +25,9 @@
                         </button>
                     </div>
                 </div>
-                <hr>
+                <hr class="top-items">
             </div>
-            <div>
+            <div class="from-to-text">
                 <h4>{{_ 'from'}} {{fromAddressPretty}}</h4>
                 <h4>{{_ 'to'}} {{toAddressPretty}}</h4>
             </div>

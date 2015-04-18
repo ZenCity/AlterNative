@@ -203,8 +203,20 @@ div.container {
     vertical-align: middle;
 }
 
-.top-items {
-    margin-top: 30px;
+.search-view.top-items {
+    margin-top: 45px;
+}
+
+.results-view.top-items {
+    margin-top: 50px;
+}
+
+hr.top-items {
+    margin-top: 5px;
+}
+
+div.from-to-text {
+    margin-top: -25px;
 }
 
 h1, h2, h3, h4, h5, h6 {
