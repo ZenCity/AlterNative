@@ -6,6 +6,8 @@
     "go_btn": "go",
     "from_placeholder": "from",
     "to_placeholder": "to",
+    "from": "From",
+    "to": "To",
     "powered_by": "AlterNative is powered by",
     "minutes": "Minutes",
     "currency": "NIS",

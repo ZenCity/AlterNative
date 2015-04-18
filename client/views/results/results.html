@@ -5,33 +5,31 @@
             <div class="circle-buttons">
                 <div class="row center-block">
                     <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="ecology" class="circle circle-top btn btn-success btn-fab btn-raised active">
-                            <img id="ecology" src="images/ecology_sprite.png">
+                        <button id="ecology" class="circle circle-top btn btn-success btn-fab btn-raised active {{_ 'lang'}}">
+                            <img id="ecology" class="icon-sprite2" src="images/sprites/screen2/eco2.svg">
                         </button>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="calories" class="circle circle-top btn btn-success btn-fab btn-raised deactivate">
-                            <img id="calories" src="images/calories_sprite.png">
+                        <button id="calories" class="circle circle-top btn btn-success btn-fab btn-raised deactivate {{_ 'lang'}}">
+                            <img id="calories" class="icon-sprite2" src="images/sprites/screen2/fit2.svg">
                         </button>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="money" class="circle circle-top btn btn-success btn-fab btn-raised deactivate">
-                            <img id="money" src="images/money_sprite.png">
+                        <button id="money" class="circle circle-top btn btn-success btn-fab btn-raised deactivate {{_ 'lang'}}">
+                            <img id="money" class="icon-sprite2" src="images/sprites/screen2/cheap2.svg">
                         </button>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <button id="time" class="circle circle-top btn btn-success btn-fab btn-raised deactivate">
-                            <img id="time" src="images/time_sprite.png">
+                        <button id="time" class="circle circle-top btn btn-success btn-fab btn-raised deactivate {{_ 'lang'}}">
+                            <img id="time" class="icon-sprite2" src="images/sprites/screen2/fast2.svg">
                         </button>
                     </div>
                 </div>
                 <hr>
             </div>
             <div>
-                <br/>
-                <p>From address pretty: {{fromAddressPretty}}</p>
-                <p>To address pretty: {{toAddressPretty}}</p>
-                <br/>
+                <h4>{{_ 'from'}} {{fromAddressPretty}}</h4>
+                <h4>{{_ 'to'}} {{toAddressPretty}}</h4>
             </div>
             <div class="row center-block">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 {{_ 'lang'}}">
