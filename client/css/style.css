@@ -204,7 +204,7 @@ div.container {
 }
 
 .top-items {
-    margin-top: 55px;
+    margin-top: 30px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -248,10 +248,20 @@ label {
 }
 
 #reverse-btn {
-    transform: scale(0.5);
+    transform: scale(0.4);
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -90px;
+    padding: 10px;
+}
+
+.english#reverse-btn {
+    margin-left: -54px;
+}
+
+.hebrew#reverse-btn {
+    margin-right: -54px;
 }
 
 .form-control,
@@ -274,7 +284,6 @@ input.form-control {
 
 span.remove-text {
     position: absolute;
-    right: 15px;
     top: 0;
     bottom: 0;
     height: 14px;
@@ -282,6 +291,14 @@ span.remove-text {
     font-size: 14px;
     cursor: pointer;
     color: #ccc;
+}
+
+span.remove-text.english {
+    right: 15px;
+}
+
+span.remove-text.hebrew {
+    left: 15px;
 }
 
 .circle-buttons { 
