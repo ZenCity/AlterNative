@@ -54,7 +54,7 @@ var calcRoute = function () {
             searchId: Session.get('search-id'),
             searchCraitiria: Session.get('sort-by')
         }
-        UserNavigations.insert(navRecord);
+        Navigations.insert(navRecord);
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
         }
