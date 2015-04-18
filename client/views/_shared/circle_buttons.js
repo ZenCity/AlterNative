@@ -10,9 +10,7 @@ toggleResult = function(chosen){
 }
 
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
-    var circleId = $(jQueryEvent.target).attr('id');
-    toggleCircle(circleId);
-    toggleResult(Session.get('sort-by'));
+    setSorter( jQueryEvent );
     //Object {name: "Migdal St 7", formatted_address: "Migdal St 7, Tel Aviv-Yafo, Israel", lat: 32.0618181, lng: 34.763799800000015, language: "en"}
     var fromStr = Session.get('from');
     var fromStrFormattedList = fromStr.formatted_address.split(',');
@@ -21,6 +19,12 @@ circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     setPrettyAddressSession('from-address-pretty',fromStrFormattedList);
     setPrettyAddressSession('to-address-pretty',toStrFormattedList);
 };
+
+setSorter = function( jQueryEvent ) {
+    var circleId = $(jQueryEvent.target).attr('id');
+    toggleCircle(circleId);
+    toggleResult(Session.get('sort-by'));
+}
 
 setPrettyAddressSession = function(attrName, listAddress) {
     if (listAddress.length == 0) {

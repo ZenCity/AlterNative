@@ -63,9 +63,11 @@ Template.search.events({
             missingInput($('.to-location'));
         }
         else {
+            setSorter( jQueryEvent );
             var searchId = Searches.insert({
                 from: Session.get('from'),
-                to: Session.get('to')
+                to: Session.get('to'),
+                searchCraitiria: Session.get('sort-by')
             });
             Session.set('search-id', searchId);
             circleClickHandler( jQueryEvent, BlazeTemplateInstance );
