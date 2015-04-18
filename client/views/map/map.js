@@ -45,8 +45,8 @@ var calcRoute = function () {
         })
         var navRecord = {
             date: new Date,
-            destination: end,
-            origin: start,
+            to: Session.get('to'),
+            from: Session.get('from'),
             distance: distance,
             duration: duration,
             transType: Session.get('chosen').name,
@@ -54,7 +54,7 @@ var calcRoute = function () {
             searchId: Session.get('search-id'),
             searchCraitiria: Session.get('sort-by')
         }
-        UserNavigations.insert(navRecord);
+        Navigations.insert(navRecord);
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
         }
