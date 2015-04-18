@@ -12,9 +12,7 @@ toggleResult = function(chosen){
 }
 
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
-    var circleId = $(jQueryEvent.target).attr('id');
-    console.log('the ' + circleId + ' circle button was clicked');
-    toggleCircle(circleId);
+    setSorter( jQueryEvent );
     toggleResult(Session.get('sort-by'));
     if(!Session.get('from')){
         missingInput($('.from-location'));
@@ -32,11 +30,17 @@ circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     }
 };
 
+setSorter = function( jQueryEvent ) {
+    var circleId = $(jQueryEvent.target).attr('id');
+    toggleCircle(circleId);
+    toggleResult(Session.get('sort-by'));
+}
+
 setPrettyAddressSession = function(attrName, listAddress,lat,lng) {
     if (listAddress.length==0) {
         console.log("Error: address should not be empty");
     }
-    else if (listAddress.length==1) {
+    else if (listAddress.length == 1) {
         Session.set(attrName,listAddress[0]);
     }
     else { //listAddress.length >= 2
@@ -44,13 +48,13 @@ setPrettyAddressSession = function(attrName, listAddress,lat,lng) {
 
         //sometimes directions API returns only "city, State" - do reverse geocoding if that happens to get a full place
         if (trimStr(listAddress[1])=="Israel" || trimStr(listAddress[1])=="ישראל") {
-            console.log("extending address with geolocation");
+            //console.log("extending address with geolocation");
             var latlng = new google.maps.LatLng(lat, lng);
             Session.set(attrName,listAddress[0]);
             
             geocoder.geocode({'latLng': latlng, 'region':'IL'}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                    console.log("UPDATE REVERSE GEOCODE ADDRESS: "+results[0].formatted_address);
+                    //console.log("UPDATE REVERSE GEOCODE ADDRESS: "+results[0].formatted_address);
                     formattedAddressReverse = results[0].formatted_address.split(',')[0];
                     formattedAddressReverse = formattedAddressReverse+' ,';
                     //set a session variable as prefix to the results place display

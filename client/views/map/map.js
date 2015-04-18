@@ -50,7 +50,9 @@ var calcRoute = function () {
             distance: distance,
             duration: duration,
             transType: Session.get('chosen').name,
-            route: route
+            route: route,
+            searchId: Session.get('search-id'),
+            searchCraitiria: Session.get('sort-by')
         }
         UserNavigations.insert(navRecord);
         if (status == google.maps.DirectionsStatus.OK) {
