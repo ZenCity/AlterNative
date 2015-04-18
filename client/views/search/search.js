@@ -55,6 +55,16 @@ Template.search.events({
     'click .glyphicon-to': function (jQueryEvent, BlazeTemplateInstance) {
         clearToBox();
     },
-    'click .circle': circleClickHandler,
+    'click .circle': function(jQueryEvent, BlazeTemplateInstance) {
+        if(!Session.get('from')){
+            missingInput($('.from-location'));
+        }
+        else if(!Session.get('to')){
+            missingInput($('.to-location'));
+        }
+        else {
+            circleClickHandler( jQueryEvent, BlazeTemplateInstance );
+        }
+    },
     'click .lang' : changeLanguage
 });
