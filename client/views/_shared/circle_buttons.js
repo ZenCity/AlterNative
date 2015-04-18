@@ -11,7 +11,6 @@ toggleResult = function(chosen){
 
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     var circleId = $(jQueryEvent.target).attr('id');
-    console.log('the ' + circleId + ' circle button was clicked');
     toggleCircle(circleId);
     toggleResult(Session.get('sort-by'));
     //Object {name: "Migdal St 7", formatted_address: "Migdal St 7, Tel Aviv-Yafo, Israel", lat: 32.0618181, lng: 34.763799800000015, language: "en"}

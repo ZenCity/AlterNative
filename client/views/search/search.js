@@ -63,6 +63,11 @@ Template.search.events({
             missingInput($('.to-location'));
         }
         else {
+            var searchId = Searches.insert({
+                from: Session.get('from'),
+                to: Session.get('to')
+            });
+            Session.set('search-id', searchId);
             circleClickHandler( jQueryEvent, BlazeTemplateInstance );
         }
     },
