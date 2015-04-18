@@ -30,11 +30,13 @@ Template.results.helpers({
     fromAddressPretty: function () {
         var address = Session.get("from-address-pretty");
         var prefix =  Session.get("from-address-pretty-prefix");
+        Session.set("from-address-pretty-prefix","");
         return (prefix? prefix+address : address);
     },
     toAddressPretty: function () {
         var address = Session.get("to-address-pretty");
         var prefix =  Session.get("to-address-pretty-prefix");
+        Session.set("to-address-pretty-prefix","");
         return (prefix? prefix+address : address);
     }
 });
