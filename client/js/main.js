@@ -5,6 +5,7 @@ Template.main.events({
     'click .lang' : changeLanguage
 });
 
+//register event to close hamburger menu navbar on click outside of the navbar area
 $(document).click(function (event) {
     var clickover = $(event.target);
     var $navbar = $(".navbar-collapse");               

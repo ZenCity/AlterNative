@@ -12,10 +12,34 @@ circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     if(!Session.get('from')){
         missingInput($('.from-location'));
     }
-    if(!Session.get('to')){
+    else if(!Session.get('to')){
         missingInput($('.to-location'));
     }
+    else {
+
+    //console.log(Session.get('from'));
+    //console.log(Session.get('to'));
+    //Object {name: "Migdal St 7", formatted_address: "Migdal St 7, Tel Aviv-Yafo, Israel", lat: 32.0618181, lng: 34.763799800000015, language: "en"}
+    var fromStr = Session.get('from');
+    var fromStrFormattedList = fromStr.formatted_address.split(',');
+    var toStr = Session.get('to');
+    var toStrFormattedList = toStr.formatted_address.split(',');
+    setPrettyAddressSession('from-address-pretty',fromStrFormattedList);
+    setPrettyAddressSession('to-address-pretty',toStrFormattedList);
+    }
 };
+
+setPrettyAddressSession = function(attrName, listAddress) {
+    if (listAddress.length==0) {
+        console.log("BUG: address should not be empty");
+    }
+    else if (listAddress.length==1) {
+        Session.set(attrName,listAddress[0]);
+    }
+    else { //listAddress.length >= 2
+        Session.set(attrName,(listAddress[0]+', '+listAddress[1]));
+    }
+}
 
 missingInput = function(element){
     element.addClass('error');

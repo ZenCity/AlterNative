@@ -25,6 +25,16 @@ Template.results.helpers({
         catch(error){
             console.log(error);
         }
+    },
+    fromAddressPretty: function () {
+        var address = Session.get("from-address-pretty");
+        return Session.get("from-address-pretty");
+    },
+    toAddressPretty: function () {
+        return Session.get("to-address-pretty");
+    },
+    idoGetLang: function () { //TODO: Shai - remove this 
+        return TAPi18n.getLanguage();
     }
 });
 

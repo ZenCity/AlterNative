@@ -11,10 +11,13 @@ _setAutoComp = function (key, className) {
         new google.maps.LatLng(31.809595, 35.150125),
         new google.maps.LatLng(31.730933, 35.255353)
     );
+    //console.log("set autocomplete language: "+TAPi18n.getLanguage());
     var options = {
         componentRestrictions: {country: 'il'},
         types: [],
-        bounds: bounds
+        bounds: bounds,
+        //language: TAPi18n.getLanguage()
+        language: 'en'
     };
     var autoComplete = new google.maps.places.Autocomplete(input, options);
     autoComplete.setBounds(bounds);
