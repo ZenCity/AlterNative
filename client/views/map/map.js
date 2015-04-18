@@ -45,8 +45,8 @@ var calcRoute = function () {
         })
         var navRecord = {
             date: new Date,
-            destination: end,
-            origin: start,
+            to: Session.get('to'),
+            from: Session.get('from'),
             distance: distance,
             duration: duration,
             transType: Session.get('chosen').name,
