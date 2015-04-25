@@ -13,14 +13,16 @@
     "currency": "NIS",
     "pollutants": "g/CO2",
     "callories": "Calories",
+    "back_btn": "Back",
+    "go_btn": "Go!",
     "about": "About AlterNative",
     "clear": "Clear",
-    "back_btn": "Back",
     "reverse": "Reverse from/to",
     "calculations": "How do we calculate?",
     "walking": "Walking",
-    "personalbike": "Cycling",
-    "bus": "Bussing",
-    "taxi": "Cabbing",
-    "driving": "Driving"
+    "personalbike": "Bike",
+    "bus": "Bus",
+    "taxi": "Taxi",
+    "driving": "Car",
+    "tram": "Tram"
 }
