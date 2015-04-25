@@ -134,6 +134,11 @@ div.language.hebrew {
     background-color: #009492;
 }
 
+.navbar-header {
+    margin-top: 8px;
+    margin-right: 0px;
+}
+
 .navbar-brand {
     margin-left: auto;
     margin-right: auto;
@@ -260,20 +265,22 @@ label {
 }
 
 #reverse-btn {
-    transform: scale(0.4);
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: -90px;
-    padding: 10px;
+    margin-top: -66px;
+    padding: 2px;
+    font-size: 8pt;
+    width: 24px;
+    height: 24px;
 }
 
 .english#reverse-btn {
-    margin-left: -54px;
+    margin-left: -28px;
 }
 
 .hebrew#reverse-btn {
-    margin-right: -54px;
+    margin-right: -28px;
 }
 
 .form-control,
