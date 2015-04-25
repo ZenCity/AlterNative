@@ -6,7 +6,6 @@
     html {
         /* background: url('images/backgrounds/Tel_Aviv_Tayelet.jpg') no-repeat center center fixed; */
         /* background: url('images/backgrounds/Jerusalem_lightrail_Jaffa_st.jpg') no-repeat center center fixed; */
-        background: url('images/backgrounds/Jerusalem_cords_bridge.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -34,6 +33,33 @@
         background: rgba(255, 255, 255, 0);
 
     }
+
+.background-image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -2;
+
+    display: block;
+    background-image: url('images/backgrounds/Jerusalem_cords_bridge_640.jpg');
+    width: 360px;
+    height: 640px;
+}
+
+.background-image.blurred {
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+}
+
+.content {
+    background: rgba(255, 255, 255, 0);
+    z-index: -1;
+}
+
     .top-back-button {
         position: fixed;
         left: 40px;

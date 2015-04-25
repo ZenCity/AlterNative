@@ -4,7 +4,10 @@
     <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places,directions"></script>
 </head>
 <body>
-    {{> main }}
+    <div class="background-image"></div>
+    <div class="content">
+        {{> main }}
+    </div>
 </body>
 <template name="main">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -16,24 +19,24 @@
                     <!--<img class="muni-logo" src="images/jerusalem_white_logo.png"> -->
                 </a>
                 <div class="lang button language {{_ 'lang'}}">
-                  <button type="button" class="btn btn-language btn-primary btn-sm">{{_ 'switch_to_language'}}</button>
+                <button type="button" class="btn btn-language btn-primary btn-sm">{{_ 'switch_to_language'}}</button>
                 </div>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
                 </button>
                 <!-- <a class="navbar-brand" href="#">Brand</a> -->
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav {{_ 'lang'}}">
+    <ul class="nav navbar-nav {{_ 'lang'}}">
         <li class="active"><a href="/about">{{_ 'about'}}<span class="sr-only">(current)</span></a></li>
         <li class="active"><a href="/calculations">{{_ 'calculations'}}<span class="sr-only">(current)</span></a></li>
         <li class="active"><a href="http://zencity.io" target="_blank">Powered by ZenCity<span class="sr-only">(current)</span></a></li>
-      </ul>
+    </ul>
     </div><!-- /.navbar-collapse -->
     <!-- </div> -->
         </div>

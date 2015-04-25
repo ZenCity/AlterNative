@@ -1,4 +1,5 @@
 Template.results.rendered = function() {
+    $('.background-image').addClass('blurred');
     setDistanceMatric();
     toggleCircle(Session.get('sort-by'));
     toggleResult(Session.get('sort-by'));

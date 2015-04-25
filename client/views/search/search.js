@@ -26,6 +26,7 @@ function reverseForm()
 };
 
 Template.search.rendered = function () {
+    $('.background-image.blurred').removeClass('blurred');
     toggleCircle("ecology");
     setAutoComplete();
     setCurrentLoaction($('.from-location'));
