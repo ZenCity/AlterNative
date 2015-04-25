@@ -88,13 +88,13 @@ setDataPersonalBike = function (response, status) {
 	var element = response.rows[0].elements[0];
 	var price = 0;
 	distances[google.maps.TravelMode.BICYCLING] = {
-		duration: element.duration.value / 60 / 4,
+		duration: element.duration.value / 60 / 3,
 		distance: element.distance.value / 1000,
 		name: 'personalbike',
 		type: google.maps.TravelMode.WALKING,
 		price: price,
 		emmissions: 21 * element.distance.value / 1000, //21 g CO2 / KM
-		calories: 9.45 * element.duration.value / 60 / 4 //9.45 calories / KM
+		calories: 9.45 * element.duration.value / 60 / 3 //9.45 calories / KM
 	};
 	Session.set('distances', distances);
 };
