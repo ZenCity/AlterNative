@@ -247,10 +247,24 @@ hr.top-items {
 }
 
 div.from-to-text {
-    margin-top: -25px;
+    display: block;
+    margin-top: 5px;
+}
+
+div.from-to-text h5 {
+    align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
+    color: white;
+}
+
+a, span {
+    color: transparent;
+    text-decoration: none !important;
+}
+
+span.icon-bar {
     color: white;
 }
 
@@ -296,9 +310,11 @@ label {
     margin-right: auto;
     margin-top: -66px;
     padding: 2px;
-    font-size: 8pt;
+    font-size: 12pt;
     width: 24px;
     height: 24px;
+    background-color: transparent;
+    color: white;
 }
 
 .english#reverse-btn {
@@ -402,7 +418,7 @@ span.remove-text.hebrew {
 }
 
 .btn.btn-fab.circle-top {
-    margin: 10px;
+    /* margin: 10px; */
     padding: 2px;
     font-size: 26px;
     width: 62px;
@@ -453,13 +469,7 @@ span.remove-text.hebrew {
     overflow: hidden;
 }
 
-.circle1-hebrew {
-    width: 110px;
-    margin-top: -140px;
-    margin-left: -35px;
-}
-
-.circle1-english {
+.circle1 {
     width: 110px;
     margin-top: -30px;
     margin-left: -35px;
@@ -574,8 +584,8 @@ div.from-to {
 }
 
 .result-header {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .result {
@@ -593,16 +603,14 @@ ul.results-list {
     direction: ltr;
     align: left;
     padding: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 25px;
 }
 
 .results-list-hebrew {
     direction: rtl;
     align: right;
     padding: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 25px;
 }
 
 .result-text-english {
@@ -617,9 +625,24 @@ ul.results-list {
     align: right;
 }
 
+li {
+    list-style-type: square;
+    color: gray; /* or whatever color you prefer */
+}
+
+li.chosen {
+    list-style-type: square;
+    color: yellow; /* or whatever color you prefer */
+}
+
 .result-text.chosen {
     font-weight: bold;
     font-size: 12pt;
+}
+
+img.result-img {
+    height: 65px;
+    width: 65px;
 }
 
 .goto-map-arrow{

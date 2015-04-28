@@ -9,7 +9,9 @@ toggleCircle = function(chosen){
 toggleResult = function(chosen){
     $('.result-text').not('.' + chosen).removeClass('chosen');
     $('.result-text.' + chosen).addClass('chosen');
-}
+    $('li .result-text').not('.chosen').closest('li').removeClass('chosen');
+    $('li .result-text.' + chosen).closest('li').addClass('chosen');
+};
 
 circleClickHandler = function (jQueryEvent, BlazeTemplateInstance) {
     setSorter( jQueryEvent );

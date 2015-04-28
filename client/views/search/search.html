@@ -11,7 +11,6 @@ where user sets his route.
 
         <div class="row center-block top-items">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 {{_ 'lang'}}" align="center">
-                  
                     <input placeholder='{{_ "from_placeholder"}}' name="from-location" class="from-location form-control {{_ 'lang'}}" type="search">
                     <span class="remove-text glyphicon glyphicon-from glyphicon-remove-circle {{_ 'lang'}}"></span>
                 </div>
@@ -21,10 +20,9 @@ where user sets his route.
                     <span class="remove-text glyphicon glyphicon-to glyphicon-remove-circle {{_ 'lang'}}"></span>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 {{_ 'lang'}}">
-                    <button id="reverse-btn" class="btn btn-fab btn-raised reverse-btn glyphicon glyphicon-sort {{_ 'lang'}}"></button>
+                    <span id="reverse-btn" class="reverse-btn glyphicon glyphicon-sort {{_ 'lang'}}"></span>
                 </div>
                 </div>
-                <hr>
                   <h3 class="question {{_ 'lang'}}">{{_ "important_question"}}</h3>
                 <div class="circle-buttons row">
                   <br>
@@ -32,14 +30,14 @@ where user sets his route.
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
                           <a href="/results">
                             <button id="ecology" class="circle circle-main active btn btn-success btn-fab btn-raised">
-                                <img id="ecology" class="circle1-{{_ 'lang'}}" src="images/sprites/screen1/eco.svg">
+                                <img id="ecology" class="circle1" src="images/sprites/screen1/eco_{{_ 'lang'}}.svg">
                             </button>
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">
                           <a href="/results">
                             <button id="calories" class="circle circle-main btn btn-success btn-fab btn-raised">
-                                <img id="calories" class="circle1-{{_ 'lang'}}" src="images/sprites/screen1/fit.svg">
+                                <img id="calories" class="circle1" src="images/sprites/screen1/fit_{{_ 'lang'}}.svg">
                             </button>
                           </a>
                         </div>
@@ -48,14 +46,14 @@ where user sets his route.
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="right">
                           <a href="/results">
                             <button id="money" class="circle circle-main btn btn-success btn-fab btn-raised">
-                                <img id="money" class="circle1-{{_ 'lang'}}" src="images/sprites/screen1/cheap.svg">
+                                <img id="money" class="circle1" src="images/sprites/screen1/cheap_{{_ 'lang'}}.svg">
                             </button>
                           </a>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" align="left">
                           <a href="/results">
                             <button id="time" class="circle circle-main btn btn-success btn-fab btn-raised">
-                                <img id="time" class="circle1-{{_ 'lang'}}" src="images/sprites/screen1/fast.svg">
+                                <img id="time" class="circle1" src="images/sprites/screen1/fast_{{_ 'lang'}}.svg">
                             </button>
                           </a>
                         </div>

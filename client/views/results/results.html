@@ -25,7 +25,6 @@
                         </button>
                     </div>
                 </div>
-                <hr class="top-items">
             </div>
             <div class="from-to-text">
                 <h5>{{fromAddressPretty}} &rarr; {{toAddressPretty}}</h5>
@@ -42,24 +41,24 @@
                                     <!--<h2 class="result-text" align="center">{{name}}</h2>-->
                                     <ul class="results-list-{{_ 'lang'}}">
                                       <li>
-                                            <h5 class="time result-text result-text-{{_ 'lang'}}">{{duration}} {{_ "minutes"}}</h5>
+                                            <p class="time result-text result-text-{{_ 'lang'}}">{{duration}} {{_ "minutes"}}</p>
                                         </li>
                                         <li>
-                                            <h5 class="money result-text result-text-{{_ 'lang'}}">{{price}} {{_ "currency"}}</h5>
+                                            <p class="money result-text result-text-{{_ 'lang'}}">{{price}} {{_ "currency"}}</p>
                                         </li>
                                         <li>
-                                            <h5 class="ecology result-text result-text-{{_ 'lang'}}">{{emmissions}} {{_ "pollutants"}}</h5>
+                                            <p class="ecology result-text result-text-{{_ 'lang'}}">{{emmissions}} {{_ "pollutants"}}<sub>2</sub></p>
                                         </li>
 
                                         <li>
-                                            <h5 class="calories result-text result-text-{{_ 'lang'}}">{{calories}} {{_ "callories"}}</h5>
+                                            <p class="calories result-text result-text-{{_ 'lang'}}">{{calories}} {{_ "callories"}}</p>
                                         </li>
 
                                     </ul>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 {{_ 'lang'}}" align="center">
                                     <br>
-                                    <img src="/images/{{name}}.png" height="65px">
+                                    <img class="result-img" src="/images/transportation/{{name}}_{{_ 'lang'}}.svg">
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 {{_ 'lang'}}" align="center">
                                   <img class="goto-map-arrow" src="/images/arrow_{{_ 'lang'}}.png">
