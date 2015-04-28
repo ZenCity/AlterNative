@@ -11,7 +11,6 @@
         -o-background-size: cover;
         background-size: cover;
         box-sizing: content-box;
-        /*background: rgba(1, 133, 113, 0.5);*/
     }
 
     html { height: 100%; }
@@ -28,8 +27,6 @@
         -moz-transition: background 0.25s ease-in;
         -o-transition: background 0.25s ease-in;
         transition: background 0.25s ease-in;
-        /*padding-top: 70px;*/
-        /* background: rgba(166, 97, 26, 0.5); */
         background: rgba(255, 255, 255, 0);
 
     }
@@ -142,18 +139,6 @@ question.hebrew
     bottom: 0;
 }
 
-div.language.english {
-    /* left: 0; */
-    /* bottom: 0; */
-    /* margin-top: -10px; */
-}
-
-div.language.hebrew {
-    /* left: 0; */
-    /* bottom: 0; */
-    /* margin-top: -10px; */
-}
-
 .navbar-default {
     direction: rtl;
     text-align: center;
@@ -169,9 +154,6 @@ div.language.hebrew {
     margin-left: auto;
     margin-right: auto;
     float:none;
-    /*height: 50px;*/
-    /*margin: 10px;*/
-    /*padding: 15px 15px;*/
     font-size: 58px;
     line-height: 36px;
 }
@@ -256,15 +238,6 @@ div.from-to-text h5 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: white;
-}
-
-a, span {
-    color: transparent;
-    text-decoration: none !important;
-}
-
-span.icon-bar {
     color: white;
 }
 
@@ -363,25 +336,17 @@ span.remove-text.hebrew {
 }
 
 .circle-buttons { 
-     padding: 2.5px; 
-     margin: 2.5px;
+    padding: 2.5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 } 
 
 .circle {
-/*    display: inline-block;
-    background: #bbbbbb;
-    width: 50px;
-    height: 50px;*/
     margin: 20px 0px 10px 0px;
     align-content: center;
     vertical-align: middle;
     position: relative;
-    /*border-color: white; */
-    /*border-width: 10px; */
-    /*-webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    box-shadow: 3px 3px 0px 0px;*/
 } 
 
 .icon-sprite2 {
@@ -453,17 +418,6 @@ span.remove-text.hebrew {
 .btn-default:not(.btn-link):not(.btn-flat) {
     background-color: whitesmoke;
 }
-
-/* .circle img{ */
-/*     margin-left: -25px; */
-/*     margin-right: -25px; */
-/*     width: 35px; */
-/* } */
-
-/* .circle:active, .active { */
-/*     background: #F49719; /\*#89CCC7;*\/ */
-/*     box-shadow: -2px -2px 0px 0px; */
-/* } */
 
 .circle-main {
     overflow: hidden;
