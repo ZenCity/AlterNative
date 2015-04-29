@@ -338,12 +338,15 @@ span.remove-text.hebrew {
     left: 15px;
 }
 
-.circle-buttons { 
-    padding: 2.5px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-} 
+.circle-buttons-screen1 {
+     margin: 0 auto;
+     width: 232px;
+}
+
+.circle-buttons-screen2 {
+     margin: 0 auto;
+     width: 288px;
+}
 
 .circle {
     margin: 20px 0px 10px 0px;
@@ -352,9 +355,49 @@ span.remove-text.hebrew {
     position: relative;
 } 
 
+.circle-main {
+    background-size: 96px 96px;
+    background-position: center;
+    margin: auto;
+    /* margin: 10px 5px !important; */
+}
+
+.english#ecology.circle-main {
+    background-image: url('images/icons/screen2/eco2_english.svg');
+}
+
+.english#calories.circle-main {
+    background-image: url('images/icons/screen2/fit2_english.svg');
+}
+
+.english#money.circle-main {
+    background-image: url('images/icons/screen2/cheap2_english.svg');
+}
+
+.english#time.circle-main {
+    background-image: url('images/icons/screen2/fast2_english.svg');
+}
+
+.hebrew#ecology.circle-main {
+    background-image: url('images/icons/screen2/eco2_hebrew.svg');
+}
+
+.hebrew#calories.circle-main {
+    background-image: url('images/icons/screen2/fit2_hebrew.svg');
+}
+
+.hebrew#money.circle-main {
+    background-image: url('images/icons/screen2/cheap2_hebrew.svg');
+}
+
+.hebrew#time.circle-main {
+    background-image: url('images/icons/screen2/fast2_hebrew.svg');
+}
+
 .circle-top {
     background-size: 62px 62px;
     background-position: center;
+    margin: 10px 5px !important;
 }
 
 .english#ecology.circle-top {
@@ -459,8 +502,8 @@ span.remove-text.hebrew {
     margin: 10px;
     padding: 15px;
     font-size: 26px;
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
     background-color: whitesmoke;
 }
 
