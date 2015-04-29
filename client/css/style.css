@@ -192,6 +192,8 @@ img.logo {
     margin: 0px;
     padding-right: 0;
     padding-left: 0;
+    height: 50px;
+    margin-top: -10px;
 }
 
 .navbar-brand.logo-text {
