@@ -571,6 +571,11 @@ ul.results-list {
     padding-left: 10px;
 }
 
+div < ul.results-list-english,
+div < ul.results-list-hebrew {
+    padding: 0;
+}
+
 .results-list-english {
     direction: ltr;
     align: left;
@@ -669,7 +674,7 @@ img.muni-logo {
 
 .language {
     position: fixed;
-    top: 0;
+    top: -4px;
     left: 0;
     /* bottom: 0; */
     margin: auto;
