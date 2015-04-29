@@ -40,8 +40,7 @@
 
     display: block;
     background-image: url('images/backgrounds/Jerusalem_cords_bridge_640.jpg');
-    width: 360px;
-    height: 640px;
+    height: 100%;
 }
 
 .background-image.blurred {
