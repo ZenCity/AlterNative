@@ -319,10 +319,6 @@ input.form-control {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.from-location {
-    
-}
-
 span.remove-text {
     position: absolute;
     top: 0;
@@ -489,88 +485,12 @@ span.remove-text.hebrew {
     vertical-align: middle;
 }
 
-body.ecology {
-    background: rgba(1, 133, 113, 0.5);
-    opacity: 50;
-}
-
-body.calories {
-    background: rgba(128, 205, 193, 0.5);
-    opacity: 50;
-}
-
-body.money {
-    background: rgba(223, 194, 125, 0.5);
-    opacity: 50;
-}
-
-
-body.time  {
-    background: rgba(166, 97, 26, 0.5);
-    opacity: 50;
-}
-
-.transparent {
-    zoom: 1;
-    filter: alpha(opacity=50);
-    opacity: 0.5;
-}
 
 h1, h2, h3, h4, h5, h6, label, p {
     -webkit-transition: color 0.2s ease-in;
     -moz-transition: color 0.2s ease-in;
     -o-transition: color 0.2s ease-in;
     transition: color 0.2s ease-in;
-}
-
-.ecology h2,
-.ecology h3,
-.ecology h4,
-.ecology h5,
-.ecology h6,
-.ecology label,
-.ecology p {
-    color: whitesmoke;
-    background: rgba(255, 255, 255, 0);
-
-}
-
-.calories h2,
-.calories h3,
-.calories h4,
-.calories h5,
-.calories h6,
-.calories label,
-.calories p {
-    color: black;
-    background: rgba(255, 255, 255, 0);
-}
-
-.money h2,
-.money h3,
-.money h4,
-.money h5,
-.money h6,
-.money label,
-.money p {
-    color: black;
-    background: rgba(255, 255, 255, 0);
-}
-
-.time h2,
-.time h3,
-.time h4,
-.time h5,
-.time h6,
-.time label,
-.time p {
-    color: whitesmoke;
-    background: rgba(255, 255, 255, 0);
-}
-
-.circle-label {
-    margin-top: 55px;
-    margin-right: 5px;
 }
 
 .know-box div {
