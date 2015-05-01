@@ -239,6 +239,7 @@ hr.top-items {
 div.from-to-text {
     display: block;
     margin-top: 5px;
+    width: 334px;
 }
 
 div.from-to-text h5 {
@@ -555,6 +556,11 @@ div.from-to {
     font-size: 32px;
 }
 
+.results-centered {
+    width: 334px;
+    padding: 0px;
+}
+
 .result-header {
     padding-left: 25px;
     padding-right: 25px;
@@ -617,13 +623,21 @@ li.chosen {
     font-size: 12pt;
 }
 
-img.result-img {
-    height: 65px;
-    width: 65px;
+.result-icon {
+    padding: 0;
 }
 
-.goto-map-arrow{
-    margin-top:55px
+img.result-img {
+    width: 100%;
+}
+
+div < .goto-map-arrow {
+    height: 196px;
+    margin: auto;
+}
+
+.goto-map-arrow {
+    margin-top: 20px;
 }
 
 .go-btn {
@@ -632,6 +646,7 @@ img.result-img {
 }
 
 .about {
+    margin-top: 20px;
     align-items: center;
     padding: 5px;
     background: rgba(255, 255, 255, 0.75);

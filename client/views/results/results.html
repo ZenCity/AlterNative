@@ -1,6 +1,6 @@
 <template name="results">
     <div class="container">
-      <div class="row  center-block top-items results-view">
+      <div class="row center-block top-items results-view">
         <div class="circle-buttons-screen2">
             <button id="ecology" class="circle circle-top btn btn-success btn-fab btn-raised active {{_ 'lang'}}">
             </button>
@@ -17,15 +17,14 @@
         </div>
         <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 from-to">{{From}} {{To}}</div>
             <div class="row center-block">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 {{_ 'lang'}}">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 {{_ 'lang'}} results-centered">
                     {{#each routes}}
                     <a href="/map">
                         <div class="result {{type}}">
                         <div class="go-btn">
                             <div class="row">
                             <h3 class="result-header">{{_ name}}</h3>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 {{_ 'lang'}}">
-                                    <!--<h2 class="result-text" align="center">{{name}}</h2>-->
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 {{_ 'lang'}}">
                                     <ul class="results-list-{{_ 'lang'}}">
                                       <li>
                                             <p class="time result-text result-text-{{_ 'lang'}}">{{duration}} {{_ "minutes"}}</p>
@@ -34,20 +33,17 @@
                                             <p class="money result-text result-text-{{_ 'lang'}}">{{price}} {{_ "currency"}}</p>
                                         </li>
                                         <li>
-                                            <p class="ecology result-text result-text-{{_ 'lang'}}">{{emmissions}} {{_ "pollutants"}}<sub>2</sub></p>
-                                        </li>
-
-                                        <li>
                                             <p class="calories result-text result-text-{{_ 'lang'}}">{{calories}} {{_ "callories"}}</p>
                                         </li>
-
+                                        <li>
+                                            <p class="ecology result-text result-text-{{_ 'lang'}}">{{emmissions}} {{_ "pollutants"}}<sub>2</sub></p>
+                                        </li>
                                     </ul>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 {{_ 'lang'}}" align="center">
-                                    <br>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 {{_ 'lang'}} result-icon">
                                     <img class="result-img" src="/images/transportation/{{name}}_{{_ 'lang'}}.svg">
                                 </div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 {{_ 'lang'}}" align="center">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 {{_ 'lang'}}">
                                   <img class="goto-map-arrow" src="/images/icons/arrow_{{_ 'lang'}}.png">
                                 </div>
                             </div>
