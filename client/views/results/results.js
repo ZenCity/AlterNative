@@ -1,8 +1,11 @@
 Template.results.rendered = function() {
     $('.background-image').addClass('blurred');
     setDistanceMatric();
-    toggleCircle(Session.get('sort-by'));
-    toggleResult(Session.get('sort-by'));
+    Meteor.defer(function () {
+        toggleCircle(Session.get('sort-by'));
+        setTimeout(function () {
+            toggleResult(Session.get('sort-by'));}, 225);
+    });
 };
 
 Template.results.helpers({
