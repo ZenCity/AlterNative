@@ -93,7 +93,7 @@ setDataPersonalBike = function (response, status) {
 		name: 'personalbike',
 		type: google.maps.TravelMode.WALKING,
 		price: price,
-		emmissions: 21 * element.distance.value / 1000, //21 g CO2 / KM
+		emmissions: 5 * element.distance.value / 1000, //5 g CO2 / KM : The calculation from the report - cost of calories
 		calories: 9.45 * element.duration.value / 60 / 3 //9.45 calories / KM
 	};
 	Session.set('distances', distances);
