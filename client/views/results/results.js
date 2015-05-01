@@ -4,11 +4,7 @@ Template.results.rendered = function() {
     Meteor.defer(function () {
         toggleCircle(Session.get('sort-by'));
         setTimeout(function () {
-<<<<<<< HEAD
-            toggleResult(Session.get('sort-by'));}, 225);
-=======
             toggleResult(Session.get('sort-by'));}, 240);
->>>>>>> 7b61ca028cdd6fbbd24936ffd4a80dfb4a02ea96
     });
 };
 
