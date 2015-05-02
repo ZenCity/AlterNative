@@ -20,3 +20,4 @@ fezvrasta:bootstrap-material-design
 tap:i18n
 mike:mocha
 velocity:html-reporter
+mdg:geolocation

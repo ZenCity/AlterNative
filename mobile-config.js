@@ -4,7 +4,7 @@ App.info({
   author: 'The ZenCity Team',
   email: 'ido@ZenCity.io',
   website: 'http://zencity.io',
-  version: '1.0.0'
+  version: '1.0.2'
 });
 
 App.icons({
