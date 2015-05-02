@@ -1,10 +1,10 @@
 App.info({
   name: 'AlterNative',
-  description: 'A recipe sharing app made in Meteor.',
+  description: 'Alternative is an app for urban transportation decision making.',
   author: 'The ZenCity Team',
   email: 'ido@ZenCity.io',
   website: 'http://zencity.io',
-  version: '1.0. '
+  version: '1.0.0'
 });
 
 App.icons({
