@@ -38,9 +38,13 @@
     top: 0;
     z-index: -2;
 
-    display: block;
-    background-image: url('images/backgrounds/Jerusalem_cords_bridge_640.jpg');
     height: 100%;
+    width: 100%;
+    display: block;
+    background-image: url('images/backgrounds/Jerusalem_cords_bridge.jpg');
+    -moz-background-size:100% 100%;
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;
 }
 
 .background-image.blurred {
@@ -82,10 +86,25 @@
     direction: rtl;
 }
 
-container.english,
+div.container-top {
+    height: 100%;
+}
+
+div.container-main {
+    display: block !important;
+    width: 100%;
+}
+
+.container.english,
 div.english {
     direction: ltr;
     text-align: left;
+}
+
+.container.hebrew,
+div.hebrew {
+    direction: rtl;
+    align: right;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, small {
@@ -115,12 +134,6 @@ question.english
 .footer-scroll.english {
     left: 0;
     direction: ltr;
-}
-
-container.hebrew,
-div.hebrew {
-    direction: rtl;
-    align: right;
 }
 
 form.hebrew,
@@ -557,7 +570,7 @@ div.from-to {
 }
 
 .results-centered {
-    width: 334px;
+    width: 100%;
     padding: 0px;
 }
 
