@@ -4,8 +4,6 @@
 
 /*@media only screen and (min-device-width: 480px) {*/
     html {
-        /* background: url('images/backgrounds/Tel_Aviv_Tayelet.jpg') no-repeat center center fixed; */
-        /* background: url('images/backgrounds/Jerusalem_lightrail_Jaffa_st.jpg') no-repeat center center fixed; */
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -22,7 +20,6 @@
     body {
         height: 100%;
         font-family: 'Open Sans Hebrew Condensed', serif;
-        /* font-family: Alef, sans-serif; */
         -webkit-transition: background 0.25s ease-in;
         -moz-transition: background 0.25s ease-in;
         -o-transition: background 0.25s ease-in;
@@ -36,12 +33,12 @@
     left: 0;
     right: 0;
     top: 0;
-    z-index: -2;
+    z-index: -100;
 
     height: 100%;
     width: 100%;
     display: block;
-    background-image: url('images/backgrounds/Jerusalem_cords_bridge.jpg');
+    background-image: url('images/backgrounds/Tel_Aviv_Tayelet_1200.JPG');
     -moz-background-size:100% 100%;
     -webkit-background-size:100% 100%;
     background-size:100% 100%;
