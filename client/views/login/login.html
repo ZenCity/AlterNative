@@ -1,0 +1,21 @@
+<template name="login">
+<body>
+
+	<div class="container">
+		<div class="login">
+		<!-- TODO: remove this after styling!-->
+		<br/> <br/> <br/> <br/>
+			{{> loginButtons}}
+
+			 <!-- TODO: remove this!-->
+			{{#if currentUser}}
+				<h1>Welcome, {{currentUser.profile.name}}!</h1>
+				<button type="button" id="userDetails">Log user details to console!</button>
+			{{/if}}
+
+
+		</div>
+	</div>
+
+</body>
+</template>

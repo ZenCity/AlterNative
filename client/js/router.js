@@ -37,3 +37,7 @@ Router.route('/calculations', function () {
     this.render('calculations');
 });
 
+Router.route('/login', function () {
+    this.render('login');
+});
+
