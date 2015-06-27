@@ -6,7 +6,6 @@
 meteor-platform
 insecure
 mizzao:bootstrap-3
-ian:accounts-ui-bootstrap-3
 accounts-password
 mrt:modernizr-meteor
 fuatsengul:leaflet
@@ -21,3 +20,7 @@ tap:i18n
 mike:mocha
 velocity:html-reporter
 mdg:geolocation
+accounts-ui
+accounts-facebook
+accounts-base
+service-configuration
