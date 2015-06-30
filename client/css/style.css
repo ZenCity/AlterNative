@@ -39,6 +39,8 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position-y: 50px;
+    background-position-x: -232px;
 }
 
 .background-image.blurred {
@@ -260,6 +262,7 @@ h1, h2, h3, h4, h5, h6 {
 .question {
     width: 100%;
     text-align: center;
+    font-weight: 500;
 }
 
 div {
