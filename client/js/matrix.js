@@ -1,11 +1,4 @@
-setDistanceMatric = function () {
-    Session.set('distances', {});
-    setDistanceTransit(setDataTransit);
-    setDistanceCar(setDataDriving);
-    setDistanceWalking(setDataWalking);
-    setDistanceTaxi(setDataTaxi);
-    setDistancePersonalBike(setDataPersonalBike);
-};
+setDistanceMatric = cities[defaultCity]["setDistanceMatric"]
 
 setDistanceTransit = function (callback) {
     var origin = new google.maps.LatLng(

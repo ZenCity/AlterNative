@@ -1,5 +1,7 @@
 Session.setDefault('distances', {});
 
+currentCity = cities[defaultCity];
+
 setAutoComplete = function () {
     _setAutoComp("from", 'from-location');
     _setAutoComp("to", 'to-location');
@@ -8,8 +10,8 @@ setAutoComplete = function () {
 _setAutoComp = function (key, className) {
     var input = document.getElementsByClassName(className)[0];
     var bounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(31.809595, 35.150125),
-        new google.maps.LatLng(31.730933, 35.255353)
+        new google.maps.LatLng(window.currentCity['llcrnr'][0], window.currentCity['llcrnr'][1]),
+        new google.maps.LatLng(window.currentCity['urcrnr'][0], window.currentCity['urcrnr'][1])
     );
     //console.log("set autocomplete language: "+TAPi18n.getLanguage());
     var options = {
@@ -32,10 +34,9 @@ _setAutoComp = function (key, className) {
         Session.set(key, location);
     });
 
-    var jerusalem = new google.maps.LatLng(31.777824, 35.216536);
     var mapOptions = {
         zoom:12,
-        center: jerusalem
+        center: new google.maps.LatLng(window.currentCity['center'][0], window.currentCity['center'][1])
     };
     var map = new google.maps.Map(
         document.getElementById('map-canvas'),
