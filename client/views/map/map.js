@@ -1,3 +1,4 @@
+var TELOFUN = 'TELOFUN';
 
 var directionsDisplay;
 var initializeMap = function () {
@@ -20,7 +21,7 @@ var calcRoute = function () {
         destination: end,
         travelMode: Session.get('chosen').type
     };
-    if(Session.get('chosen').type == google.maps.TravelMode.BICYCLING){
+    if(Session.get('chosen').type == TELOFUN){
         request.travelMode = google.maps.TravelMode.WALKING;
         var telOfunStart = new google.maps.LatLng(Session.get('tel-o-fun-start').lat, Session.get('tel-o-fun-start').lng);
         var telOfunEnd = new google.maps.LatLng(Session.get('tel-o-fun-end').lat, Session.get('tel-o-fun-end').lng);

@@ -1,3 +1,5 @@
+var TELOFUN = 'TELOFUN';
+
 setDistanceMatric = cities[defaultCity]["setDistanceMatric"]
 
 setDistanceTransit = function (callback) {
@@ -75,8 +77,6 @@ setTelOfunRoute = function () {
     Session.set('tel-o-fun-start', telOfunStart);
     Session.set('tel-o-fun-end', telOfunEnd);
 
-    var deferredArray = [];
-    var deferred1 = new $.Deferred();
     setDistanceByType(
         google.maps.TravelMode.WALKING,
         function(response, status) {
@@ -86,7 +86,6 @@ setTelOfunRoute = function () {
         new google.maps.LatLng(start.lat, start.lng),
         new google.maps.LatLng(telOfunStart.lat, telOfunStart.lng)
     );
-    var deferred2 = new $.Deferred();
     setDistanceByType(
         google.maps.TravelMode.WALKING,
         function(response, status) {
@@ -95,7 +94,6 @@ setTelOfunRoute = function () {
         },new google.maps.LatLng(telOfunEnd.lat, telOfunEnd.lng),
         new google.maps.LatLng(end.lat, end.lng)
     );
-    var deferred3 = new $.Deferred();
     setDistanceByType(
         google.maps.TravelMode.WALKING,
         function(response, status) {
@@ -105,41 +103,38 @@ setTelOfunRoute = function () {
         new google.maps.LatLng(telOfunStart.lat, telOfunStart.lng),
         new google.maps.LatLng(telOfunEnd.lat, telOfunEnd.lng)
     );
-    deferredArray.push(deferred1);
-    deferredArray.push(deferred2);
-    deferredArray.push(deferred3);
-    $.when(deferred1, deferred2, deferred3).then(function() {
-        setDataCycling();
-    });
 };
 
 telOfunBikeCallback = function (response, status) {
-
     var distances = Session.get('distances');
     var time = response.rows[0].elements[0].duration.value;
-    var bike = Session.get('distances')[google.maps.TravelMode.BICYCLING] || {
-            name: 'bike',
+    var bike = Session.get('distances')[TELOFUN] || {
+            name: 'tel-o-fun',
             duration: 0,
-            type: google.maps.TravelMode.BICYCLING,
+            type: TELOFUN,
             price: 0.76,
-            emmissions: 0
+            emmissions: 0,
+            calories: 0
         };
     bike.duration += time / 60 / 4;
-    distances[google.maps.TravelMode.BICYCLING] = bike;
+    bike.calories += 7 * time;
+    distances[TELOFUN] = bike;
     Session.set('distances', distances);
-}
+};
 
 telOfunWalkCallback = function (response, status) {
     var distances = Session.get('distances');
     var time = response.rows[0].elements[0].duration.value;
-    var bike = distances[google.maps.TravelMode.BICYCLING] || {
+    var bike = distances[TELOFUN] || {
             duration: 0,
-            name: 'bike',
-            type: google.maps.TravelMode.BICYCLING,
+            name: 'tel-o-fun',
+            type: TELOFUN,
             price: 0.76,
-            emmissions: 0
+            emmissions: 0,
+            calories: 0
         };
     bike.duration += time / 60;
-    distances[google.maps.TravelMode.BICYCLING] = bike;
+    bike.calories += 12.5 * time;
+    distances[TELOFUN] = bike;
     Session.set('distances', distances);
-}
+};
