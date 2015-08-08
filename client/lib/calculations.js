@@ -1,6 +1,4 @@
-alternativeTaxiString = "taxi";
-
-//Gets distances matrix with different transportation types, extends each object 
+//Gets distances matrix with different transportation types, extends each object
 //with calories and CO2 emmissions data
 
 setDataDriving = function (response, status) {
@@ -31,11 +29,11 @@ setDataTaxi = function (response, status) {
     var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
 	var price = getTaxiPrice(element.distance.value,element.duration.value);
-	distances[alternativeTaxiString] = {
+	distances[Alternative.transportTypes.TAXI] = {
 		duration: element.duration.value / 60,
 		distance: element.distance.value / 1000,
-		name: alternativeTaxiString.toLocaleLowerCase(),
-		type: google.maps.TravelMode.DRIVING,
+		name: Alternative.transportTypes.TAXI.toLocaleLowerCase(),
+		type: Alternative.transportTypes.DRIVING,
 		price: price,
 		emmissions: 271 * element.distance.value / 1000, //271g CO2 per KM
 		calories: 0
@@ -71,11 +69,11 @@ setDataWalking = function (response, status) {
     var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
 	var price = 0;
-	distances[google.maps.TravelMode.WALKING] = {
+	distances[Alternative.transportTypes.WALKING] = {
 		duration: element.duration.value / 60,
 		distance: element.distance.value / 1000,
-		name: google.maps.TravelMode.WALKING.toLocaleLowerCase(),
-		type: google.maps.TravelMode.WALKING,
+		name: Alternative.transportTypes.WALKING.toLocaleLowerCase(),
+		type: Alternative.transportTypes.WALKING,
 		price: price,
 		emmissions: 0,
 		calories: walkingCalories(element.duration.value)
@@ -87,11 +85,11 @@ setDataPersonalBike = function (response, status) {
 	var distances = Session.get('distances');
 	var element = response.rows[0].elements[0];
 	var price = 0;
-	distances[google.maps.TravelMode.BICYCLING] = {
+	distances[Alternative.transportTypes.BICYCLING] = {
 		duration: element.duration.value / 60 / 3,
 		distance: element.distance.value / 1000,
 		name: 'personalbike',
-		type: google.maps.TravelMode.WALKING,
+		type: Alternative.transportTypes.WALKING,
 		price: price,
 		emmissions: 5 * element.distance.value / 1000, //5 g CO2 / KM : The calculation from the report - cost of calories
 		calories: 9.45 * element.duration.value / 60 / 3 //9.45 calories / KM
@@ -118,7 +116,6 @@ setDataTransit = function (response, status) {
     	return;
     }
 	var isTram = travelMods.indexOf('Tram') >= 0;
-    //var type = isTram ? 'TRAM' : google.maps.TravelMode.TRANSIT;
     var name = isTram ? 'tram' : 'bus';
     var transitSteps = steps
         .filter(function(step){
@@ -135,7 +132,7 @@ setDataTransit = function (response, status) {
 
     var walkingSteps = steps
         .filter(function(step){
-            return step.travel_mode == "WALKING";
+            return step.travel_mode == Alternative.transportTypes.WALKING;
         });
     var walkingDistanceS = walkingSteps
         .map(function(step){
@@ -145,21 +142,14 @@ setDataTransit = function (response, status) {
         .reduce(function(value1, value2){
             return value1 + value2;
         });
-    distances[google.maps.TravelMode.TRANSIT] = {
+    distances[Alternative.transportTypes.TRANSIT] = {
 		duration: leg.duration.value / 60,
 		distance: leg.distance.value / 1000,
 		name: name,
-		type: google.maps.TravelMode.TRANSIT,
+		type: Alternative.transportTypes.TRANSIT,
 		price: 6.90,
 		emmissions: 101 * transitDistance / 1000,
 		calories: walkingCalories(walkingDistance)
 	};
-	Session.set('distances', distances);
-};
-
-//Unused in Jerusalem Ver of Alternative
-setDataCycling = function (response, status) {
-	var distances = Session.get('distances');
-	distances[google.maps.TravelMode.BICYCLING].calories = 9.45 * distances[google.maps.TravelMode.BICYCLING].duration; //9.45 calories burnt / minute
 	Session.set('distances', distances);
 };
