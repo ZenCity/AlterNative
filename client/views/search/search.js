@@ -1,4 +1,4 @@
-Session.setDefault('sort-by', KnowGo.sortby.ECO);
+Session.setDefault('sort-by', Alternative.sortby.ECO);
 
 function clearFromBox() {
     $('input[type=search].from-location').val('');
