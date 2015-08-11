@@ -13,15 +13,27 @@ var initializeMap = function () {
 };
 
 var calcRoute = function () {
+    var directionsService = new google.maps.DirectionsService();
     var end = new google.maps.LatLng(Session.get('to').lat, Session.get('to').lng);
     var start = new google.maps.LatLng(Session.get('from').lat, Session.get('from').lng);
-    console.log("IDO: "+ end + "|||"+ start)
+
     var request = {
         origin: start,
         destination: end,
         travelMode: Session.get('chosen').type
     };
-    if(Session.get('chosen').type == TELOFUN){
+
+    if(Session.get('chosen').type == Alternative.transportTypes.TRAIN){
+        request.travelMode = google.maps.TravelMode.TRANSIT;
+        request.transitOptions = {
+            modes: [
+                google.maps.TransitMode.SUBWAY,
+                google.maps.TransitMode.TRAIN,
+                google.maps.TransitMode.RAIL
+            ]
+        };
+    }
+    if(Session.get('chosen').type == Alternative.transportTypes.TELOFUN){
         request.travelMode = google.maps.TravelMode.WALKING;
         var telOfunStart = new google.maps.LatLng(Session.get('tel-o-fun-start').lat, Session.get('tel-o-fun-start').lng);
         var telOfunEnd = new google.maps.LatLng(Session.get('tel-o-fun-end').lat, Session.get('tel-o-fun-end').lng);
@@ -43,7 +55,7 @@ var calcRoute = function () {
                 lat: step.start_point.lat(),
                 lng: step.start_point.lng()
             }
-        })
+        });
         var navRecord = {
             date: new Date,
             to: Session.get('to'),
@@ -54,7 +66,7 @@ var calcRoute = function () {
             route: route,
             searchId: Session.get('search-id'),
             searchCraitiria: Session.get('sort-by')
-        }
+        };
         Navigations.insert(navRecord);
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);

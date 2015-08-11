@@ -16,5 +16,6 @@ Alternative.transportTypes = {
     BICYCLING: "BICYCLING",
     DRIVING: "DRIVING",
     TELOFUN: "TELOFUN",
-    TAXI: "TAXI"
+    TAXI: "TAXI",
+    TRAIN: "TRAIN"
 };
