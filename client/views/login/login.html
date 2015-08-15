@@ -1,21 +1,22 @@
 <template name="login">
-<body>
-
-	<div class="container">
+	<div class="login-container">
 		<div class="login">
-		<!-- TODO: remove this after styling!-->
+		<!-- TODO: remove this after styling! move to the header-->
 		<br/> <br/> <br/> <br/>
-			{{> loginButtons}}
-
+			
 			 <!-- TODO: remove this!-->
 			{{#if currentUser}}
-				<h1>Welcome, {{currentUser.profile.name}}!</h1>
-				<button type="button" id="userDetails">Log user details to console!</button>
+				<h2>Welcome, {{currentUser.profile.name}}!</h2>
+				{{> loginButtons}}	<br/><br/>
+				<!-- <button type="button" id="userDetails">Log user details to console!</button>-->
+				<!--{{> search}}-->
+				{{displaySearch}}
+			{{else}}
+				<h2>Please log in to continue</h2>
+				{{> loginButtons}}
 			{{/if}}
 
 
 		</div>
 	</div>
-
-</body>
 </template>

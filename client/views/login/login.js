@@ -11,6 +11,13 @@ Template.login.events({
     console.log(Meteor.user());
   }
 });
+
+Template.login.helpers({
+  displaySearch: function () {
+    console.log("going to search");
+    Router.go('/search');
+  }
+});
 /*
 Template.login.events({
 

@@ -1,13 +1,12 @@
 setCurrentLoaction = function (domElement) {
 
-    if (Session.get('prevent-auto-locate')=='prevent') {
+    if ( Session.get('prevent-auto-locate') == 'prevent' ) {
         Session.set('prevent-auto-locate','');
         return;
     }
 
     window.navigator.geolocation.getCurrentPosition(
         function (position) {
-            console.log('got geolocation!');
             Session.set('current_location', {
                 //lat: 31.7881931,
                 //lng: 35.2063973

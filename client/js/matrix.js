@@ -13,9 +13,6 @@ setDistanceTransit = function (callback) {
     );
     directionsService = new google.maps.DirectionsService();
     var request = {
-        //transitOptions: {
-        //    arrivalTime: new Date(2015, 2, 9)
-        //},
         origin: origin,
         destination: destination,
         travelMode: google.maps.TravelMode.TRANSIT
@@ -81,24 +78,21 @@ setTelOfunRoute = function () {
         google.maps.TravelMode.WALKING,
         function(response, status) {
             telOfunWalkCallback(response, status);
-            deferred1.resolve();
         },
         new google.maps.LatLng(start.lat, start.lng),
         new google.maps.LatLng(telOfunStart.lat, telOfunStart.lng)
     );
     setDistanceByType(
-        google.maps.TravelMode.WALKING,
+        Alternative.transportTypes.WALKING,
         function(response, status) {
             telOfunWalkCallback(response, status);
-            deferred2.resolve();
         },new google.maps.LatLng(telOfunEnd.lat, telOfunEnd.lng),
         new google.maps.LatLng(end.lat, end.lng)
     );
     setDistanceByType(
-        google.maps.TravelMode.WALKING,
+        Alternative.transportTypes.WALKING,
         function(response, status) {
             telOfunBikeCallback(response, status);
-            deferred3.resolve();
         },
         new google.maps.LatLng(telOfunStart.lat, telOfunStart.lng),
         new google.maps.LatLng(telOfunEnd.lat, telOfunEnd.lng)
