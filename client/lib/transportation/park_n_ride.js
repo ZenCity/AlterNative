@@ -10,8 +10,8 @@ function createHanionimLatLngObjArray(parkingArray) {
     {
         if (parkingFeatures.hasOwnProperty(parkingFeature)) {
             console.log("hanyon's x,y" + " -> " + parkingFeatures[parkingFeature].geometry.x + "," + parkingFeatures[parkingFeature].geometry.y);
-            var stationLatLong = getLatLongFromXY(parkingFeatures[parkingFeature].geometry.x,parkingFeatures[parkingFeature].geometry.y);
-            hanionimArray.push(stationLatLong);
+            var parkingLatLong = getLatLongFromXY(parkingFeatures[parkingFeature].geometry.x,parkingFeatures[parkingFeature].geometry.y);
+            hanionimArray.push(new google.maps.LatLng(parkingLatLong[0],parkingLatLong[1]));
         }
         else {
             console.log("ERROR: station not found!");
