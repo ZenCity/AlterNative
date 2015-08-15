@@ -38,7 +38,7 @@ ParkNRide = function (origin, destination, directionsService, matrixService) {
 ParkNRide.prototype.calculateMatrix = function () {
     this.matrixService.getDistanceMatrix({
         origins: [this.origin],
-        destinations: [this.destination],
+        destinations: this.destination,
         travelMode: this.type,
         unitSystem: google.maps.UnitSystem.METRIC,
         durationInTraffic: false,
