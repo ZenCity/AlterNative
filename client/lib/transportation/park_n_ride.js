@@ -11,7 +11,7 @@ function createHanionimLatLngObjArray(parkingArray) {
         if (parkingFeatures.hasOwnProperty(parkingFeature)) {
             console.log("hanyon's x,y" + " -> " + parkingFeatures[parkingFeature].geometry.x + "," + parkingFeatures[parkingFeature].geometry.y);
             var parkingLatLong = getLatLongFromXY(parkingFeatures[parkingFeature].geometry.x,parkingFeatures[parkingFeature].geometry.y);
-            hanionimArray.push(new google.maps.LatLng(parkingLatLong[0],parkingLatLong[1]));
+            hanionimArray.push(new google.maps.LatLng(parkingLatLong[1],parkingLatLong[0]));
         }
         else {
             console.log("ERROR: station not found!");
@@ -51,6 +51,12 @@ setDataParkNRide = function (response, status) {
     if( status != 'OK'){
         return;
     }
+
+    console.log("GOT PARKNRIDE RESPONSE:");
+    console.log(response);
+
+    /*
+
     var distances = Session.get('distances');
     var element = response.rows[0].elements[0];
     var price = (2.738 * element.distance.value / 1000).toFixed(2);
@@ -65,6 +71,7 @@ setDataParkNRide = function (response, status) {
         calories: 0
     };
     Session.set('distances', distances);
+    */
 };
 
 
