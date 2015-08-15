@@ -7,6 +7,18 @@ Driving = function (origin, destination, directionsService, matrixService) {
     this.calculateMatrix();
 };
 
+Driving.prototype.calculateMatrix = function () {
+    this.matrixService.getDistanceMatrix({
+        origins: [this.origin],
+        destinations: [this.destination],
+        travelMode: this.type,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        durationInTraffic: false,
+        avoidHighways: false,
+        avoidTolls: false
+    }, setDataDriving);
+};
+
 setDataDriving = function (response, status) {
     if( status != 'OK'){
         return;
@@ -27,15 +39,5 @@ setDataDriving = function (response, status) {
     Session.set('distances', distances);
 };
 
-Driving.prototype.calculateMatrix = function () {
-    this.matrixService.getDistanceMatrix({
-        origins: [this.origin],
-        destinations: [this.destination],
-        travelMode: this.type,
-        unitSystem: google.maps.UnitSystem.METRIC,
-        durationInTraffic: false,
-        avoidHighways: false,
-        avoidTolls: false
-    }, setDataDriving);
-};
+
 

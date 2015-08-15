@@ -1,6 +1,6 @@
 var TELOFUN = 'TELOFUN';
 
-setDistanceMatric = cities[defaultCity]["setDistanceMatric"]
+setDistanceMatric = cities[defaultCity]["setDistanceMatric"];
 
 setDistanceTransit = function (callback) {
     var origin = new google.maps.LatLng(
