@@ -116,8 +116,8 @@ telOfunBikeCallback = function (response, status) {
             emmissions: 0,
             calories: 0
         };
-    bike.duration += time / 60 / 4;
-    bike.calories += 7 * time;
+    bike.duration += time / 60 / 3;
+    bike.calories += 9.45 * time / 60 / 3;
     distances[TELOFUN] = bike;
     Session.set('distances', distances);
 };
@@ -134,7 +134,7 @@ telOfunWalkCallback = function (response, status) {
             calories: 0
         };
     bike.duration += time / 60;
-    bike.calories += 12.5 * time;
+    bike.calories += walkingCalories(time);
     distances[TELOFUN] = bike;
     Session.set('distances', distances);
 };
