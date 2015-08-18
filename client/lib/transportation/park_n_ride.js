@@ -42,6 +42,12 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         ParkAndRideData[i].totalTime = selectedStation.calculatedTime + results[i].duration.value / 60;
     }
 
+    for (var i in ParkAndRideData) {
+        var selectedParking =  ParkAndRideData.reduce(function(parkA, parkB, index, array){
+            return  parkA.totalTime < parkB.totalTime ? parkA : parkB;
+        });
+
+    }
 
     /*
 
@@ -70,11 +76,11 @@ getStation = function( destination, parkNRideData ) {
         parkNRideData.stations[i].calculatedTime = station.properties.minutes/60 + walkingTime; //TODO FIX: the minutes in the park n ride data appear to be FAKE!
     }
     var stationsArray = parkNRideData.stations;
-    console.log(stationsArray);
+    //console.log(stationsArray);
     var bestStation = stationsArray.reduce(function(stationA, stationB, index, array){
        return  stationA.calculatedTime < stationB.calculatedTime ? stationA : stationB;
     });
-    console.log("got best station:");
-    console.log(bestStation);
+    //console.log("got best station:");
+    //console.log(bestStation);
     return bestStation;
 };
