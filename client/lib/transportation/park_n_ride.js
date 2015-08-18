@@ -18,6 +18,8 @@ function createHanionimLatLngObjArray(parkingArray) {
         }
     }
 
+    Session.set('hanionim',hanionimArray);
+
     return hanionimArray;
 
 }
@@ -27,8 +29,11 @@ ParkNRide = function (origin, destination, directionsService, matrixService) {
     
     var destinations = createHanionimLatLngObjArray(parking_hane_ve_sa);
 
+    Session.set('finalDestination',destination);
+
     this.type = google.maps.TravelMode.DRIVING;
     this.origin = origin;
+    this.finalDestination = destination; //remember final destination 
     this.destination = destinations;
     this.directionsService = directionsService;
     this.matrixService = matrixService;
@@ -52,9 +57,44 @@ setDataParkNRide = function (response, status) {
         return;
     }
 
-    console.log("GOT PARKNRIDE RESPONSE:");
-    console.log(response);
 
+    var hanionim = Session.get('hanionim');
+    var finalDestination = Session.get('finalDestination');
+
+    //console.log("GOT PARKNRIDE RESPONSE:");
+    //console.log(response);
+
+    var results = response.rows[0].elements;
+    //console.log("Results:");
+    //console.log(results);
+
+    for(var i in hanionim){
+        hanionim[i].drivingTime = results[i].duration.value/60;
+
+        /*
+
+        for(var j in results) {
+            if(hanionim[i].lat === results[j].lat && hanionim[i].lng === results[j].lng){
+                console.log("setting time at hanionim #"+i);
+                hanionim[i].drivingTime = results[j].duration.value;
+            }
+        }
+        */
+    }
+
+    
+    console.log("HANIONIM:");
+    console.log(hanionim);
+
+
+    for (var k in hanionim) {
+        var selectedStation = getStation(finalDestination,ParkAndRideData[k]);
+        hanionim[k].selectedStation = selectedStation;
+        hanionim[k].totalTime = selectedStation.calculatedTime + hanionim[k].drivingTime;
+    }
+
+    debugger;   
+    
     /*
 
     var distances = Session.get('distances');
@@ -75,15 +115,19 @@ setDataParkNRide = function (response, status) {
 };
 
 
-getStation = function( destination, driveAndRide ) {
-    for(var i in driveAndRide.stations) {
-        var station = driveAndRide.stations[i];
-        var walkingDistance = calcDistance(destination.lat, destination.lon, station.lat, station.lon);
+getStation = function( destination, parkNRideData ) {
+    for(var i in parkNRideData.stations) {
+        var station = parkNRideData.stations[i];
+        var walkingDistance = calcDistance(destination.K, destination.G, station.geometry.coordinates[0], station.geometry.coordinates[1]);
         var walkingTime = walkingDistance * 20;
-        driveAndRide.stations[i].calculatedTime = station.time + walkingTime;
+        parkNRideData.stations[i].calculatedTime = station.properties.minutes/60 + walkingTime; //TODO FIX: the minutes in the park n ride data appear to be FAKE!
     }
-    var bestStation = driveAndRide.driveAndRide.stations.reduce(function(stationA, stationB, index, array){
+    var stationsArray = parkNRideData.stations;
+    console.log(stationsArray);
+    var bestStation = stationsArray.reduce(function(stationA, stationB, index, array){
        return  stationA.calculatedTime < stationB.calculatedTime ? stationA : stationB;
     });
+    console.log("got best station:");
+    console.log(bestStation);
     return bestStation;
 };
