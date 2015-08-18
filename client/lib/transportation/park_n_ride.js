@@ -2,10 +2,9 @@ var parking_hane_ve_sa = {"displayFieldName":"name","fieldAliases":{"oid_hanion"
 
 ParkNRide = function (origin, destination, directionsService, matrixService) {
 
-    var destinations = createHanionimLatLngObjArray(parking_hane_ve_sa);
-    //var destinations = ParkAndRideData.map(function(parkAndRide){
-    //    return {lat: parkAndRide.lat, lng: parkAndRide.lng};
-    //});
+    var destinations = ParkAndRideData.map(function(parkAndRide){
+        return {lat: parkAndRide.lat, lng: parkAndRide.lon};
+    });
 
     Session.set('finalDestination', destination);
 
