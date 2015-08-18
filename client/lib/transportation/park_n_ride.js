@@ -49,23 +49,25 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
 
     }
 
-    /*
+    
+    console.log(selectedParking);
 
-     var distances = Session.get('distances');
-     var element = response.rows[0].elements[0];
-     var price = (2.738 * element.distance.value / 1000).toFixed(2);
+    var distances = Session.get('distances');
+     
 
-     distances[Alternative.transportTypes.DRIVING] = {
-     duration: element.duration.value / 60,
-     distance: element.distance.value / 1000,
-     name: Alternative.transportTypes.DRIVING.toLocaleLowerCase(),
-     type: Alternative.transportTypes.DRIVING,
-     price: price,
-     emmissions: 271 * element.distance.value / 1000, //271g CO2 per KM
-     calories: 0
-     };
-     Session.set('distances', distances);
-     */
+
+    distances[Alternative.transportTypes.PARKNRIDE] = {
+        duration: selectedParking.totalTime,
+        distance: 99999,
+        name: Alternative.transportTypes.PARKNRIDE.toLocaleLowerCase(),
+        type: Alternative.transportTypes.DRIVING,
+        price: 15,
+        emmissions: 77777, //271g CO2 per KM
+        calories: 88888
+    };
+    
+    Session.set('distances', distances);
+     
 };
 
 getStation = function( destination, parkNRideData ) {
