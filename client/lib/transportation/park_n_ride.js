@@ -1,12 +1,8 @@
-var parking_hane_ve_sa = {"displayFieldName":"name","fieldAliases":{"oid_hanion":"מזהה ממג","name":"שם חניון","ktovet":"כתובת","ms_mekomot":"מקומות חניה","ms_kavim":"מספר קווים","hours":"שעות פעילות","tadirut_high":"תדירות שיא","tadirut_low":"תדירות שפל","price_hanaya":"מחיר חניה","pice_hasaa":"מחיר הסעה"},"geometryType":"esriGeometryPoint","spatialReference":{"wkid":2039,"latestWkid":2039},"fields":[{"name":"oid_hanion","type":"esriFieldTypeOID","alias":"מזהה ממג"},{"name":"name","type":"esriFieldTypeString","alias":"שם חניון","length":255},{"name":"ktovet","type":"esriFieldTypeString","alias":"כתובת","length":255},{"name":"ms_mekomot","type":"esriFieldTypeInteger","alias":"מקומות חניה"},{"name":"ms_kavim","type":"esriFieldTypeInteger","alias":"מספר קווים"},{"name":"hours","type":"esriFieldTypeString","alias":"שעות פעילות","length":255},{"name":"tadirut_high","type":"esriFieldTypeString","alias":"תדירות שיא","length":255},{"name":"tadirut_low","type":"esriFieldTypeString","alias":"תדירות שפל","length":255},{"name":"price_hanaya","type":"esriFieldTypeInteger","alias":"מחיר חניה"},{"name":"pice_hasaa","type":"esriFieldTypeInteger","alias":"מחיר הסעה"}],"features":[{"attributes":{"oid_hanion":1,"name":"חוף תל ברוך","ktovet":"חוף תל ברוך","ms_mekomot":700,"ms_kavim":2,"hours":"6:00-22:00","tadirut_high":"כל 5-7 דקות","tadirut_low":"כל 15-20 דקות","price_hanaya":15,"pice_hasaa":null},"geometry":{"x":179831.21500000003,"y":669989.80200000003}},{"attributes":{"oid_hanion":2,"name":"אצטדיון המושבה","ktovet":"דרך אם המושבות 12, קרית אריה, פתח תקוה","ms_mekomot":1000,"ms_kavim":1,"hours":"6:00-22:00","tadirut_high":"כל 5-7 דקות","tadirut_low":"כל 15-20 דקות","price_hanaya":15,"pice_hasaa":null},"geometry":{"x":187468.69400000002,"y":668101.37699999998}},{"attributes":{"oid_hanion":3,"name":"חניון מצפה מודיעין","ktovet":"חניון מבוא מודיעין","ms_mekomot":550,"ms_kavim":2,"hours":null,"tadirut_high":"כל 10 דקות","tadirut_low":null,"price_hanaya":0,"pice_hasaa":null},"geometry":{"x":195911.30599999998,"y":651107.79000000004}},{"attributes":{"oid_hanion":4,"name":"פארק גני יהושע","ktovet":"ישראל רוקח 94","ms_mekomot":1000,"ms_kavim":2,"hours":"6:00-22:00","tadirut_high":"כל 5-7 דקות","tadirut_low":"כל 15-20 דקות","price_hanaya":15,"pice_hasaa":null},"geometry":{"x":182477.25,"y":668037.21299999999}}]};
-
 ParkNRide = function (origin, destination, directionsService, matrixService) {
 
     var destinations = ParkAndRideData.map(function(parkAndRide){
         return {lat: parkAndRide.lat, lng: parkAndRide.lon};
     });
-
-    Session.set('finalDestination', destination);
 
     this.type = google.maps.TravelMode.DRIVING;
     this.origin = origin;
@@ -16,29 +12,6 @@ ParkNRide = function (origin, destination, directionsService, matrixService) {
     this.matrixService = matrixService;
     this.calculateMatrix();
 };
-
-function createHanionimLatLngObjArray(parkingArray) {
-    //var origin1 = new google.maps.LatLng(55.930385, -3.118425);
-    var hanionimArray = [];
-
-    var parkingFeatures = parking_hane_ve_sa.features;
-
-    for (parkingFeature in parkingFeatures)
-    {
-        if (parkingFeatures.hasOwnProperty(parkingFeature)) {
-            console.log("hanyon's x,y" + " -> " + parkingFeatures[parkingFeature].geometry.x + "," + parkingFeatures[parkingFeature].geometry.y);
-            var parkingLatLong = getLatLongFromXY(parkingFeatures[parkingFeature].geometry.x,parkingFeatures[parkingFeature].geometry.y);
-            hanionimArray.push(new google.maps.LatLng(parkingLatLong[1],parkingLatLong[0]));
-        }
-        else {
-            console.log("ERROR: station not found!");
-        }
-    }
-
-    Session.set('hanionim',hanionimArray);
-
-    return hanionimArray;
-}
 
 ParkNRide.prototype.calculateMatrix = function () {
     var self = this;
@@ -57,48 +30,18 @@ ParkNRide.prototype.calculateMatrix = function () {
 
 
 ParkNRide.prototype.setDataParkNRide = function (response, status) {
-    debugger;
+
     if( status != 'OK'){
         return;
     }
 
-
-    var hanionim = Session.get('hanionim');
-    var finalDestination = Session.get('finalDestination');
-
-    //console.log("GOT PARKNRIDE RESPONSE:");
-    //console.log(response);
-
     var results = response.rows[0].elements;
-    //console.log("Results:");
-    //console.log(results);
-
-    for(var i in hanionim){
-        hanionim[i].drivingTime = results[i].duration.value/60;
-
-        /*
-
-         for(var j in results) {
-         if(hanionim[i].lat === results[j].lat && hanionim[i].lng === results[j].lng){
-         console.log("setting time at hanionim #"+i);
-         hanionim[i].drivingTime = results[j].duration.value;
-         }
-         }
-         */
+    for (var i in ParkAndRideData) {
+        var selectedStation = getStation(this.finalDestination, ParkAndRideData[i]);
+        ParkAndRideData[i].selectedStation = selectedStation;
+        ParkAndRideData[i].totalTime = selectedStation.calculatedTime + results[i].duration.value / 60;
     }
 
-
-    console.log("HANIONIM:");
-    console.log(hanionim);
-
-
-    for (var k in hanionim) {
-        var selectedStation = getStation(finalDestination,ParkAndRideData[k]);
-        hanionim[k].selectedStation = selectedStation;
-        hanionim[k].totalTime = selectedStation.calculatedTime + hanionim[k].drivingTime;
-    }
-
-    debugger;
 
     /*
 
