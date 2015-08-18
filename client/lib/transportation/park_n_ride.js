@@ -65,7 +65,8 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         emmissions: 77777, //271g CO2 per KM
         calories: 88888
     };
-    
+
+    Session.set('chosen',Alternative.transportTypes.PARKNRIDE);
     Session.set('distances', distances);
      
 };
