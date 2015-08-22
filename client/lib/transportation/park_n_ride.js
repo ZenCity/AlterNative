@@ -36,9 +36,12 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
     }
 
     var results = response.rows[0].elements;
+    //console.log("results:");
+    //console.log(results);
     for (var i in ParkAndRideData) {
         var selectedStation = getStation(this.finalDestination, ParkAndRideData[i]);
         ParkAndRideData[i].selectedStation = selectedStation;
+        ParkAndRideData[i].distanceFromOrigin = results[i].duration.value;
         ParkAndRideData[i].totalTime = selectedStation.calculatedTime + results[i].duration.value / 60;
     }
 
@@ -52,6 +55,8 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
     
     console.log(selectedParking);
 
+    var emissions = calculateParkNRideEmissions(selectedParking);
+
     var distances = Session.get('distances');
      
 
@@ -62,7 +67,7 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         name: Alternative.transportTypes.PARKNRIDE.toLocaleLowerCase(),
         type: Alternative.transportTypes.DRIVING,
         price: 15,
-        emmissions: 77777, //271g CO2 per KM
+        emmissions: emissions, //271g CO2 per KM
         calories: 88888,
         park: selectedParking
     };
@@ -72,10 +77,17 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
      
 };
 
+calculateParkNRideEmissions = function(selectedParking) {
+    //Emissions calculated are the aggregate btwn origin + parking station (car) & parking -> stop (bus)
+    selectedParking.shuttleDistance = calcDistance(selectedParking.lat,selectedParking.lon,selectedParking.selectedStation.geometry.coordinates[1],selectedParking.selectedStation.geometry.coordinates[0]);
+    return ((selectedParking.distanceFromOrigin / 1000 * 271) + (selectedParking.shuttleDistance  * 101));
+}
+
 getStation = function( destination, parkNRideData ) {
     for(var i in parkNRideData.stations) {
         var station = parkNRideData.stations[i];
         var walkingDistance = calcDistance(destination.K, destination.G, station.geometry.coordinates[0], station.geometry.coordinates[1]);
+        parkNRideData.stations[i].walkingDistance = walkingDistance;
         var walkingTime = walkingDistance * 20;
         parkNRideData.stations[i].calculatedTime = station.properties.minutes/60 + walkingTime; //TODO FIX: the minutes in the park n ride data appear to be FAKE!
     }
