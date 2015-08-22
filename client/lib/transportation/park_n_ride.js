@@ -53,9 +53,11 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
     }
 
     
-    console.log(selectedParking);
-
+    //console.log(selectedParking);
+    
     var emissions = calculateParkNRideEmissions(selectedParking);
+    var calories = calculateParkNRideCalories(selectedParking,this.finalDestination);
+
 
     var distances = Session.get('distances');
      
@@ -67,8 +69,8 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         name: Alternative.transportTypes.PARKNRIDE.toLocaleLowerCase(),
         type: Alternative.transportTypes.DRIVING,
         price: 15,
-        emmissions: emissions, //271g CO2 per KM
-        calories: 88888,
+        emmissions: emissions, 
+        calories: calories,
         park: selectedParking
     };
 
@@ -79,8 +81,14 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
 
 calculateParkNRideEmissions = function(selectedParking) {
     //Emissions calculated are the aggregate btwn origin + parking station (car) & parking -> stop (bus)
-    selectedParking.shuttleDistance = calcDistance(selectedParking.lat,selectedParking.lon,selectedParking.selectedStation.geometry.coordinates[1],selectedParking.selectedStation.geometry.coordinates[0]);
+    selectedParking.shuttleDistance = calcDistance(selectedParking.lon,selectedParking.lat,selectedParking.selectedStation.geometry.coordinates[0],selectedParking.selectedStation.geometry.coordinates[1]);
     return ((selectedParking.distanceFromOrigin / 1000 * 271) + (selectedParking.shuttleDistance  * 101));
+}
+
+calculateParkNRideCalories = function(selectedParking, finalDestination) {
+    var distance = calcDistance(finalDestination.K, finalDestination.G,selectedParking.selectedStation.geometry.coordinates[0],selectedParking.selectedStation.geometry.coordinates[1])
+    //distance (in km) / 6 = distance walked in hours (since a person walks 6km/hr) * 60 (mins) * 4.4 (calories/mins) * 1.3 (add a growth factor for non-linear distance)
+    return (distance / 6 * 60 * 4.4 * 1.3);
 }
 
 getStation = function( destination, parkNRideData ) {
