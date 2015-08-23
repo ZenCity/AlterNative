@@ -1,5 +1,5 @@
 Router.route('/', function(){
-    Router.go('/login');
+    Router.go('/search');
 });
 
 Router.route('/map', function () {
