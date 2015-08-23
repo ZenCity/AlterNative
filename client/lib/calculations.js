@@ -132,3 +132,7 @@ setDataTransit = function (response, status) {
 	};
 	Session.set('distances', distances);
 };
+
+walkingCalories = function(duration){
+    return duration * 4.4 / 60; //4.4 calories burnt / minute
+}
