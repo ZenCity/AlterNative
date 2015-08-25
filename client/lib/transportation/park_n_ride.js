@@ -10,7 +10,14 @@ ParkNRide = function (origin, destination, directionsService, matrixService) {
     this.destinations = destinations;
     this.directionsService = directionsService;
     this.matrixService = matrixService;
-    this.calculateMatrix();
+    
+    if (this.destinationIsParkNRide(destination)) {
+        console.log("going to park n'w ride lot!!!");
+    }
+    else {
+        console.log("user just wants to have some fun :)");
+        this.calculateMatrix();
+    }
 };
 
 ParkNRide.prototype.calculateMatrix = function () {
@@ -28,6 +35,21 @@ ParkNRide.prototype.calculateMatrix = function () {
     });
 };
 
+/* Calculate if destination is "very close" (<250m) from a ParkNRide parking lot */
+
+ParkNRide.prototype.destinationIsParkNRide = function(destination) {
+    console.log("DATA:");
+    console.log(ParkAndRideData);
+    for (var i in ParkAndRideData) {
+        var distance = calcDistance(destination.G, destination.K,ParkAndRideData[i].lat,ParkAndRideData[i].lon);
+        console.log("distance to: "+ParkAndRideData[i].name+" is:"+distance);
+        if (distance < 0.55) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 ParkNRide.prototype.setDataParkNRide = function (response, status) {
 
@@ -44,7 +66,7 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         ParkAndRideData[i].distanceFromOrigin = results[i].duration.value;
         ParkAndRideData[i].durationFromOrigin = results[i].duration.value / 60;
         ParkAndRideData[i].totalTime = selectedStation.calculatedTime + ParkAndRideData[i].durationFromOrigin;
-        console.log("total time for parking i="+i+" is: "+ParkAndRideData[i].totalTime);
+        //console.log("total time for parking i="+i+" is: "+ParkAndRideData[i].totalTime);
     }
 
     var selectedParking;
@@ -56,9 +78,7 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
 
     }
 
-    console.log("time to parking: "+selectedParking.durationFromOrigin + " minutes");
-    console.log("shai's calculated time (to stop + walking to dest): "+selectedParking.selectedStation.calculatedTime);
-
+    addWaitTime(selectedParking);
     
     console.log(selectedParking);
     
@@ -115,6 +135,37 @@ getStation = function( destination, parkNRideData ) {
     //console.log(bestStation);
     return bestStation;
 };
+
+addWaitTime = function(selectedParking) {
+    if (!selectedParking.totalTime) {
+        console.log("Selected Parking Space has no total time!");
+        return;
+    }
+    var now = new Date();
+
+    //calculate now time + added time to get to the destination
+    var minutesAtPark = now.getMinutes()+ selectedParking.durationFromOrigin;
+    var hoursAtPark = now.getHours();
+    if (minutesAtPark>60) {
+        
+        //add an amount of hours equal to the new minutes 
+        var addedHours = Math.floor(minutesAtPark/60);
+        hoursAtPark+= addedHours;
+        minutesAtPark -= addedHours*60;
+    }
+    
+    var shuttleWaitTime = 0;
+
+    if ((hoursAtPark > 9 && minutesAtPark >= 30) && (hoursAtPark <= 15 && minutesAtPark < 30)) {
+        //non peak time
+        selectedParking.totalTime += 7.5;
+    }
+    else {
+        selectedParking.totalTime += 2.5;
+    }
+    
+
+}
 
 //interal stuff - code written to help us retrieve shuttle maslulim's real timings
 //TODO: remove this
