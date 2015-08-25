@@ -1,5 +1,5 @@
 ParkNRide = function (origin, destination, directionsService, matrixService) {
-
+    getShuttleDistances (ParkAndRideData, directionsService, matrixService);
     var destinations = ParkAndRideData.map(function(parkAndRide){
         return {lat: parkAndRide.lat, lng: parkAndRide.lon};
     });
@@ -115,3 +115,64 @@ getStation = function( destination, parkNRideData ) {
     //console.log(bestStation);
     return bestStation;
 };
+
+getShuttleDistances = function (parkNRideData, directionsService, matrixService) {
+    for (var i in parkNRideData) {
+        i++;
+        console.log (i);
+        var j=0;
+        for (j=0; j<parkNRideData[i].stations.length; j++){
+            if (j==0){
+                parkNRideData[i].stations[0].newMinutes=0;
+                console.log( parkNRideData[i].stations[0]);
+                continue;
+            }
+            // else if (parkNRideData[i].stations[j].newMinutes!=undefined)
+            //     continue;
+            else{
+            directionsService.route({
+                        origin: new google.maps.LatLng(parkNRideData[i].stations[j-1].geometry.coordinates[1], parkNRideData[i].stations[j-1].geometry.coordinates[0]),
+                        destination: new google.maps.LatLng(parkNRideData[i].stations[j].geometry.coordinates[1], parkNRideData[i].stations[j].geometry.coordinates[0]),
+                        travelMode: google.maps.TravelMode.DRIVING,
+                        unitSystem: google.maps.UnitSystem.METRIC,
+                        durationInTraffic: false,
+                        avoidHighways: false,
+                        avoidTolls: false
+                        }, 
+                        function (response, status) {
+                            if (status === google.maps.DirectionsStatus.OK) {
+                                console.log(response);
+                              //directionsDisplay.setDirections(response);
+                              var time = response.routes[0].legs[0].duration.value/60;
+                              var station = findStationByTo(ParkAndRideData[0].stations, response.request.destination);
+                              console.log("newMinutes: "+time);
+                              console.log("mikum: "+station.properties.mikum);
+                              console.log("oid_shuttle: "+station.properties.oid_shuttl);
+                              console.log("Ms_tahana: "+station.properties.ms_tahana);
+                              console.log("Ms_kav: "+station.properties.ms_kav);
+
+                              
+
+                            } else {
+                              window.alert('Directions request failed due to ' + status);
+                            }
+                          }
+                        );
+                }
+            }
+        break;
+
+    }
+    
+    //console.log(parkNRideData);
+}
+
+findStationByTo = function (parkNRideDataStations, To){
+    // console.log(To);
+    // console.log(parkNRideDataStations);
+    for (var i in parkNRideDataStations)
+        if (To.G.toFixed(5) == parkNRideDataStations[i].geometry.coordinates[1].toFixed(5) && To.K.toFixed(5) == parkNRideDataStations[i].geometry.coordinates[0].toFixed(5))
+            return parkNRideDataStations[i];
+
+    console.log("got no station biatch");
+}
