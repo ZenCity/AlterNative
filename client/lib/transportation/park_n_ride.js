@@ -1,5 +1,5 @@
 ParkNRide = function (origin, destination, directionsService, matrixService) {
-    getShuttleDistances (ParkAndRideData, directionsService, matrixService);
+    //getShuttleDistances (ParkAndRideData, directionsService, matrixService);
     var destinations = ParkAndRideData.map(function(parkAndRide){
         return {lat: parkAndRide.lat, lng: parkAndRide.lon};
     });
@@ -115,6 +115,9 @@ getStation = function( destination, parkNRideData ) {
     //console.log(bestStation);
     return bestStation;
 };
+
+//interal stuff - code written to help us retrieve shuttle maslulim's real timings
+//TODO: remove this
 
 getShuttleDistances = function (parkNRideData, directionsService, matrixService) {
     for (var i in parkNRideData) {
