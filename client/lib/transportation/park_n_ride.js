@@ -36,24 +36,31 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
     }
 
     var results = response.rows[0].elements;
-    //console.log("results:");
-    //console.log(results);
+    console.log("results:");
+    console.log(results);
     for (var i in ParkAndRideData) {
         var selectedStation = getStation(this.finalDestination, ParkAndRideData[i]);
         ParkAndRideData[i].selectedStation = selectedStation;
         ParkAndRideData[i].distanceFromOrigin = results[i].duration.value;
-        ParkAndRideData[i].totalTime = selectedStation.calculatedTime + results[i].duration.value / 60;
+        ParkAndRideData[i].durationFromOrigin = results[i].duration.value / 60;
+        ParkAndRideData[i].totalTime = selectedStation.calculatedTime + ParkAndRideData[i].durationFromOrigin;
+        console.log("total time for parking i="+i+" is: "+ParkAndRideData[i].totalTime);
     }
 
+    var selectedParking;
+
     for (var i in ParkAndRideData) {
-        var selectedParking =  ParkAndRideData.reduce(function(parkA, parkB, index, array){
+        selectedParking =  ParkAndRideData.reduce(function(parkA, parkB, index, array){
             return  parkA.totalTime < parkB.totalTime ? parkA : parkB;
         });
 
     }
 
+    console.log("time to parking: "+selectedParking.durationFromOrigin + " minutes");
+    console.log("shai's calculated time (to stop + walking to dest): "+selectedParking.selectedStation.calculatedTime);
+
     
-    //console.log(selectedParking);
+    console.log(selectedParking);
     
     var emissions = calculateParkNRideEmissions(selectedParking);
     var calories = calculateParkNRideCalories(selectedParking,this.finalDestination);
