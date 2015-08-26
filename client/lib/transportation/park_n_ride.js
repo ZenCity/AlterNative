@@ -92,10 +92,13 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         ParkAndRideData[i].selectedStation = selectedStation;
         ParkAndRideData[i].distanceFromOrigin = results[i].duration.value;
         ParkAndRideData[i].durationFromOrigin = results[i].duration.value / 60;
+        console.log("time calculations for "+ParkAndRideData[i].name);
+        console.log("calculated time is: "+selectedStation.calculatedTime);
+        console.log("duration from origin is: "+ParkAndRideData[i].durationFromOrigin);
         ParkAndRideData[i].totalTime = selectedStation.calculatedTime + ParkAndRideData[i].durationFromOrigin;
         //console.log("total time for parking i="+i+" is: "+ParkAndRideData[i].totalTime);
+         console.log("total time is: "+ParkAndRideData[i].totalTime);
     }
-
     var selectedParking;
 
     for (var i in ParkAndRideData) {
@@ -150,8 +153,20 @@ getStation = function( destination, parkNRideData ) {
         var station = parkNRideData.stations[i];
         var walkingDistance = calcDistance(destination.K, destination.G, station.geometry.coordinates[0], station.geometry.coordinates[1]);
         parkNRideData.stations[i].walkingDistance = walkingDistance;
-        var walkingTime = walkingDistance * 20;
-        parkNRideData.stations[i].calculatedTime = station.properties.minutes/60 + walkingTime; //TODO FIX: the minutes in the park n ride data appear to be FAKE!
+        var walkingTime = walkingDistance * 10;
+        var sumTime = 0;
+        for (var j = 0; j<=i; j++){
+            if (parkNRideData.stations[j].properties.ms_kav==parkNRideData.stations[i].properties.ms_kav){
+                sumTime+=parkNRideData.stations[j].properties.newMinutes;
+                //console.log(parkNRideData.stations[j].properties.newMinutes);
+            }
+        }
+        //console.log(sumTime);
+
+        parkNRideData.stations[i].calculatedTime = sumTime+walkingTime;
+
+
+        //station.properties.minutes/60 + walkingTime; //TODO FIX: the minutes in the park n ride data appear to be FAKE!
     }
     var stationsArray = parkNRideData.stations;
     //console.log(stationsArray);
