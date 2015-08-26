@@ -1,20 +1,35 @@
 ParkNRide = function (origin, destination, directionsService, matrixService) {
-    getShuttleDistances (ParkAndRideData, directionsService, matrixService);
-    var destinations = ParkAndRideData.map(function(parkAndRide){
-        return {lat: parkAndRide.lat, lng: parkAndRide.lon};
+    //getShuttleDistances (ParkAndRideData, directionsService, matrixService);
+    this.shuttleDestinations = ParkAndRideData.map(function(parkAndRide){
+        return {lat: parkAndRide.lat, lng: parkAndRide.lon, type: parkAndRide.type};
     });
+
+    this.busDestinations = FreeParkingLotsWithBus.map(function(busParking){
+        return {lat: busParking.lat, lng: busParking.lon, type:busParking.type};
+    });
+    
+    var destinations =  this.shuttleDestinations.concat(this.busDestinations);  
 
     this.type = google.maps.TravelMode.DRIVING;
     this.origin = origin;
-    this.finalDestination = destination; //remember final destination
+    this.finalDestination = destination; 
     this.destinations = destinations;
     this.directionsService = directionsService;
     this.matrixService = matrixService;
-    this.calculateMatrix();
+    
+    if (this.destinationIsParkNRide(destination)) {
+        console.log("going to park n'w ride lot!!!");
+    }
+    else {
+        //console.log("user will be routed to a bus/shuttle Park N' Ride parking lot");
+        this.calculateMatrixes();
+    }
 };
 
-ParkNRide.prototype.calculateMatrix = function () {
+ParkNRide.prototype.calculateMatrixes = function () {
     var self = this;
+
+    //calcaulate teims between origin to all parking lots (with / without shuttles)
     this.matrixService.getDistanceMatrix({
         origins: [this.origin],
         destinations: this.destinations,
@@ -26,7 +41,41 @@ ParkNRide.prototype.calculateMatrix = function () {
     }, function(response, status){
         self.setDataParkNRide(response, status);
     });
+
+    //calcaulate times from "free" parking lots with buses to destination
+    this.matrixService.getDistanceMatrix({
+        origins: this.busDestinations,
+        destinations: [this.finalDestination],
+        travelMode: google.maps.TravelMode.TRANSIT,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        durationInTraffic: false,
+        avoidHighways: false,
+        avoidTolls: false
+    }, function(response, status){
+        self.setBusParkingData(response, status);
+    });
+
 };
+
+ParkNRide.prototype.setBusParkingData = function(response, status) {
+
+
+}
+
+/* Calculate if destination is "very close" (<250m) from a ParkNRide parking lot */
+
+ParkNRide.prototype.destinationIsParkNRide = function(destination) {
+    //console.log("DATA:");
+    //console.log(ParkAndRideData);
+    for (var i in ParkAndRideData) {
+        var distance = calcDistance(destination.G, destination.K,ParkAndRideData[i].lat,ParkAndRideData[i].lon);
+        //console.log("distance to: "+ParkAndRideData[i].name+" is:"+distance);
+        if (distance < 0.55) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 ParkNRide.prototype.setDataParkNRide = function (response, status) {
@@ -36,24 +85,29 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
     }
 
     var results = response.rows[0].elements;
-    //console.log("results:");
-    //console.log(results);
+    console.log("results:");
+    console.log(results);
     for (var i in ParkAndRideData) {
         var selectedStation = getStation(this.finalDestination, ParkAndRideData[i]);
         ParkAndRideData[i].selectedStation = selectedStation;
         ParkAndRideData[i].distanceFromOrigin = results[i].duration.value;
-        ParkAndRideData[i].totalTime = selectedStation.calculatedTime + results[i].duration.value / 60;
+        ParkAndRideData[i].durationFromOrigin = results[i].duration.value / 60;
+        ParkAndRideData[i].totalTime = selectedStation.calculatedTime + ParkAndRideData[i].durationFromOrigin;
+        //console.log("total time for parking i="+i+" is: "+ParkAndRideData[i].totalTime);
     }
 
+    var selectedParking;
+
     for (var i in ParkAndRideData) {
-        var selectedParking =  ParkAndRideData.reduce(function(parkA, parkB, index, array){
+        selectedParking =  ParkAndRideData.reduce(function(parkA, parkB, index, array){
             return  parkA.totalTime < parkB.totalTime ? parkA : parkB;
         });
 
     }
 
+    addWaitTime(selectedParking);
     
-    //console.log(selectedParking);
+    console.log(selectedParking);
     
     var emissions = calculateParkNRideEmissions(selectedParking);
     var calories = calculateParkNRideCalories(selectedParking,this.finalDestination);
@@ -108,6 +162,40 @@ getStation = function( destination, parkNRideData ) {
     //console.log(bestStation);
     return bestStation;
 };
+
+addWaitTime = function(selectedParking) {
+    if (!selectedParking.totalTime) {
+        console.log("Selected Parking Space has no total time!");
+        return;
+    }
+    var now = new Date();
+
+    //calculate now time + added time to get to the destination
+    var minutesAtPark = now.getMinutes()+ selectedParking.durationFromOrigin;
+    var hoursAtPark = now.getHours();
+    if (minutesAtPark>60) {
+        
+        //add an amount of hours equal to the new minutes 
+        var addedHours = Math.floor(minutesAtPark/60);
+        hoursAtPark+= addedHours;
+        minutesAtPark -= addedHours*60;
+    }
+    
+    var shuttleWaitTime = 0;
+
+    if ((hoursAtPark > 9 && minutesAtPark >= 30) && (hoursAtPark <= 15 && minutesAtPark < 30)) {
+        //non peak time
+        selectedParking.totalTime += 7.5;
+    }
+    else {
+        selectedParking.totalTime += 2.5;
+    }
+    
+
+}
+
+//interal stuff - code written to help us retrieve shuttle maslulim's real timings
+//TODO: remove this
 
 getShuttleDistances = function (parkNRideData, directionsService, matrixService) {
     for (var i in parkNRideData) {
