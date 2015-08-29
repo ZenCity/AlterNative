@@ -57,12 +57,13 @@ ParkNRide.prototype.handleResults = function () {
   
             var busIndex = (parseInt(i)+index); //iterate only on the parking+bus data indices
             
-            //console.log(parkingResponse.rows[0].elements[busIndex].duration.value/60);
             if (busRideResults[i].elements[0].status!="OK") {
                 //on error - simply make the parking lot an irrelevant result
                 FreeParkingLotsWithBus[i].totalTime = 99999;
             }
             else {
+                FreeParkingLotsWithBus[i].busRideFromParkDistance = busRideResults[i].elements[0].distance.value; //value in meters
+                FreeParkingLotsWithBus[i].drivingToParkingDistance = originToParkResults[busIndex].distance.value; //value in meters
                 FreeParkingLotsWithBus[i].totalTime = busRideResults[i].elements[0].duration.value/60 +originToParkResults[busIndex].duration.value/60;
             }
         }
@@ -86,7 +87,40 @@ ParkNRide.prototype.handleResults = function () {
 
         var selectedParking = minimumShuttle.totalTime < minimumBus.totalTime ? minimumShuttle : minimumBus;
 
-        console.log(selectedParking);      
+        var destination = Session.get('to'); //needed to calculate calories
+
+        var emissions = calculateParkNRideEmissions(selectedParking,selectedParking.type);
+        var calories = calculateParkNRideCalories(selectedParking,destination,selectedParking.type);
+
+
+
+        //var totalDistance = selectedParking.type=="shuttle" ? (selectedParking.distanceFromOrigin/1000)+selectedParking.shuttleDistance+selectedParking.selectedStation.walkingDistance :
+        //                                                        selectedParking.busRideFromParkDistance+selectedParking.drivingToParkingDistance;
+
+        var lineName = selectedParking.type=="shuttle" ? selectedParking.selectedStation.properties.color : "none";
+        var stationId = selectedParking.type=="shuttle" ? selectedParking.selectedStation.properties.station_id : "none";
+
+        var distances = Session.get('distances');
+        
+        distances[Alternative.transportTypes.PARKNRIDE] = {
+            duration: selectedParking.totalTime,
+            //distance: totalDistance,
+            name: Alternative.transportTypes.PARKNRIDE.toLocaleLowerCase(),
+            type: Alternative.transportTypes.DRIVING,
+            price: 15,
+            emmissions: emissions, 
+            calories: calories,
+            park: selectedParking,
+            park_type: selectedParking.type, //'shuttle' or 'bus'
+            line_name:lineName,
+            station_id: stationId
+        };
+
+    
+        console.log(distances[Alternative.transportTypes.PARKNRIDE]);
+
+        Session.set('chosen',Alternative.transportTypes.PARKNRIDE);
+        Session.set('distances', distances);
 
       }
 };
@@ -173,10 +207,10 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         addWaitTime(ParkAndRideData[i]);
 
         console.log("time calculations for "+ParkAndRideData[i].name);
-        console.log("calculated time is: "+selectedStation.calculatedTime);
+        console.log("calculated time from park to station is: "+ParkAndRideData[i].selectedStation.calculatedTime);
         console.log("duration from origin is: "+ParkAndRideData[i].durationFromOrigin);
         //console.log("total time for parking i="+i+" is: "+ParkAndRideData[i].totalTime);
-         console.log("total time is: "+ParkAndRideData[i].totalTime);
+        console.log("total time is: "+ParkAndRideData[i].totalTime);
     }
 
 
@@ -224,16 +258,26 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
     Session.set('result-count',count+1);
 };
 
-calculateParkNRideEmissions = function(selectedParking) {
+calculateParkNRideEmissions = function(selectedParking,parkType) {
+    if (parkType=="shuttle") {
     //Emissions calculated are the aggregate btwn origin + parking station (car) & parking -> stop (bus)
-    selectedParking.shuttleDistance = calcDistance(selectedParking.lon,selectedParking.lat,selectedParking.selectedStation.geometry.coordinates[0],selectedParking.selectedStation.geometry.coordinates[1]);
-    return ((selectedParking.distanceFromOrigin / 1000 * 271) + (selectedParking.shuttleDistance  * 101));
+        selectedParking.shuttleDistance = calcDistance(selectedParking.lon,selectedParking.lat,selectedParking.selectedStation.geometry.coordinates[0],selectedParking.selectedStation.geometry.coordinates[1]);
+        return ((selectedParking.distanceFromOrigin / 1000 * 271) + (selectedParking.shuttleDistance  * 101));
+    }
+    else { //parktype=="bus"
+        return (((selectedParking.busRideFromParkDistance/1000)*101)+((selectedParking.drivingToParkingDistance/1000)*271));
+    }
 }
 
-calculateParkNRideCalories = function(selectedParking, finalDestination) {
-    var distance = calcDistance(finalDestination.K, finalDestination.G,selectedParking.selectedStation.geometry.coordinates[0],selectedParking.selectedStation.geometry.coordinates[1])
-    //distance (in km) / 6 = distance walked in hours (since a person walks 6km/hr) * 60 (mins) * 4.4 (calories/mins) * 1.3 (add a growth factor for non-linear distance)
-    return (distance / 6 * 60 * 4.4 * 1.3);
+calculateParkNRideCalories = function(selectedParking, finalDestination,parkType) {
+    if (parkType=="shuttle") {
+        var distance = calcDistance(finalDestination.lng, finalDestination.lat,selectedParking.selectedStation.geometry.coordinates[0],selectedParking.selectedStation.geometry.coordinates[1])
+        //distance (in km) / 6 = distance walked in hours (since a person walks 6km/hr) * 60 (mins) * 4.4 (calories/mins) * 1.3 (add a growth factor for non-linear distance)
+        return (distance / 6 * 60 * 4.4 * 1.3);
+    }
+    else { //parkType=="bus"
+        return 0;
+    }
 }
 
 getStation = function( destination, parkNRideData ) {
@@ -249,13 +293,11 @@ getStation = function( destination, parkNRideData ) {
                 //console.log(parkNRideData.stations[j].properties.newMinutes);
             }
         }
-        //console.log(sumTime);
 
+        parkNRideData.stations[i].sumTime = sumTime;
         parkNRideData.stations[i].calculatedTime = sumTime+walkingTime;
-
-
-        //station.properties.minutes/60 + walkingTime; //TODO FIX: the minutes in the park n ride data appear to be FAKE!
     }
+
     var stationsArray = parkNRideData.stations;
     //console.log(stationsArray);
     var bestStation = stationsArray.reduce(function(stationA, stationB, index, array){
