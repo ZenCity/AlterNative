@@ -35,7 +35,7 @@ ParkNRide = function (origin, destination, directionsService, matrixService) {
         var distances = Session.get("distances");
 
         distances[Alternative.transportTypes.PARKANDRIDEBACK] = {
-            duration: destinationPark.selectedStation.sumTime+destinationPark.selectedStation.walkingTime,
+            duration: destinationPark.selectedStation.sumTime + destinationPark.selectedStation.walkingTime,
             name: Alternative.transportTypes.PARKANDRIDEBACK.toLocaleLowerCase(),
             type: Alternative.transportTypes.DRIVING,
             price: 0,
@@ -43,6 +43,8 @@ ParkNRide = function (origin, destination, directionsService, matrixService) {
             calories: destinationPark.selectedStation.walkingDistance*4.4,
             park: destinationPark,
             park_type: destinationPark.type, //'shuttle' or 'bus'
+            line_number: destinationPark.selectedStation.properties.ms_kav,
+            station_id: destinationPark.selectedStation.properties.ms_tahana
         };
 
         Session.set('chosen',Alternative.transportTypes.PARKANDRIDEBACK);

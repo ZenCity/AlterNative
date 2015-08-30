@@ -15,7 +15,7 @@ Alternative.transportTypes = {
     WALKING: "WALKING",
     BICYCLING: "BICYCLING",
     DRIVING: "DRIVING",
-    TELOFUN: "TEL-O-FUN",
+    TELOFUN: "TELOFUN",
     TAXI: "TAXI",
     TRAIN: "TRAIN",
     PARKNRIDE: "PARKNRIDE",
