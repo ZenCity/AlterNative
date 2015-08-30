@@ -112,7 +112,7 @@ telOfunBikeCallback = function (response, status) {
         };
     bike.duration += time / 60 / 3;
     bike.calories += 9.45 * time / 60 / 3;
-    distances[TELOFUN] = bike;
+    distances[Alternative.transportTypes.TELOFUN] = bike;
     Session.set('distances', distances);
 };
 
