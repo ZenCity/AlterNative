@@ -25,7 +25,7 @@ setDataDriving = function (response, status) {
     }
     var distances = Session.get('distances');
     var element = response.rows[0].elements[0];
-    var price = (2.738 * element.distance.value / 1000).toFixed(2);
+    var price = Math.ceil((2.738 * element.distance.value / 1000).toFixed(2));
 
     distances[Alternative.transportTypes.DRIVING] = {
         duration: element.duration.value / 60,

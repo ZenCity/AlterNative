@@ -37,7 +37,7 @@ getTaxiPrice = function (distance, duration) {
 	var baseDistance = taarif1 ? 0.7834 : 0.63; //the amount in distance unit we have to add to price
 	var baseDuration = 60 / (taarif1 ? 11 : 9);  //amount in units we have to multiply distance and add to price 
 	var basePriceUnit = 0.3;
-	return (basePrice + ( ((distance / 1000) - initialKMs) / baseDistance + ((duration  / 60)- initialTime) * baseDuration) * basePriceUnit).toFixed(2);
+	return Math.ceil((basePrice + ( ((distance / 1000) - initialKMs) / baseDistance + ((duration  / 60)- initialTime) * baseDuration) * basePriceUnit).toFixed(2));
 	//(17.3 + (distance / 1000 * 0.7834) + (duration / 60 * 0.3)).toFixed(2);
 }
 

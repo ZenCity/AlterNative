@@ -24,5 +24,6 @@
     "bus": "Bus",
     "taxi": "Taxi",
     "driving": "Car",
-    "tram": "Tram"
+    "tram": "Tram",
+    "disclaimer": "All calculations are estimates, based on statistical and real-time data. For more information see \"How we calculate\""
 }
