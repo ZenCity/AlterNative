@@ -23,8 +23,31 @@ ParkNRide = function (origin, destination, directionsService, matrixService) {
     this.directionsService = directionsService;
     this.matrixService = matrixService;
     
-    if (this.destinationIsParkNRide(destination)) {
-        console.log("going to park n'w ride lot!!!");
+    var destinationPark = this.destinationIsParkNRide(destination);
+
+    if (destinationPark) {
+        console.log("going to park n' ride lot!!!");
+        destinationPark.selectedStation = getBackStation(this.origin, destinationPark);
+
+        console.log(destinationPark);
+
+
+        var distances = Session.get("distances");
+
+        distances[Alternative.transportTypes.PARKANDRIDEBACK] = {
+            duration: destinationPark.selectedStation.sumTime+destinationPark.selectedStation.walkingTime,
+            name: Alternative.transportTypes.PARKANDRIDEBACK.toLocaleLowerCase(),
+            type: Alternative.transportTypes.DRIVING,
+            price: 0,
+            emmissions: destinationPark.selectedStation.calculatedDistance*101, 
+            calories: destinationPark.selectedStation.walkingDistance*4.4,
+            park: destinationPark,
+            park_type: destinationPark.type, //'shuttle' or 'bus'
+        };
+
+        Session.set('chosen',Alternative.transportTypes.PARKANDRIDEBACK);
+        Session.set('distances', distances);
+
     }
     else {
         //console.log("user will be routed to a bus/shuttle Park N' Ride parking lot");
@@ -112,7 +135,7 @@ ParkNRide.prototype.handleResults = function () {
             calories: calories,
             park: selectedParking,
             park_type: selectedParking.type, //'shuttle' or 'bus'
-            line_number:lineNumber,
+            line_number: lineNumber,
             station_id: stationId
         };
 
@@ -183,10 +206,10 @@ ParkNRide.prototype.destinationIsParkNRide = function(destination) {
         var distance = calcDistance(destination.G, destination.K,ParkAndRideData[i].lat,ParkAndRideData[i].lon);
         //console.log("distance to: "+ParkAndRideData[i].name+" is:"+distance);
         if (distance < 0.55) {
-            return true;
+            return ParkAndRideData[i];
         }
     }
-    return false;
+    return null;
 }
 
 
@@ -284,6 +307,69 @@ calculateParkNRideCalories = function(selectedParking, finalDestination,parkType
     }
 }
 
+getBackStation = function (origin, parkNRideDataLot) {
+
+    //initialize safe index of station closest to origin & the walkingDistance
+    var minWalkingDistance =  Number.MAX_SAFE_INTEGER;
+    var minIndex = -1; 
+    var sumTime = 0;
+
+    for (var i in parkNRideDataLot.stations) {
+        var station = parkNRideDataLot.stations[i];
+        station.walkingDistance = calcDistance(origin.K, origin.G, station.geometry.coordinates[0], station.geometry.coordinates[1]);
+        station.walkingTime = station.walkingDistance * 10; 
+        if (station.walkingDistance < minWalkingDistance) {
+            minWalkingDistance = station.walkingDistance;
+            minIndex = i;
+        }
+    }
+
+    //console.log(parkNRideDataLot.stations[minIndex]);
+
+    var lastJ = 0;
+
+    for (var j = minIndex; j< parkNRideDataLot.stations.length; j++){
+        //console.log("j="+j+" , i="+i);
+        if (parkNRideDataLot.stations[j].properties.ms_kav==parkNRideDataLot.stations[minIndex].properties.ms_kav) {
+            sumTime+=parkNRideDataLot.stations[j].properties.newMinutes;
+            lastJ = j;
+        }
+    }
+
+    //console.log(parkNRideDataLot.stations[lastJ]);
+
+    //console.log("Add: "+parkNRideDataLot.stations[lastJ].properties.newMinutesLast + " subract:"+parkNRideDataLot.stations[lastJ].properties.newMinutes);
+    sumTime = sumTime + parkNRideDataLot.stations[lastJ].properties.newMinutesLast - parkNRideDataLot.stations[lastJ].properties.newMinutes;
+
+    parkNRideDataLot.stations[minIndex].sumTime=sumTime;
+    parkNRideDataLot.stations[minIndex].calculatedDistance = calcDistance(parkNRideDataLot.stations[minIndex].geometry.coordinates[0],
+                                                                        parkNRideDataLot.stations[minIndex].geometry.coordinates[1],
+                                                                        parkNRideDataLot.lon,parkNRideDataLot.lat);
+
+
+    if (i==-1) {
+        console.log("An error happened - did not find a station that's close to ")
+    }
+    else {
+        console.log("chose station #"+minIndex+": kav "+parkNRideDataLot.stations[minIndex].properties.color+" station: "+parkNRideDataLot.stations[minIndex].properties.ms_tahana);
+        console.log("Sum time: "+parkNRideDataLot.stations[minIndex].sumTime);
+    }
+
+    return parkNRideDataLot.stations[minIndex];
+
+// else if (transportationType==Alternative.transportTypes.PARKANDRIDEBACK) {
+            
+//             //for each station calculate time from station to end of line
+//             for (var j = i; j< parkNRideData.stations.length; j++){
+//                 //console.log("j="+j+" , i="+i);
+//                 if (parkNRideData.stations[j].properties.ms_kav==parkNRideData.stations[i].properties.ms_kav) {
+//                     sumTime+=parkNRideData.stations[j].properties.newMinutes;
+//                 }
+//             }
+//         }
+
+}
+
 getStation = function( destination, parkNRideData ) {
     for(var i in parkNRideData.stations) {
         var station = parkNRideData.stations[i];
@@ -291,13 +377,15 @@ getStation = function( destination, parkNRideData ) {
         parkNRideData.stations[i].walkingDistance = walkingDistance;
         var walkingTime = walkingDistance * 10;
         var sumTime = 0;
+        
+        //for each station calculate time from beginning of the line to station
         for (var j = 0; j<=i; j++){
             if (parkNRideData.stations[j].properties.ms_kav==parkNRideData.stations[i].properties.ms_kav){
                 sumTime+=parkNRideData.stations[j].properties.newMinutes;
                 //console.log(parkNRideData.stations[j].properties.newMinutes);
             }
         }
-
+        
         parkNRideData.stations[i].sumTime = sumTime;
         parkNRideData.stations[i].calculatedTime = sumTime+walkingTime;
     }

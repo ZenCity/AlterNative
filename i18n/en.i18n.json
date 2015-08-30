@@ -25,5 +25,8 @@
     "taxi": "Taxi",
     "driving": "Car",
     "tram": "Tram",
+    "TEL-O-FUN":"tel-o-fun",
+    "parknride":"Park and Ride",
+    "parkandrideback":"Park and Ride - shuttle back",
     "disclaimer": "All calculations are estimates, based on statistical and real-time data. For more information see \"How we calculate\""
 }
