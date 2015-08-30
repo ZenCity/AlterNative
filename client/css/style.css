@@ -768,3 +768,8 @@ td{
     text-anchor: end !important;
     transform: rotate(-45deg);
 }
+
+.disclaimer {
+    color:white;
+    font-weight: bold;
+}

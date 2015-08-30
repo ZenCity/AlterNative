@@ -117,13 +117,16 @@ telOfunBikeCallback = function (response, status) {
 };
 
 telOfunWalkCallback = function (response, status) {
+
     var distances = Session.get('distances');
     var time = response.rows[0].elements[0].duration.value;
+    var price = _calcTelOfunPrice(time);
+
     var bike = distances[TELOFUN] || {
             duration: 0,
             name: 'tel-o-fun',
             type: TELOFUN,
-            price: 0.76,
+            price: price,
             emmissions: 0,
             calories: 0
         };
@@ -132,3 +135,14 @@ telOfunWalkCallback = function (response, status) {
     distances[TELOFUN] = bike;
     Session.set('distances', distances);
 };
+
+_calcTelOfunPrice = function(rideTime) {
+    var price=17;
+    var now = new Date();
+    if ((now.getDay()==6&&now.getHours()<19) || (now.getDay()==5&&now.getHours()>=14)) {
+        price = 23
+    }
+    if (rideTime/60>30)
+        price+=6;
+    return price;
+}

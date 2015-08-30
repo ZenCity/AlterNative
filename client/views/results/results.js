@@ -42,6 +42,21 @@ Template.results.helpers({
         var prefix =  Session.get("to-address-pretty-prefix");
         Session.set("to-address-pretty-prefix","");
         return (prefix? prefix+address : address);
+    },
+    price: function () {
+        if ((this.type==Alternative.transportTypes.TAXI) || (this.type==Alternative.transportTypes.DRIVING)) {
+            return ("~"+this.price);
+        }
+        else {
+            return this.price;
+        }
+
+    },
+    duration: function () {
+        if (this.type==Alternative.transportTypes.PARKNRIDE) {
+            return ("~"+this.duration);
+        }
+        else return this.duration;
     }
 });
 
