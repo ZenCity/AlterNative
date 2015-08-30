@@ -97,7 +97,7 @@ ParkNRide.prototype.handleResults = function () {
         //var totalDistance = selectedParking.type=="shuttle" ? (selectedParking.distanceFromOrigin/1000)+selectedParking.shuttleDistance+selectedParking.selectedStation.walkingDistance :
         //                                                        selectedParking.busRideFromParkDistance+selectedParking.drivingToParkingDistance;
 
-        var lineName = selectedParking.type=="shuttle" ? selectedParking.selectedStation.properties.color : "none";
+        var lineNumber = selectedParking.type=="shuttle" ? selectedParking.selectedStation.properties.ms_kav : "none";
         var stationId = selectedParking.type=="shuttle" ? selectedParking.selectedStation.properties.station_id : "none";
 
         var distances = Session.get('distances');
@@ -112,11 +112,15 @@ ParkNRide.prototype.handleResults = function () {
             calories: calories,
             park: selectedParking,
             park_type: selectedParking.type, //'shuttle' or 'bus'
-            line_name:lineName,
+            line_number:lineNumber,
             station_id: stationId
         };
 
-    
+        console.log("Parks data:");
+        console.log(ParkAndRideData);
+        console.log(FreeParkingLotsWithBus);
+
+        console.log("distances matrix:");
         console.log(distances[Alternative.transportTypes.PARKNRIDE]);
 
         Session.set('chosen',Alternative.transportTypes.PARKNRIDE);
@@ -204,7 +208,7 @@ ParkNRide.prototype.setDataParkNRide = function (response, status) {
         ParkAndRideData[i].distanceFromOrigin = results[i].duration.value;
         ParkAndRideData[i].durationFromOrigin = results[i].duration.value / 60;
         ParkAndRideData[i].totalTime = ParkAndRideData[i].selectedStation.calculatedTime + ParkAndRideData[i].durationFromOrigin;
-        addWaitTime(ParkAndRideData[i]);
+        //addWaitTime(ParkAndRideData[i]);
 
         console.log("time calculations for "+ParkAndRideData[i].name);
         console.log("calculated time from park to station is: "+ParkAndRideData[i].selectedStation.calculatedTime);
