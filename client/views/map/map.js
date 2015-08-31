@@ -1,15 +1,20 @@
-var TELOFUN = 'TELOFUN';
 
 var directionsDisplay, map;
 var initializeMap = function() {
-    directionsDisplay = new google.maps.DirectionsRenderer();
+    
     var telAviv = new google.maps.LatLng(32.054934, 34.775407);
     var mapOptions = {
         zoom: 14,
         center: telAviv,
         styles: myStyle
     };
+
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    var rendererOptions = getRendererOptions(); 
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
     directionsDisplay.setMap(map);
 };
 
@@ -47,6 +52,18 @@ var calcRoute = function() {
         });
         request.waypoints = waypoints;
     }
+    if (Session.get('chosen').name == 'parknride') {
+        var distances = Session.get('distances');
+        var pnr = distances[Alternative.transportTypes.PARKNRIDE];
+        console.log(pnr);
+        //debugger;
+
+        if (pnr.park.type=="shuttle") { //draw only the walking from the station to final destination
+            request.travelMode = google.maps.TravelMode.WALKING;
+            request.origin = new google.maps.LatLng(pnr.park.selectedStation.geometry.coordinates[1], pnr.park.selectedStation.geometry.coordinates[0]);
+        }
+    }
+
     directionsService.route(request, function(result, status) {
         var leg = result.routes[0].legs[0];
         var distance = leg.distance.value;
@@ -68,6 +85,8 @@ var calcRoute = function() {
             searchId: Session.get('search-id'),
             searchCraitiria: Session.get('sort-by')
         };
+
+        console.log(navRecord);
         Navigations.insert(navRecord);
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
@@ -97,5 +116,32 @@ Template.map.rendered = function() {
     }
 
 };
+
+//display dashed lines for walking on map for PNR
+var getRendererOptions = function () {
+    var rendererOptions = {};
+    if (Session.get('chosen').name == 'parknride') {
+        //draw dotted lines
+        var lineSymbol = {
+            path: 'M 0,-1 0,1',
+            strokeOpacity: 1,
+            scale: 4
+          };
+
+        var polyLineOptions = {
+            strokeOpacity: 0,
+            icons: [{
+                icon: lineSymbol,
+                  offset: '0',
+                  repeat: '20px'
+                }],
+        };
+
+        rendererOptions = {
+            polylineOptions: polyLineOptions,             
+        };
+    }
+    return rendererOptions;
+}
 
 var myStyle = [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}];

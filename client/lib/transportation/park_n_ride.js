@@ -66,13 +66,12 @@ ParkNRide = function(origin, destination, directionsService, matrixService) {
 
 ParkNRide.prototype.handleResults = function() {
     var count = Session.get('result-count');
-    console.log("Reactively running for the " + count + "th time!");
+    //console.log("Reactively running for the " + count + "th time!");
 
     if (count == 2) {
-        console.log("Got enough results. Can run the Park N'Ride algorithm:");
-        console.log(Session.get("driving-to-parking-response"));
-        console.log(Session.get("bus-response"));
+        // console.log(Session.get("driving-to-parking-response"));
         var parkingResponse = Session.get("driving-to-parking-response");
+        // console.log(Session.get("bus-response"));
         var busResponse = Session.get("bus-response");
 
         var originToParkResults = parkingResponse.rows[0].elements;
@@ -148,10 +147,12 @@ ParkNRide.prototype.handleResults = function() {
             station_lat: stationLat
         };
 
-        console.log("Parks data:");
-        console.log(ParkAndRideData);
-        console.log(FreeParkingLotsWithBus);
+        //console.log("Parks data:");
+        //console.log(ParkAndRideData);
+        //console.log(FreeParkingLotsWithBus);
 
+        console.log("selected park:");
+        console.log(selectedParking);
         console.log("distances matrix:");
         console.log(distances[Alternative.transportTypes.PARKNRIDE]);
 
@@ -238,11 +239,10 @@ ParkNRide.prototype.setDataParkNRide = function(response, status) {
         ParkAndRideData[i].totalTime = ParkAndRideData[i].selectedStation.calculatedTime + ParkAndRideData[i].durationFromOrigin;
         //addWaitTime(ParkAndRideData[i]);
 
-        console.log("time calculations for " + ParkAndRideData[i].name);
-        console.log("calculated time from park to station is: " + ParkAndRideData[i].selectedStation.calculatedTime);
-        console.log("duration from origin is: " + ParkAndRideData[i].durationFromOrigin);
-        //console.log("total time for parking i="+i+" is: "+ParkAndRideData[i].totalTime);
-        console.log("total time is: " + ParkAndRideData[i].totalTime);
+        // console.log("time calculations for " + ParkAndRideData[i].name);
+        // console.log("calculated time from park to station is: " + ParkAndRideData[i].selectedStation.calculatedTime);
+        // console.log("duration from origin is: " + ParkAndRideData[i].durationFromOrigin);
+        // console.log("total time is: " + ParkAndRideData[i].totalTime);
     }
 
 
