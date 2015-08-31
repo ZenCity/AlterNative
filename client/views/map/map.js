@@ -82,12 +82,17 @@ Template.map.rendered = function() {
     if (Session.get('chosen').name == 'parknride') {
         var PNR = Session.get('distances')['PARKNRIDE'];
         if (PNR.park_type == 'shuttle'){
-            station = Session.get('to'); // TODO change to best station calculated
-            // var shuttle = ParkAndRideDataPlay[0]['lines'][0]; // TODO - change to real line data
-            var maslul = window["kav" + PNR.line_number];
-            cutGeoJson(station['lng'], station['lat'], maslul);
+            var maslul = window["kav" + PNR.line_number]['features'][0];
+            cutGeoJson(PNR.station_lon, PNR.station_lat, maslul);
             console.log(maslul);
-            map.data.addGeoJson(maslul['features'][0]);
+            map.data.addGeoJson(maslul);
+            // Set the stroke width and color for each shuttle line
+            var line_color = maslul['properties']['colorEn'];
+            map.data.setStyle({
+                strokeColor: line_color,
+                strokeWeight: 5
+            });
+
         }
     }
 
