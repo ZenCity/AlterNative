@@ -9,7 +9,7 @@ setDataTaxi = function (response, status) {
 	var element = response.rows[0].elements[0];
 	var price = getTaxiPrice(element.distance.value,element.duration.value);
 	distances[Alternative.transportTypes.TAXI] = {
-		duration: element.duration.value / 60,
+		duration: getDrivingTime(element.duration.value),
 		distance: element.distance.value / 1000,
 		name: Alternative.transportTypes.TAXI.toLocaleLowerCase(),
 		type: Alternative.transportTypes.DRIVING,
@@ -135,4 +135,11 @@ setDataTransit = function (response, status) {
 
 walkingCalories = function(duration){
     return duration * 4.4 / 60; //4.4 calories burnt / minute
+}
+
+getDrivingTime = function(duration){
+	var now = new Date();
+	if ((now.getHours()<=10 && now.getHours>=8) || (now.getHours()<=20 && now.getHours>=4) )
+		duration = duration*1.2;
+	return duration / 60;
 }
