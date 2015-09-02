@@ -130,10 +130,19 @@ var drawDriveToParkingResult = function(start ,pnr) {
     //console.log(start);
     //console.log(destination);
 
-    var kav_num  = pnr.park.selectedStation.properties.ms_kav;
+    var destination = null;
 
-    var destination =  new google.maps.LatLng(window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][1], window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][0]);
+    if (pnr.park_type=="shuttle") {
+
+        var kav_num  = pnr.park.selectedStation.properties.ms_kav;
+
+        destination =  new google.maps.LatLng(window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][1], window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][0]);
     
+    }
+    else {
+        destination = new google.maps.LatLng(pnr.park.lat,pnr.park.lon);
+    }
+
     console.log(destination);
 
     var request = {
