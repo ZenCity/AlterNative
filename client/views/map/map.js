@@ -1,5 +1,5 @@
 
-var directionsDisplay, map;
+var directionsDisplay, map, directionsService;
 var initializeMap = function() {
     
     var telAviv = new google.maps.LatLng(32.054934, 34.775407);
@@ -19,7 +19,9 @@ var initializeMap = function() {
 };
 
 var calcRoute = function() {
-    var directionsService = new google.maps.DirectionsService();
+    if (!directionsService) {
+        directionsService = new google.maps.DirectionsService();
+    }
     var end = new google.maps.LatLng(Session.get('to').lat, Session.get('to').lng);
     var start = new google.maps.LatLng(Session.get('from').lat, Session.get('from').lng);
 
@@ -56,12 +58,16 @@ var calcRoute = function() {
         var distances = Session.get('distances');
         var pnr = distances[Alternative.transportTypes.PARKNRIDE];
         console.log(pnr);
-        //debugger;
 
         if (pnr.park.type=="shuttle") { //draw only the walking from the station to final destination
             request.travelMode = google.maps.TravelMode.WALKING;
             request.origin = new google.maps.LatLng(pnr.park.selectedStation.geometry.coordinates[1], pnr.park.selectedStation.geometry.coordinates[0]);
         }
+        
+        //now, draw the drive from the starting point to the Park
+        drawDriveToParkingResult(start, pnr);
+
+
     }
 
     directionsService.route(request, function(result, status) {
@@ -86,7 +92,7 @@ var calcRoute = function() {
             searchCraitiria: Session.get('sort-by')
         };
 
-        console.log(navRecord);
+        //console.log(navRecord);
         Navigations.insert(navRecord);
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
@@ -116,6 +122,44 @@ Template.map.rendered = function() {
     }
 
 };
+
+var drawDriveToParkingResult = function(start ,pnr) {
+    //console.log(pnr);
+    
+   
+    //console.log(start);
+    //console.log(destination);
+
+    var kav_num  = pnr.park.selectedStation.properties.ms_kav;
+
+    var destination =  new google.maps.LatLng(window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][1], window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][0]);
+    
+    console.log(destination);
+
+    var request = {
+        origin: start,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+
+    if (!directionsService) {
+        directionsService = new google.maps.DirectionsService();
+    }
+
+    directionsService.route(request, function(result, status) {
+        //console.log("result");
+        //console.log(result);
+        var myDirectionsDisplay = new google.maps.DirectionsRenderer();
+
+        if (status == google.maps.DirectionsStatus.OK) {
+            myDirectionsDisplay.setDirections(result);
+            myDirectionsDisplay.setMap(map);
+        }
+    });
+
+
+}
+
 
 //display dashed lines for walking on map for PNR
 var getRendererOptions = function () {
