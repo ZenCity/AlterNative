@@ -98,24 +98,39 @@ ParkNRide.prototype.handleResults = function() {
             }
         }
 
-        var minimumShuttle = ParkAndRideData.reduce(function(parkA, parkB, index, array) {
-            return parkA.totalTime < parkB.totalTime ? parkA : parkB;
-        });
-
+        var minimumShuttle = null;
         var minimumBus = FreeParkingLotsWithBus.reduce(function(parkA, parkB, index, array) {
             return parkA.totalTime < parkB.totalTime ? parkA : parkB;
         });
 
-        for (var i in ParkAndRideData) {
-            console.log("Parking lot: " + ParkAndRideData[i].name + " , total Time:" + ParkAndRideData[i].totalTime);
+        if (CheckParknRideTime()) {
+            minimumShuttle = ParkAndRideData.reduce(function(parkA, parkB, index, array) {
+                return parkA.totalTime < parkB.totalTime ? parkA : parkB;
+            });
+        }
+
+        
+
+        if (minimumShuttle) {
+            for (var i in ParkAndRideData) {
+                console.log("Parking lot: " + ParkAndRideData[i].name + " , total Time:" + ParkAndRideData[i].totalTime);
+            }
         }
 
         for (var i in ParkAndRideData) {
             console.log("Parking lot: " + FreeParkingLotsWithBus[i].name + " , total Time:" + FreeParkingLotsWithBus[i].totalTime);
         }
 
-        var selectedParking = minimumShuttle.totalTime < minimumBus.totalTime ? minimumShuttle : minimumBus;
+        var selectedParking;
 
+        if (minimumShuttle) {
+            var selectedParking = minimumShuttle.totalTime < minimumBus.totalTime ? minimumShuttle : minimumBus;
+        }
+        else {
+            selectedParking = minimumBus;
+        }
+
+        
         var destination = Session.get('to'); //needed to calculate calories
 
         var emissions = calculateParkNRideEmissions(selectedParking, selectedParking.type);
@@ -244,47 +259,6 @@ ParkNRide.prototype.setDataParkNRide = function(response, status) {
         // console.log("duration from origin is: " + ParkAndRideData[i].durationFromOrigin);
         // console.log("total time is: " + ParkAndRideData[i].totalTime);
     }
-
-
-    /*
-
-
-    for (var i in ParkAndRideData) {
-        selectedParking =  ParkAndRideData.reduce(function(parkA, parkB, index, array){
-            return  parkA.totalTime < parkB.totalTime ? parkA : parkB;
-        });
-
-    }
-
-
-
-    addWaitTime(selectedParking);
-
-
-    var emissions = calculateParkNRideEmissions(selectedParking);
-    var calories = calculateParkNRideCalories(selectedParking,this.finalDestination);
-
-
-    var distances = Session.get('distances');
-
-
-
-    distances[Alternative.transportTypes.PARKNRIDE] = {
-        duration: selectedParking.totalTime,
-        distance: 99999,
-        name: Alternative.transportTypes.PARKNRIDE.toLocaleLowerCase(),
-        type: Alternative.transportTypes.DRIVING,
-        price: 15,
-        emmissions: emissions,
-        calories: calories,
-        park: selectedParking
-    };
-
-
-
-    Session.set('chosen',Alternative.transportTypes.PARKNRIDE);
-    Session.set('distances', distances);
-    */
 
     var count = Session.get('result-count');
     Session.set('result-count', count + 1);
@@ -495,3 +469,13 @@ findStationByTo = function(parkNRideDataStations, To) {
 
     console.log("got no station biatch");
 };
+
+CheckParknRideTime = function (){
+    var now = new Date();
+    if (now.getDay()<5){
+        if(now.getHours()>=6 && now.getHours()<=21)
+            return true;
+        return false;
+    }
+    return false;
+}
