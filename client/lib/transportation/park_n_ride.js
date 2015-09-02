@@ -39,6 +39,8 @@ ParkNRide = function(origin, destination, directionsService, matrixService) {
 
         console.log(destinationPark);
 
+        var fromStationLon = destinationPark.type == "shuttle" ? destinationPark.selectedStation.geometry.coordinates[0] : "none";
+        var fromStationLat = destinationPark.type == "shuttle" ? destinationPark.selectedStation.geometry.coordinates[1] : "none";
 
         var distances = Session.get("distances");
 
@@ -52,7 +54,9 @@ ParkNRide = function(origin, destination, directionsService, matrixService) {
             park: destinationPark,
             park_type: destinationPark.type, //'shuttle' or 'bus'
             line_number: destinationPark.selectedStation.properties.ms_kav,
-            station_id: destinationPark.selectedStation.properties.ms_tahana
+            station_id: destinationPark.selectedStation.properties.ms_tahana,
+            from_lon: fromStationLon,
+            from_lat: fromStationLat
         };
 
         Session.set('chosen', Alternative.transportTypes.PARKANDRIDEBACK);
@@ -141,8 +145,8 @@ ParkNRide.prototype.handleResults = function() {
 
         var lineNumber = selectedParking.type == "shuttle" ? selectedParking.selectedStation.properties.ms_kav : "none";
         var stationId = selectedParking.type == "shuttle" ? selectedParking.selectedStation.properties.station_id : "none";
-        var stationLon = selectedParking.type == "shuttle" ? selectedParking.selectedStation.geometry.coordinates[0] : "none";
-        var stationLat = selectedParking.type == "shuttle" ? selectedParking.selectedStation.geometry.coordinates[1] : "none";
+        var toStationLon = selectedParking.type == "shuttle" ? selectedParking.selectedStation.geometry.coordinates[0] : "none";
+        var toStationLat = selectedParking.type == "shuttle" ? selectedParking.selectedStation.geometry.coordinates[1] : "none";
 
         var distances = Session.get('distances');
 
@@ -158,8 +162,8 @@ ParkNRide.prototype.handleResults = function() {
             park_type: selectedParking.type, //'shuttle' or 'bus'
             line_number: lineNumber,
             station_id: stationId,
-            station_lon: stationLon,
-            station_lat: stationLat
+            to_lon: toStationLon,
+            to_lat: toStationLat
         };
 
         //console.log("Parks data:");
