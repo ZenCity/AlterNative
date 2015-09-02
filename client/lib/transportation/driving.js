@@ -28,7 +28,7 @@ setDataDriving = function (response, status) {
     var price = Math.ceil((2.738 * element.distance.value / 1000).toFixed(2));
 
     distances[Alternative.transportTypes.DRIVING] = {
-        duration: element.duration.value / 60,
+        duration: getDrivingTime(element.duration.value),
         distance: element.distance.value / 1000,
         name: Alternative.transportTypes.DRIVING.toLocaleLowerCase(),
         type: Alternative.transportTypes.DRIVING,
