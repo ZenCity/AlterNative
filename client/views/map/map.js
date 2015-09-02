@@ -1,7 +1,7 @@
 
 var directionsDisplay, map;
 var initializeMap = function() {
-    
+
     var telAviv = new google.maps.LatLng(32.054934, 34.775407);
     var mapOptions = {
         zoom: 14,
@@ -11,7 +11,7 @@ var initializeMap = function() {
 
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-    var rendererOptions = getRendererOptions(); 
+    var rendererOptions = getRendererOptions();
 
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 
@@ -114,7 +114,27 @@ Template.map.rendered = function() {
 
         }
     }
+    if (Session.get('chosen').name == 'parkandrideback') {
+        console.log('bam - riding back!');
+        var PNR = Session.get('distances')['PARKANDRIDEBACK'];
+        if (PNR.park_type == 'shuttle'){
+            console.log('bam bam - riding back!');
+            var maslul = window["kav" + PNR.line_number]['features'][0];
+            var maslulEndLon = maslul['geometry']['coordinates'].slice(-1)[0][0];
+            var maslulEndLat = maslul['geometry']['coordinates'].slice(-1)[0][1];
+            console.log(PNR.from_lon, PNR.from_lat, maslulEndLon, maslulEndLat);
+            cutGeoJsonFromTo(PNR.from_lon, PNR.from_lat, maslulEndLon, maslulEndLat, maslul);
+            console.log(maslul);
+            map.data.addGeoJson(maslul);
+            // Set the stroke width and color for each shuttle line
+            var line_color = maslul['properties']['colorEn'];
+            map.data.setStyle({
+                strokeColor: line_color,
+                strokeWeight: 5
+            });
 
+        }
+    }
 };
 
 //display dashed lines for walking on map for PNR
@@ -134,11 +154,11 @@ var getRendererOptions = function () {
                 icon: lineSymbol,
                   offset: '0',
                   repeat: '20px'
-                }],
+                }]
         };
 
         rendererOptions = {
-            polylineOptions: polyLineOptions,             
+            polylineOptions: polyLineOptions
         };
     }
     return rendererOptions;
