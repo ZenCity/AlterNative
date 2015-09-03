@@ -63,7 +63,7 @@ var calcRoute = function() {
             request.travelMode = google.maps.TravelMode.WALKING;
             request.origin = new google.maps.LatLng(pnr.park.selectedStation.geometry.coordinates[1], pnr.park.selectedStation.geometry.coordinates[0]);
         }
-        
+
         //now, draw the drive from the starting point to the Park
         drawDriveToParkingResult(start, pnr);
 
@@ -110,7 +110,7 @@ Template.map.rendered = function() {
         var PNR = Session.get('distances')['PARKNRIDE'];
         if (PNR.park_type == 'shuttle'){
             var maslul = window["kav" + PNR.line_number]['features'][0];
-            cutGeoJson(PNR.station_lon, PNR.station_lat, maslul);
+            cutGeoJson(PNR.to_lon, PNR.to_lat, maslul);
             console.log(maslul);
             map.data.addGeoJson(maslul);
             // Set the stroke width and color for each shuttle line
@@ -148,8 +148,8 @@ Template.map.rendered = function() {
 
 var drawDriveToParkingResult = function(start ,pnr) {
     //console.log(pnr);
-    
-   
+
+
     //console.log(start);
     //console.log(destination);
 
@@ -158,9 +158,9 @@ var drawDriveToParkingResult = function(start ,pnr) {
     if (pnr.park_type=="shuttle") {
 
         var kav_num  = pnr.park.selectedStation.properties.ms_kav;
+        park_coordinates = window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0];
+        destination =  new google.maps.LatLng(park_coordinates[1], park_coordinates[0]);
 
-        destination =  new google.maps.LatLng(window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][1], window["kav" + kav_num]['features'][0]['geometry']['coordinates'][0][0]);
-    
     }
     else {
         destination = new google.maps.LatLng(pnr.park.lat,pnr.park.lon);

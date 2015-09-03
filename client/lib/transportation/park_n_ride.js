@@ -117,7 +117,7 @@ ParkNRide.prototype.handleResults = function() {
             });
         }
 
-        
+
 
         if (minimumShuttle) {
             for (var i in ParkAndRideData) {
@@ -138,7 +138,7 @@ ParkNRide.prototype.handleResults = function() {
             selectedParking = minimumBus;
         }
 
-        
+
         var destination = Session.get('to'); //needed to calculate calories
 
         var emissions = calculateParkNRideEmissions(selectedParking, selectedParking.type);
@@ -479,6 +479,7 @@ findStationByTo = function(parkNRideDataStations, To) {
 };
 
 CheckParknRideTime = function (){
+    // for debugging: add 'return true' will show the shuttles beyond their working hours
     var now = new Date();
     if (now.getDay()<5){
         if(now.getHours()>=6 && now.getHours()<=21)
@@ -494,6 +495,6 @@ originIsInTelAviv = function(origin) {
         (origin.K >= ParkAndRideLLCorner[1] && origin.K <= ParkAndRideURCorner[1])) {
         return true;
     }
-    
+
     return false;
 }
