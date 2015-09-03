@@ -83,7 +83,6 @@ setDataTransit = function (response, status) {
     var distances = Session.get('distances');
 	var leg = response.routes[0].legs[0];
     var steps = leg.steps;
-    //debugger;
     var travelMods = steps
         .filter(function(step){
             return step.instructions;
@@ -91,7 +90,13 @@ setDataTransit = function (response, status) {
         .map(function(step){
             return step.instructions.split(' ')[0];
         });
+    //if transit result contains only walking - don't display
     if (travelMods.indexOf('Tram') == -1 && travelMods.indexOf('Bus') == -1) {
+    	return;
+    }
+    //if transit result's next bus is more than 90 minutes' waiting time - don't display
+    var now = new Date();
+    if (((leg.departure_time.value - now)/60000) > 90) {
     	return;
     }
 	var isTram = travelMods.indexOf('Tram') >= 0;

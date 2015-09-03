@@ -97,6 +97,8 @@ var calcRoute = function() {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(result);
         }
+
+
     });
 };
 
@@ -139,6 +141,7 @@ Template.map.rendered = function() {
                 strokeWeight: 5
             });
 
+
         }
     }
 };
@@ -180,6 +183,7 @@ var drawDriveToParkingResult = function(start ,pnr) {
         //console.log(result);
         var myDirectionsDisplay = new google.maps.DirectionsRenderer();
 
+        map.panTo(map.getCenter());
         if (status == google.maps.DirectionsStatus.OK) {
             myDirectionsDisplay.setDirections(result);
             myDirectionsDisplay.setMap(map);

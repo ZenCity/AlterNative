@@ -16,6 +16,7 @@ Template.results.helpers({
         try {
             var sorter = getSorter(Session.get('sort-by'));
             var distances = Session.get('distances');
+            var filteredDistances = filterDistanceMatrix(distances);
             var rides = Object.keys(distances).map(function (type, i) {
                 var ride = distances[type];
                 ride.duration = Number(ride.duration.toFixed(0));
@@ -71,4 +72,27 @@ Template.results.events({
         Session.set('prevent-auto-locate','prevent');
     }
 });
+
+//filter crazy / irrelevant results --> when they are twice the average time
+var filterDistanceMatrix = function(distances) {
+    // console.log("filtering distances:");
+    // console.log(distances);
+    var average = 0;
+    var keys = Object.keys(distances);
+    for (var i=0; i<keys.length; i++) {
+        average+=distances[keys[i]].duration;
+    }
+    average=average / keys.length;
+    // console.log("average is:"+average);
+    for (var j=0; j<keys.length; j++) {
+        //console.log("distance of "+keys[j]+": "+distances[keys[j]].durtation)
+        if(distances[keys[j]].duration>(average*2)){
+            console.log("Found a bad one - remove!");
+            console.log(distances[keys[j]]);
+            delete distances[keys[j]];
+        }
+
+    }
+    return distances;
+}
 
