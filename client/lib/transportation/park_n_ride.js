@@ -64,6 +64,10 @@ ParkNRide = function(origin, destination, directionsService, matrixService) {
 
     } else {
         //console.log("user will be routed to a bus/shuttle Park N' Ride parking lot");
+        if (originIsInTelAviv(origin)) {
+            console.log("Origin is in Tel Aviv but Destination is not back to Park and Ride - discard result");
+            return;
+        }
         this.calculateMatrixes();
     }
 };
@@ -481,5 +485,15 @@ CheckParknRideTime = function (){
             return true;
         return false;
     }
+    return false;
+}
+
+//returns true if destination is inside the center of Tel Aviv
+originIsInTelAviv = function(origin) {
+    if ((origin.G >= ParkAndRideLLCorner[0] && origin.G <= ParkAndRideURCorner[0]) &&
+        (origin.K >= ParkAndRideLLCorner[1] && origin.K <= ParkAndRideURCorner[1])) {
+        return true;
+    }
+    
     return false;
 }
