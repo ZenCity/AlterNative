@@ -73,26 +73,20 @@ Template.results.events({
     }
 });
 
-//filter crazy / irrelevant results --> when they are twice the average time
-var filterDistanceMatrix = function(distances) {
-    // console.log("filtering distances:");
-    // console.log(distances);
-    var average = 0;
-    var keys = Object.keys(distances);
-    for (var i=0; i<keys.length; i++) {
-        average+=distances[keys[i]].duration;
-    }
-    average=average / keys.length;
-    // console.log("average is:"+average);
-    for (var j=0; j<keys.length; j++) {
-        //console.log("distance of "+keys[j]+": "+distances[keys[j]].durtation)
-        if(distances[keys[j]].duration>(average*2)){
-            console.log("Found a bad one - remove!");
-            console.log(distances[keys[j]]);
-            delete distances[keys[j]];
-        }
 
+//filter crazy / irrelevant results --> when their duration is larger than average duration + standard deviation
+var filterDistanceMatrix = function(distances) {
+    var keys = Object.keys(distances);
+    var maximumDuration = standardDeviationPlusAverage(distances, 'duration');
+    console.log("Maximum allowed duration: " + maximumDuration);
+    for (var i = 0; i < keys.length; i++) {
+        console.log("Duration of " + keys[i] + ": " + distances[keys[i]].duration + " minutes");
+        if (distances[keys[i]].duration > (maximumDuration)) {
+            console.log("Found a bad one - remove! " + distances[keys[i]].name);
+            console.log("it's duration is: " + distances[keys[i]].duration);
+            console.log(distances[keys[i]]);
+            delete distances[keys[i]];
+        }
     }
     return distances;
-}
-
+};
