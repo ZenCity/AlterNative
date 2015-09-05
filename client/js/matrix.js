@@ -102,16 +102,19 @@ setTelOfunRoute = function () {
 telOfunBikeCallback = function (response, status) {
     var distances = Session.get('distances');
     var time = response.rows[0].elements[0].duration.value;
+    var distance = response.rows[0].elements[0].distance.value;
     var bike = Session.get('distances')[Alternative.transportTypes.TELOFUN] || {
             name: Alternative.transportTypes.TELOFUN.toLocaleLowerCase(),
             duration: 0,
             type: Alternative.transportTypes.TELOFUN,
             price: 0.76,
             emmissions: 0,
-            calories: 0
+            calories: 0,
+            distance: 0
         };
     bike.duration += time / 60 / 3;
     bike.calories += 9.45 * time / 60 / 3;
+    bike.distance += distance / 1000;
     distances[Alternative.transportTypes.TELOFUN] = bike;
     Session.set('distances', distances);
 };
@@ -120,6 +123,7 @@ telOfunWalkCallback = function (response, status) {
 
     var distances = Session.get('distances');
     var time = response.rows[0].elements[0].duration.value;
+    var distance = response.rows[0].elements[0].distance.value;
     var price = _calcTelOfunPrice(time);
 
     var bike = distances[Alternative.transportTypes.TELOFUN] || {
@@ -128,10 +132,12 @@ telOfunWalkCallback = function (response, status) {
             type: Alternative.transportTypes.TELOFUN,
             price: price,
             emmissions: 0,
-            calories: 0
+            calories: 0,
+            distance: 0
         };
     bike.duration += time / 60;
     bike.calories += walkingCalories(time);
+    bike.distance += distance / 1000;
     distances[Alternative.transportTypes.TELOFUN] = bike;
     Session.set('distances', distances);
 };
