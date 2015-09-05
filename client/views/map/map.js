@@ -1,10 +1,12 @@
 
 var directionsDisplay, map, directionsService;
+markers = [];
 var initializeMap = function() {
 
+    
     var telAviv = new google.maps.LatLng(32.054934, 34.775407);
     var mapOptions = {
-        zoom: 14,
+        zoom: 13,
         center: telAviv,
         styles: myStyle
     };
@@ -24,6 +26,8 @@ var calcRoute = function() {
     }
     var end = new google.maps.LatLng(Session.get('to').lat, Session.get('to').lng);
     var start = new google.maps.LatLng(Session.get('from').lat, Session.get('from').lng);
+    markers.push(new google.maps.LatLng(Session.get('to').lat, Session.get('to').lng));
+    markers.push(new google.maps.LatLng(Session.get('from').lat, Session.get('from').lng));
 
     var request = {
         origin: start,
@@ -57,11 +61,13 @@ var calcRoute = function() {
     if (Session.get('chosen').name == 'parknride') {
         var distances = Session.get('distances');
         var pnr = distances[Alternative.transportTypes.PARKNRIDE];
+        markers.push(new google.maps.LatLng(pnr.park.lat,pnr.park.lon));
         console.log(pnr);
 
         if (pnr.park.type=="shuttle") { //draw only the walking from the station to final destination
             request.travelMode = google.maps.TravelMode.WALKING;
             request.origin = new google.maps.LatLng(pnr.park.selectedStation.geometry.coordinates[1], pnr.park.selectedStation.geometry.coordinates[0]);
+            markers.push(request.origin);
         }
 
         //now, draw the drive from the starting point to the Park
@@ -98,6 +104,19 @@ var calcRoute = function() {
             directionsDisplay.setDirections(result);
         }
 
+        console.log("DREW WALKING RESULT");
+        console.log("markers:");
+        console.log(markers);
+        var markerBounds = new google.maps.LatLngBounds();
+
+        
+        for (var i = 0; i < markers.length; i++) {
+           markerBounds.extend(markers[i]);
+        }
+
+        map.setCenter(markerBounds.getCenter());
+        map.fitBounds(markerBounds);
+        markers = [];
 
     });
 };
@@ -165,6 +184,8 @@ var drawDriveToParkingResult = function(start ,pnr) {
     else {
         destination = new google.maps.LatLng(pnr.park.lat,pnr.park.lon);
     }
+    markers.push(start);
+    markers.push(destination);
 
     console.log(destination);
 
@@ -183,13 +204,13 @@ var drawDriveToParkingResult = function(start ,pnr) {
         //console.log(result);
         var myDirectionsDisplay = new google.maps.DirectionsRenderer();
 
-        map.panTo(map.getCenter());
         if (status == google.maps.DirectionsStatus.OK) {
             myDirectionsDisplay.setDirections(result);
             myDirectionsDisplay.setMap(map);
         }
     });
 
+    console.log("DREW DRIVING RESULT");
 
 }
 
@@ -215,7 +236,8 @@ var getRendererOptions = function () {
         };
 
         rendererOptions = {
-            polylineOptions: polyLineOptions
+            polylineOptions: polyLineOptions,
+            preserveViewport: true
         };
     }
     return rendererOptions;

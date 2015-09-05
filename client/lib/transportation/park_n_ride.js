@@ -34,10 +34,10 @@ ParkNRide = function(origin, destination, directionsService, matrixService) {
     var destinationPark = this.destinationIsParkNRide(destination);
 
     if (destinationPark) {
-        console.log("going to park n' ride lot!!!");
+        
         destinationPark.selectedStation = getBackStation(this.origin, destinationPark);
 
-        console.log(destinationPark);
+        //console.log(destinationPark);
 
         var fromStationLon = destinationPark.type == "shuttle" ? destinationPark.selectedStation.geometry.coordinates[0] : "none";
         var fromStationLat = destinationPark.type == "shuttle" ? destinationPark.selectedStation.geometry.coordinates[1] : "none";
@@ -176,8 +176,8 @@ ParkNRide.prototype.handleResults = function() {
 
         console.log("selected park:");
         console.log(selectedParking);
-        console.log("distances matrix:");
-        console.log(distances[Alternative.transportTypes.PARKNRIDE]);
+        //console.log("distances matrix:");
+        //console.log(distances[Alternative.transportTypes.PARKNRIDE]);
 
         Session.set('chosen', Alternative.transportTypes.PARKNRIDE);
         Session.set('distances', distances);
@@ -334,10 +334,11 @@ getBackStation = function(origin, parkNRideDataLot) {
 
     if (i == -1) {
         console.log("An error happened - did not find a station that's close to ")
-    } else {
-        console.log("chose station #" + minIndex + ": kav " + parkNRideDataLot.stations[minIndex].properties.color + " station: " + parkNRideDataLot.stations[minIndex].properties.ms_tahana);
-        console.log("Sum time: " + parkNRideDataLot.stations[minIndex].sumTime);
-    }
+    } 
+    // else {
+    //     console.log("chose station #" + minIndex + ": kav " + parkNRideDataLot.stations[minIndex].properties.color + " station: " + parkNRideDataLot.stations[minIndex].properties.ms_tahana);
+    //     console.log("Sum time: " + parkNRideDataLot.stations[minIndex].sumTime);
+    // }
 
     return parkNRideDataLot.stations[minIndex];
 
@@ -420,7 +421,7 @@ addWaitTime = function(selectedParking) {
 getShuttleDistances = function(parkNRideData, directionsService, matrixService) {
     for (var i in parkNRideData) {
         i++;
-        console.log(i);
+        // console.log(i);
         var j = 0;
         for (j = 0; j < parkNRideData[i].stations.length; j++) {
             if (j == 0) {
@@ -475,7 +476,7 @@ findStationByTo = function(parkNRideDataStations, To) {
         if (To.G.toFixed(5) == parkNRideDataStations[i].geometry.coordinates[1].toFixed(5) && To.K.toFixed(5) == parkNRideDataStations[i].geometry.coordinates[0].toFixed(5))
             return parkNRideDataStations[i];
 
-    console.log("got no station biatch");
+    //console.log("got no station biatch");
 };
 
 CheckParknRideTime = function (){
