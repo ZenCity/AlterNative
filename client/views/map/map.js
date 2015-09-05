@@ -219,19 +219,23 @@ var drawDriveToParkingResult = function(start ,pnr) {
 var getRendererOptions = function () {
     var rendererOptions = {};
     if (Session.get('chosen').name == 'parknride') {
-        //draw dotted lines
-        var lineSymbol = {
-            path: 'M 0,-1 0,1',
-            strokeOpacity: 1,
-            scale: 4
-          };
+
+        var icon = {
+            fillColor: 'blue', 
+            fillOpacity: 0.5,
+            scale: 3,
+            strokeColor: 'blue',
+            strokeWeight: 1,
+            strokeOpacity: 0.8,
+            path: google.maps.SymbolPath.CIRCLE
+        };
 
         var polyLineOptions = {
             strokeOpacity: 0,
             icons: [{
-                icon: lineSymbol,
+                icon: icon,
                   offset: '0',
-                  repeat: '20px'
+                  repeat: '15px'
                 }]
         };
 
