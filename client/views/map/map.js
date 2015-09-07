@@ -47,8 +47,47 @@ var calcRoute = function() {
     }
     if (Session.get('chosen').type == Alternative.transportTypes.TELOFUN) {
         request.travelMode = google.maps.TravelMode.WALKING;
-        var telOfunStart = new google.maps.LatLng(Session.get('tel-o-fun-start').lat, Session.get('tel-o-fun-start').lng);
-        var telOfunEnd = new google.maps.LatLng(Session.get('tel-o-fun-end').lat, Session.get('tel-o-fun-end').lng);
+        
+        var startStation = Session.get('tel-o-fun-start');
+        var endStation = Session.get('tel-o-fun-end');
+
+        var telOfunStart = new google.maps.LatLng(startStation.lat, startStation.lng);
+        var telOfunEnd = new google.maps.LatLng(endStation.lat, endStation.lng);
+        
+
+
+        var TelOFunStartDesc = getTelOFunMarkerDescription("from",startStation);
+        
+        var infowindowStart = new google.maps.InfoWindow({
+            content: TelOFunStartDesc
+        });
+
+        var startMarker = new google.maps.Marker({
+            position: telOfunStart,
+            map: map,
+            title: 'Start Point - Tel O Fun'
+        });
+        
+        startMarker.addListener('click', function() {
+            infowindowStart.open(map, startMarker);
+        });
+
+        var TelOFunEndDesc = getTelOFunMarkerDescription("to",endStation);
+
+        var infowindowEnd = new google.maps.InfoWindow({
+            content: TelOFunEndDesc
+        });
+
+        var endMarker = new google.maps.Marker({
+            position: telOfunEnd,
+            map: map,
+            title: 'End Point - Tel O Fun'
+        });
+        
+        endMarker.addListener('click', function() {
+            infowindowEnd.open(map, endMarker);
+        });
+
         var waypoints = [telOfunStart, telOfunEnd];
         waypoints = waypoints.map(function(place) {
             return {
@@ -62,13 +101,18 @@ var calcRoute = function() {
         var distances = Session.get('distances');
         var pnr = distances[Alternative.transportTypes.PARKNRIDE];
         markers.push(new google.maps.LatLng(pnr.park.lat,pnr.park.lon));
-        console.log(pnr);
-
+        
         if (pnr.park.type=="shuttle") { //draw only the walking from the station to final destination
             request.travelMode = google.maps.TravelMode.WALKING;
             request.origin = new google.maps.LatLng(pnr.park.selectedStation.geometry.coordinates[1], pnr.park.selectedStation.geometry.coordinates[0]);
             markers.push(request.origin);
         }
+        else {
+            request.origin = new google.maps.LatLng(pnr.park.lat,pnr.park.lon);
+            request.travelMode = google.maps.TravelMode.TRANSIT;
+        }
+
+
 
         //now, draw the drive from the starting point to the Park
         drawDriveToParkingResult(start, pnr);
@@ -104,9 +148,9 @@ var calcRoute = function() {
             directionsDisplay.setDirections(result);
         }
 
-        console.log("DREW WALKING RESULT");
-        console.log("markers:");
-        console.log(markers);
+        
+        // console.log("markers:");
+        // console.log(markers);
         var markerBounds = new google.maps.LatLngBounds();
 
         
@@ -130,7 +174,7 @@ Template.map.rendered = function() {
         if (PNR.park_type == 'shuttle'){
             var maslul = window["kav" + PNR.line_number]['features'][0];
             cutGeoJson(PNR.to_lon, PNR.to_lat, maslul);
-            console.log(maslul);
+            //console.log(maslul);
             map.data.addGeoJson(maslul);
             // Set the stroke width and color for each shuttle line
             var line_color = maslul['properties']['colorEn'];
@@ -142,16 +186,16 @@ Template.map.rendered = function() {
         }
     }
     if (Session.get('chosen').name == 'parkandrideback') {
-        console.log('bam - riding back!');
+        
         var PNR = Session.get('distances')['PARKANDRIDEBACK'];
         if (PNR.park_type == 'shuttle'){
-            console.log('bam bam - riding back!');
+            
             var maslul = window["kav" + PNR.line_number]['features'][0];
             var maslulEndLon = maslul['geometry']['coordinates'].slice(-1)[0][0];
             var maslulEndLat = maslul['geometry']['coordinates'].slice(-1)[0][1];
-            console.log(PNR.from_lon, PNR.from_lat, maslulEndLon, maslulEndLat);
+            //console.log(PNR.from_lon, PNR.from_lat, maslulEndLon, maslulEndLat);
             cutGeoJsonFromTo(PNR.from_lon, PNR.from_lat, maslulEndLon, maslulEndLat, maslul);
-            console.log(maslul);
+            //console.log(maslul);
             map.data.addGeoJson(maslul);
             // Set the stroke width and color for each shuttle line
             var line_color = maslul['properties']['colorEn'];
@@ -187,7 +231,7 @@ var drawDriveToParkingResult = function(start ,pnr) {
     markers.push(start);
     markers.push(destination);
 
-    console.log(destination);
+    //console.log(destination);
 
     var request = {
         origin: start,
@@ -210,7 +254,7 @@ var drawDriveToParkingResult = function(start ,pnr) {
         }
     });
 
-    console.log("DREW DRIVING RESULT");
+    
 
 }
 
@@ -218,7 +262,11 @@ var drawDriveToParkingResult = function(start ,pnr) {
 //display dashed lines for walking on map for PNR
 var getRendererOptions = function () {
     var rendererOptions = {};
-    if (Session.get('chosen').name == 'parknride') {
+    var distances = Session.get('distances');
+
+    //display "dotted" walking only if park type is shuttle
+    if (Session.get('chosen').name == 'parknride' && distances[Alternative.transportTypes.PARKNRIDE] 
+        && distances[Alternative.transportTypes.PARKNRIDE].park.type=="shuttle") {
 
         var icon = {
             fillColor: 'blue', 
@@ -235,7 +283,7 @@ var getRendererOptions = function () {
             icons: [{
                 icon: icon,
                   offset: '0',
-                  repeat: '15px'
+                  repeat: '10px'
                 }]
         };
 
@@ -245,6 +293,38 @@ var getRendererOptions = function () {
         };
     }
     return rendererOptions;
+}
+
+var getTelOFunMarkerDescription = function (direction,station) {
+
+    var retString = '<div style="display: inline-block; overflow: auto; max-height: 718px; max-width: 300px;">'+
+    '<div class="gm-iw gm-transit" style="max-width: 200px; direction: '+(TAPi18n.getLanguage()=='he'? 'rtl; ':'ltr; ')+ 'jstcache="0">'+
+    '<img style="margin-left: -15px; margin-right: 5px; width: 20px; height: 20px; border: 0px 10px 0px 0px;" jsdisplay="$icon" jsvalues=".src:$icon" jstcache="1" src="images/icons/bicycle_000000_20.png">'+
+    '<div jsvalues=".innerHTML:$this.instructions" jstcache="2">';
+    if (TAPi18n.getLanguage()=='en') {
+        retString+= (direction=="from"? 'Take ':'Return ' )+'a bike '+ 
+        (direction=="from"? "from ":"at ")+"station: ";
+    }
+    else { //language=='he'
+        retString+= (direction=="to"? 'קחו ':'החזירו ' )+'זוג אופניים '+ 
+        (direction=="from"? "מ":"ל")+"תחנת ";
+    }
+    retString+="<strong>"+station.stationName+'</strong>.</div></div></div>';
+
+
+    // var retStr = '<div id="content">'+
+    //             '<div id="siteNotice">'+
+    //             '</div>'+
+    //             '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+    //             '<div id="bodyContent">'+
+    //             '<p><b>Start Point - Tel O Fun</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+    //             'sandstone rock formation in the southern part of the '+
+    //             'Northern Territory, central Australia.</p>'+
+    //             '</div>'+
+    //             ' </div>';
+
+                //toLocaleLowerCase()
+    return retString;
 }
 
 var myStyle = [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}];

@@ -127,12 +127,12 @@ ParkNRide.prototype.handleResults = function() {
 
         if (minimumShuttle) {
             for (var i in ParkAndRideData) {
-                console.log("Parking lot: " + ParkAndRideData[i].name + " , total Time:" + ParkAndRideData[i].totalTime);
+                console.log("Parking+shuttle lot: " + ParkAndRideData[i].name + " , total Time:" + ParkAndRideData[i].totalTime);
             }
         }
 
         for (var i in ParkAndRideData) {
-            console.log("Parking lot: " + FreeParkingLotsWithBus[i].name + " , total Time:" + FreeParkingLotsWithBus[i].totalTime);
+            console.log("Parking+bus lot: " + FreeParkingLotsWithBus[i].name + " , total Time:" + FreeParkingLotsWithBus[i].totalTime);
         }
 
         var selectedParking;
