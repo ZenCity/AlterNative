@@ -306,7 +306,7 @@ var getTelOFunMarkerDescription = function (direction,station) {
         (direction=="from"? "from ":"at ")+"station: ";
     }
     else { //language=='he'
-        retString+= (direction=="to"? 'קחו ':'החזירו ' )+'זוג אופניים '+ 
+        retString+= (direction=="from"? 'קחו ':'החזירו ' )+'זוג אופניים '+ 
         (direction=="from"? "מ":"ל")+"תחנת ";
     }
     retString+="<strong>"+station.stationName+'</strong>.</div></div></div>';
