@@ -77,13 +77,17 @@ Template.results.events({
 //filter crazy / irrelevant results --> when their duration is larger than average duration + standard deviation
 var filterDistanceMatrix = function(distances) {
     var keys = Object.keys(distances);
-    var maximumDuration = standardDeviationPlusAverage(distances, 'duration');
+    var maximumDistance = standardDeviationPlusAverage(distances, 'distance');
+    var maximumDuration = average(distances, 'duration');
     console.log("Maximum allowed duration: " + maximumDuration);
+    console.log("Maximum allowed distance: " + maximumDistance)
     for (var i = 0; i < keys.length; i++) {
         console.log("Duration of " + keys[i] + ": " + distances[keys[i]].duration + " minutes");
-        if (distances[keys[i]].duration > (maximumDuration)) {
+        var transportMethod = distances[keys[i]]
+        if (transportMethod.duration > (2 * maximumDuration) || transportMethod > maximumDistance) {
             console.log("Found a bad one - remove! " + distances[keys[i]].name);
-            console.log("it's duration is: " + distances[keys[i]].duration);
+            console.log("it's duration is: " + transportMethod.duration);
+            console.log("it's distance is: " + transportMethod.distance);
             console.log(distances[keys[i]]);
             delete distances[keys[i]];
         }
