@@ -25,3 +25,5 @@ accounts-base
 service-configuration
 coffeescript
 anti:i18n
+stevezhu:lodash
+tap:i18n
