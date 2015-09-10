@@ -16,7 +16,6 @@ d3js:d3
 robbinsd:dc
 
 fezvrasta:bootstrap-material-design
-tap:i18n
 mike:mocha
 velocity:html-reporter
 mdg:geolocation
@@ -25,3 +24,4 @@ accounts-facebook
 accounts-base
 service-configuration
 coffeescript
+anti:i18n
