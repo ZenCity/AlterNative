@@ -173,9 +173,15 @@ Template.map.rendered = function() {
         var PNR = Session.get('distances')['PARKNRIDE'];
         if (PNR.park_type == 'shuttle'){
             var maslul = window["kav" + PNR.line_number]['features'][0];
-            cutGeoJson(PNR.to_lon, PNR.to_lat, maslul);
-            //console.log(maslul);
-            map.data.addGeoJson(maslul);
+            console.log(maslul);
+            var newMaslul = cutGeoJson(PNR.to_lon, PNR.to_lat, maslul);
+            console.log(maslul);
+            map.data.addGeoJson(PNR['park']['selectedStation']);
+            var sStations = PNR['park']['stations'];
+            for (var j=0; j <= sStations.length; j++){
+                map.data.addGeoJson(sStations[j]);
+            }
+            map.data.addGeoJson(newMaslul);
             // Set the stroke width and color for each shuttle line
             var line_color = maslul['properties']['colorEn'];
             map.data.setStyle({
