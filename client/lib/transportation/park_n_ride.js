@@ -322,7 +322,7 @@ getBackStation = function(origin, parkNRideDataLot) {
     for (var i in parkNRideDataLot.stations) {
         var station = parkNRideDataLot.stations[i];
         station.walkingDistance = calcDistance(origin.K, origin.G, station.geometry.coordinates[0], station.geometry.coordinates[1]);
-        station.walkingTime = station.walkingDistance * 10;
+        station.walkingTime = station.walkingDistance / 0.075; // km / (km/minute) = minutes
         if (station.walkingDistance < minWalkingDistance) {
             minWalkingDistance = station.walkingDistance;
             minIndex = i;
@@ -380,7 +380,8 @@ getStation = function(destination, parkNRideData) {
         var station = parkNRideData.stations[i];
         var walkingDistance = calcDistance(destination.K, destination.G, station.geometry.coordinates[0], station.geometry.coordinates[1]);
         parkNRideData.stations[i].walkingDistance = walkingDistance;
-        var walkingTime = walkingDistance * 10;
+        var walkingTime = walkingDistance / 0.075; // km / (km/minute) = minutes
+        console.log('walkingDistance: ' + walkingDistance + ' walkintime: ' + walkingTime);
         var sumTime = 0;
 
         //for each station calculate time from beginning of the line to station
@@ -438,6 +439,7 @@ addWaitTime = function(selectedParking) {
 
 CheckParknRideTime = function () {
     // for debugging: add 'return true' will show the shuttles beyond their working hours
+    return true;
     var now = new Date();
     if (now.getDay()<5){
         if(now.getHours()>=6 && now.getHours()<=21)
