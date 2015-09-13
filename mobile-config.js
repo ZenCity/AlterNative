@@ -4,7 +4,7 @@ App.info({
   author: 'The ZenCity Team',
   email: 'ido@zencity.io',
   website: 'http://zencity.io',
-  version: '1.1.0'
+  version: '1.1.1'
 });
 
 App.icons({
@@ -50,4 +50,7 @@ App.launchScreens({
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#000000');
+App.setPreference('BackupWebStorage','local');
+
+App.accessRule('*');
 
