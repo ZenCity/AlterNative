@@ -8,7 +8,6 @@ insecure
 mizzao:bootstrap-3
 accounts-password
 mrt:modernizr-meteor
-fuatsengul:leaflet
 iron:router
 autopublish
 jquery
@@ -16,9 +15,6 @@ d3js:d3
 robbinsd:dc
 
 fezvrasta:bootstrap-material-design
-mike:mocha
-velocity:html-reporter
-mdg:geolocation
 accounts-ui
 accounts-facebook
 accounts-base
