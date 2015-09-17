@@ -40,11 +40,13 @@ Template.search.rendered = function () {
 
 Template.search.events({
     'focus .from-location': function (jQueryEvent, BlazeTemplateInstance) {
-        setAutoComplete();
+        //setAutoComplete();
+        _setAutoComp("from", 'from-location');
         removeMissingInputError($(jQueryEvent.currentTarget));
     },
     'focus .to-location': function (jQueryEvent, BlazeTemplateInstance) { 
-        setAutoComplete();
+        //setAutoComplete();
+        _setAutoComp("to", 'to-location');
         removeMissingInputError($(jQueryEvent.currentTarget));
     },
     'click .reverse-btn': function (jQueryEvent, BlazeTemplateInstance) {

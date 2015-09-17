@@ -2,6 +2,8 @@ Session.setDefault('distances', {});
 
 currentCity = cities[defaultCity];
 
+var bounds;
+
 setAutoComplete = function () {
     _setAutoComp("from", 'from-location');
     _setAutoComp("to", 'to-location');
@@ -9,10 +11,11 @@ setAutoComplete = function () {
 
 _setAutoComp = function (key, className) {
     var input = document.getElementsByClassName(className)[0];
-    var bounds = new google.maps.LatLngBounds(
+
+    bounds = bounds || (new google.maps.LatLngBounds(
         new google.maps.LatLng(window.currentCity['llcrnr'][0], window.currentCity['llcrnr'][1]),
         new google.maps.LatLng(window.currentCity['urcrnr'][0], window.currentCity['urcrnr'][1])
-    );
+    ));
     //console.log("set autocomplete language: "+TAPi18n.getLanguage());
     var options = {
         componentRestrictions: {country: 'il'},
@@ -21,6 +24,16 @@ _setAutoComp = function (key, className) {
         //language: TAPi18n.getLanguage()
         //language: 'en'
     };
+
+    //Fix for fastclick issue - google autocomplete does not handle click on iOS v 7+ asana issue #
+    $(document).on({
+        'DOMNodeInserted': function() {
+            $('.pac-item, .pac-item span', this).addClass('needsclick');
+        }
+    }, '.pac-container');
+    //End of fix
+
+
     var autoComplete = new google.maps.places.Autocomplete(input, options);
     autoComplete.setBounds(bounds);
     google.maps.event.addListener(autoComplete, 'place_changed', function () {
@@ -34,14 +47,5 @@ _setAutoComp = function (key, className) {
         Session.set(key, location);
     });
 
-    var mapOptions = {
-        zoom:12,
-        center: new google.maps.LatLng(window.currentCity['center'][0], window.currentCity['center'][1])
-    };
-    var map = new google.maps.Map(
-        document.getElementById('map-canvas'),
-        mapOptions
-    );
-    autoComplete.bindTo('bounds', map);
 };
 
