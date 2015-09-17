@@ -69,7 +69,10 @@ ParkNRide = function(origin, destination, directionsService, matrixService) {
             console.log("Origin is in Tel Aviv but Destination is not back to Park and Ride - discard result");
             return;
         }
-        this.calculateMatrixes();
+        else {
+            this.calculateMatrixes();    
+        }
+        
     }
 };
 
@@ -240,7 +243,7 @@ ParkNRide.prototype.destinationIsParkNRide = function(destination) {
     //console.log("DATA:");
     //console.log(ParkAndRideData);
     for (var i in ParkAndRideData) {
-        var distance = calcDistance(destination.G, destination.K, ParkAndRideData[i].lat, ParkAndRideData[i].lon);
+        var distance = calcDistance(destination.lat(), destination.lng(), ParkAndRideData[i].lat, ParkAndRideData[i].lon);
         //console.log("distance to: "+ParkAndRideData[i].name+" is:"+distance);
         if (distance < 0.55) {
             return ParkAndRideData[i];
@@ -378,7 +381,8 @@ getBackStation = function(origin, parkNRideDataLot) {
 getStation = function(destination, parkNRideData) {
     for (var i in parkNRideData.stations) {
         var station = parkNRideData.stations[i];
-        var walkingDistance = calcDistance(destination.K, destination.G, station.geometry.coordinates[0], station.geometry.coordinates[1]);
+
+        var walkingDistance = calcDistance(destination.lng(), destination.lat(), station.geometry.coordinates[0], station.geometry.coordinates[1]);
         parkNRideData.stations[i].walkingDistance = walkingDistance;
         var walkingTime = walkingDistance / 0.075; // km / (km/minute) = minutes
         console.log('walkingDistance: ' + walkingDistance + ' walkintime: ' + walkingTime);
@@ -451,8 +455,9 @@ CheckParknRideTime = function () {
 
 //returns true if destination is inside the center of Tel Aviv
 originIsInTelAviv = function(origin) {
-    if ((origin.G >= ParkAndRideLLCorner[0] && origin.G <= ParkAndRideURCorner[0]) &&
-        (origin.K >= ParkAndRideLLCorner[1] && origin.K <= ParkAndRideURCorner[1])) {
+
+    if ((origin.lat() >= ParkAndRideLLCorner[0] && origin.lat() <= ParkAndRideURCorner[0]) &&
+        (origin.lng() >= ParkAndRideLLCorner[1] && origin.lng() <= ParkAndRideURCorner[1])) {
         return true;
     }
 
